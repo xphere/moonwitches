@@ -1,9 +1,11 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://prototype.png" type="Texture" id=1]
 [ext_resource path="res://MainCharacter.gd" type="Script" id=2]
 [ext_resource path="res://Controller.gd" type="Script" id=3]
 [ext_resource path="res://Scepter.gd" type="Script" id=4]
+[ext_resource path="res://FollowMentor.gd" type="Script" id=5]
+[ext_resource path="res://Follower.gd" type="Script" id=6]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
@@ -152,7 +154,7 @@ tile_data = PoolIntArray( 65552, 0, 458765, 65562, 0, 524300, 196609, 0, 524299,
 [node name="Mentor" type="KinematicBody2D" parent="." groups=[
 "protagonist",
 ]]
-position = Vector2( 28, 108 )
+position = Vector2( 19, 84 )
 collision_layer = 2
 script = ExtResource( 2 )
 speed = 48.0
@@ -172,6 +174,10 @@ action_down = "move_mentor_down"
 action_left = "move_mentor_left"
 action_right = "move_mentor_right"
 
+[node name="Follower" type="Position2D" parent="Mentor"]
+position = Vector2( -8, 0 )
+script = ExtResource( 6 )
+
 [node name="Scepter" type="Node2D" parent="Mentor"]
 z_index = 1024
 script = ExtResource( 4 )
@@ -184,7 +190,7 @@ region_rect = Rect2( 81, 45, 8, 8 )
 [node name="Pupil" type="KinematicBody2D" parent="." groups=[
 "protagonist",
 ]]
-position = Vector2( 28, 93 )
+position = Vector2( 11, 84 )
 collision_layer = 2
 script = ExtResource( 2 )
 
@@ -198,6 +204,10 @@ region_rect = Rect2( 72, 0, 8, 8 )
 shape = SubResource( 9 )
 
 [node name="Controller" type="Node" parent="Pupil"]
+script = ExtResource( 5 )
+following = NodePath("../../Mentor/Follower")
+
+[node name="Controller" type="Node" parent="Pupil/Controller"]
 script = ExtResource( 3 )
 action_up = "move_pupil_up"
 action_down = "move_pupil_down"
