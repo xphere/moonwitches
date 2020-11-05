@@ -3,6 +3,7 @@ extends Node
 const GROUP_DISTANCE := 24.0
 
 export(bool) var together := false
+export(int, LAYERS_2D_PHYSICS) var mask
 
 
 func _ready() -> void:
@@ -11,6 +12,7 @@ func _ready() -> void:
 
 func set_together(value: bool) -> void:
 	together = value
+	$Mentor.collision_mask = ($Mentor.collision_mask | mask) if value else ($Mentor.collision_mask ^ mask)
 	$Mentor.set_speed(
 		$Pupil.max_speed if together else $Mentor.max_speed
 	)
