@@ -9,7 +9,8 @@ var _controller
 
 func _ready() -> void:
 	_current_speed = max_speed
-	set_controller(controller)
+	if controller:
+		set_controller(controller)
 
 
 func _physics_process(_delta: float) -> void:
@@ -23,6 +24,5 @@ func set_speed(speed: float) -> void:
 
 
 func set_controller(path: NodePath) -> void:
-	print(self, ' set controller to ', get_node(path), ' (', path, ')')
 	controller = path
 	_controller = get_node(controller)
