@@ -218,3 +218,6 @@ action_right = "move_pupil_right"
 [node name="Follow" type="Node" parent="Group/Pupil"]
 script = ExtResource( 5 )
 following = NodePath("../../Mentor/Follower")
+
+[node name="Together" type="RayCast2D" parent="Group"]
+cast_to = Vector2( 0, 0 )
