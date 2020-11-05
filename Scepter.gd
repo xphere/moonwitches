@@ -1,10 +1,11 @@
 extends Node2D
 
-const DISTANCE := 18.0
+const REACH_DISTANCE := 18.0
 
 var _time := 0.0
 var _can_be_passed := true
 var _near = null
+onready var _throw := $Throw
 
 
 func _process(delta: float) -> void:
@@ -32,6 +33,13 @@ func _input(event: InputEvent) -> void:
 		return
 
 	_near = _get_protagonist_in_reach()
+	if _near:
+		_pass_scepter(_near)
+
+
+func _pass_scepter(new_owner: Node) -> void:
+	get_parent().remove_child(self)
+	new_owner.add_child(self)
 
 
 func _get_protagonist_in_reach() -> KinematicBody2D:
@@ -46,8 +54,21 @@ func _get_protagonist_in_reach() -> KinematicBody2D:
 
 
 func _can_reach(from: KinematicBody2D, to: Node2D) -> bool:
-	if from.global_position.distance_to(to.global_position) > DISTANCE:
+	if from.global_position.distance_to(to.global_position) > REACH_DISTANCE:
 		return false
 
-#	return not from.test_move(from.transform, (to.global_position - from.global_position))
+	if not _can_throw(from.global_position, to.global_position):
+		return false
+
 	return true
+
+
+func _can_throw(from: Vector2, to: Vector2) -> bool:
+	_throw.enabled = true
+	_throw.global_position = from
+	_throw.cast_to = to - from
+	_throw.force_raycast_update()
+	var is_colliding : bool = _throw.is_colliding()
+	_throw.enabled = false
+
+	return not is_colliding
