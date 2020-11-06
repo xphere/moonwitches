@@ -285,7 +285,7 @@ position = Vector2( 19, 84 )
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 2 )
-max_speed = 1800.0
+max_speed = 42.0
 controller = NodePath("Input")
 
 [node name="Sprite" type="Sprite" parent="Group/Mentor"]

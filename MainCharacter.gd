@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export(float) var max_speed := 1200.0
+export(float) var max_speed := 32.0
 export(NodePath) var controller
 
 var _current_speed
@@ -15,8 +15,10 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	var movement : Vector2 = _controller.get_movement()
-	if movement:
-		movement = move_and_slide(movement * _delta * _current_speed)
+	if not movement:
+		return
+
+	movement = move_and_slide(movement * _current_speed)
 
 
 func set_speed(speed: float) -> void:
