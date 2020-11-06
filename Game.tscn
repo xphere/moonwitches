@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://prototype.png" type="Texture" id=1]
 [ext_resource path="res://MainCharacter.gd" type="Script" id=2]
@@ -9,228 +9,17 @@
 [ext_resource path="res://Group.gd" type="Script" id=7]
 [ext_resource path="res://Mechanics.gd" type="Script" id=8]
 [ext_resource path="res://aura.png" type="Texture" id=9]
+[ext_resource path="res://Camera.gd" type="Script" id=11]
+[ext_resource path="res://tileset.tres" type="TileSet" id=12]
+[ext_resource path="res://mechanics.tres" type="TileSet" id=13]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=3]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=4]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=5]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=6]
-points = PoolVector2Array( 8, 8, 1, 8, 1, 0, 8, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=7]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=8]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=9]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="ConvexPolygonShape2D" id=10]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="TileSet" id=11]
-0/name = "prototype.png 0"
-0/texture = ExtResource( 1 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 0, 125, 89 )
-0/tile_mode = 2
-0/autotile/icon_coordinate = Vector2( 0, 0 )
-0/autotile/tile_size = Vector2( 8, 8 )
-0/autotile/spacing = 1
-0/autotile/occluder_map = [  ]
-0/autotile/navpoly_map = [  ]
-0/autotile/priority_map = [  ]
-0/autotile/z_index_map = [  ]
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 1 )
-0/shape_one_way = false
-0/shape_one_way_margin = 1.0
-0/shapes = [ {
-"autotile_coord": Vector2( 5, 5 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 1 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 6, 5 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 2 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 0, 4 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 3 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 1, 4 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 4 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 2, 4 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 5 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 3, 4 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 6 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 10, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 7 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 3, 1 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 8 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 0, 1 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 9 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-}, {
-"autotile_coord": Vector2( 1, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 10 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
-0/z_index = 0
-
-[sub_resource type="TileSet" id=12]
-0/name = "Door"
-0/texture = ExtResource( 1 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 36, 18, 8, 8 )
-0/tile_mode = 0
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
-0/z_index = 0
-1/name = "Passing"
-1/texture = ExtResource( 1 )
-1/tex_offset = Vector2( 0, 0 )
-1/modulate = Color( 1, 1, 1, 1 )
-1/region = Rect2( 9, 18, 8, 8 )
-1/tile_mode = 0
-1/occluder_offset = Vector2( 0, 0 )
-1/navigation_offset = Vector2( 0, 0 )
-1/shape_offset = Vector2( 0, 0 )
-1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape_one_way = false
-1/shape_one_way_margin = 0.0
-1/shapes = [  ]
-1/z_index = 0
-2/name = "Crawl Space"
-2/texture = ExtResource( 1 )
-2/tex_offset = Vector2( 0, 0 )
-2/modulate = Color( 1, 1, 1, 1 )
-2/region = Rect2( 18, 0, 8, 8 )
-2/tile_mode = 0
-2/occluder_offset = Vector2( 0, 0 )
-2/navigation_offset = Vector2( 0, 0 )
-2/shape_offset = Vector2( 0, 0 )
-2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-2/shape_one_way = false
-2/shape_one_way_margin = 0.0
-2/shapes = [  ]
-2/z_index = 0
-3/name = "Key"
-3/texture = ExtResource( 1 )
-3/tex_offset = Vector2( 0, 0 )
-3/modulate = Color( 1, 1, 1, 1 )
-3/region = Rect2( 90, 45, 8, 8 )
-3/tile_mode = 0
-3/occluder_offset = Vector2( 0, 0 )
-3/navigation_offset = Vector2( 0, 0 )
-3/shape_offset = Vector2( 0, 0 )
-3/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-3/shape_one_way = false
-3/shape_one_way_margin = 0.0
-3/shapes = [  ]
-3/z_index = 0
-4/name = "Gap"
-4/texture = ExtResource( 1 )
-4/tex_offset = Vector2( 0, 0 )
-4/modulate = Color( 1, 1, 1, 1 )
-4/region = Rect2( 117, 27, 8, 8 )
-4/tile_mode = 0
-4/occluder_offset = Vector2( 0, 0 )
-4/navigation_offset = Vector2( 0, 0 )
-4/shape_offset = Vector2( 0, 0 )
-4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-4/shape_one_way = false
-4/shape_one_way_margin = 0.0
-4/shapes = [  ]
-4/z_index = 0
-5/name = "Pressure Plate"
-5/texture = ExtResource( 1 )
-5/tex_offset = Vector2( 0, 0 )
-5/modulate = Color( 1, 1, 1, 1 )
-5/region = Rect2( 18, 9, 8, 8 )
-5/tile_mode = 0
-5/occluder_offset = Vector2( 0, 0 )
-5/navigation_offset = Vector2( 0, 0 )
-5/shape_offset = Vector2( 0, 0 )
-5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-5/shape_one_way = false
-5/shape_one_way_margin = 0.0
-5/shapes = [  ]
-5/z_index = 0
-6/name = "Button"
-6/texture = ExtResource( 1 )
-6/tex_offset = Vector2( 0, 0 )
-6/modulate = Color( 1, 1, 1, 1 )
-6/region = Rect2( 18, 54, 8, 8 )
-6/tile_mode = 0
-6/occluder_offset = Vector2( 0, 0 )
-6/navigation_offset = Vector2( 0, 0 )
-6/shape_offset = Vector2( 0, 0 )
-6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-6/shape_one_way = false
-6/shape_one_way_margin = 0.0
-6/shapes = [  ]
-6/z_index = 0
-
-[sub_resource type="CircleShape2D" id=13]
+[sub_resource type="CircleShape2D" id=1]
 radius = 3.0
 
-[sub_resource type="CanvasItemMaterial" id=15]
+[sub_resource type="CanvasItemMaterial" id=2]
 blend_mode = 1
 
-[sub_resource type="CircleShape2D" id=14]
+[sub_resource type="CircleShape2D" id=3]
 radius = 2.0
 
 [node name="Map" type="Node2D"]
@@ -238,7 +27,7 @@ radius = 2.0
 [node name="Level" type="TileMap" parent="." groups=[
 "level",
 ]]
-tile_set = SubResource( 11 )
+tile_set = ExtResource( 12 )
 cell_size = Vector2( 8, 8 )
 collision_mask = 14
 format = 1
@@ -247,7 +36,7 @@ tile_data = PoolIntArray( 0, 0, 327686, 1, 0, 327686, 2, 0, 327686, 3, 0, 327686
 [node name="Mechanics" type="TileMap" parent="." groups=[
 "level",
 ]]
-tile_set = SubResource( 12 )
+tile_set = ExtResource( 13 )
 cell_size = Vector2( 8, 8 )
 collision_layer = 0
 collision_mask = 0
@@ -266,17 +55,28 @@ visible = false
 visible = false
 
 [node name="Hints" type="TileMap" parent="."]
-tile_set = SubResource( 11 )
+modulate = Color( 1, 1, 1, 0.752941 )
+tile_set = ExtResource( 12 )
 cell_size = Vector2( 8, 8 )
 collision_layer = 0
 collision_mask = 0
 format = 1
-tile_data = PoolIntArray( 65552, 0, 458765, 65562, 0, 524300, 196609, 0, 524299, 327699, 0, 524300, 393229, 0, 524299, 589831, 0, 458763, 589834, 0, 458763, 851970, 0, 458763, 851996, 0, 524300, 917528, 0, 458764, 1114123, 0, 458765, 1179672, 0, 458764, 1179676, 0, 458764 )
+tile_data = PoolIntArray( 131088, -1610612736, 589833, 131099, 1610612736, 589832, 131100, 0, 589825, 196610, 1610612736, 589832, 196611, 1610612736, 589824, 196612, 1610612736, 589824, 196613, 1610612736, 589824, 196614, 1610612736, 589824, 196615, 1610612736, 589824, 196616, 1610612736, 589824, 196617, 1610612736, 589824, 196618, 1610612736, 589824, 196619, 1610612736, 589824, 196620, 0, 589825, 196624, -1610612736, 589824, 196636, -1610612736, 589824, 262156, -1073741824, 589824, 262160, -1610612736, 589824, 262172, -1610612736, 589824, 327692, -1073741824, 589824, 327696, -1610612736, 589824, 327708, -1610612736, 589824, 393228, -1610612736, 589832, 393232, -1610612736, 589824, 393244, -1610612736, 589824, 458768, -1610612736, 589824, 458780, -1610612736, 589824, 524304, -1610612736, 589824, 524316, -1610612736, 589824, 589832, -1610612736, 589833, 589840, -1610612736, 589824, 589852, -1610612736, 589824, 655368, 1610612736, 589826, 655369, 0, 589832, 655376, -1610612736, 589824, 655388, -1610612736, 589824, 720901, -1073741824, 589825, 720902, 0, 589824, 720903, 0, 589824, 720904, -1610612736, 589825, 720912, -1610612736, 589824, 720924, -1610612736, 589824, 786437, -1073741824, 589824, 786448, -1610612736, 589824, 786460, -1610612736, 589824, 851973, -1073741824, 589824, 851984, -1610612736, 589824, 851996, -1610612736, 589824, 917506, 0, 589833, 917507, 536870912, 589824, 917508, 536870912, 589824, 917509, 1073741824, 589825, 917520, -1610612736, 589824, 917529, 0, 589833, 917530, 0, 589825, 917532, -1073741824, 589833, 983056, -1610612736, 589824, 983066, -1610612736, 589824, 1048587, 1610612736, 589832, 1048588, 0, 589824, 1048589, 0, 589824, 1048590, 0, 589824, 1048591, 0, 589824, 1048592, -1610612736, 589825, 1048602, -1610612736, 589824, 1114138, -1610612736, 589824, 1179673, 0, 589833, 1179674, -1610612736, 589826, 1179675, 0, 589832 )
 
 [node name="Group" type="Node" parent="."]
 script = ExtResource( 7 )
 together = true
 mask = 1
+
+[node name="Camera" type="Camera2D" parent="Group"]
+position = Vector2( 19, 84 )
+current = true
+zoom = Vector2( 0.5, 0.5 )
+limit_left = 0
+limit_top = 0
+limit_right = 248
+limit_bottom = 168
+script = ExtResource( 11 )
 
 [node name="Mentor" type="KinematicBody2D" parent="Group" groups=[
 "protagonist",
@@ -294,7 +94,7 @@ region_enabled = true
 region_rect = Rect2( 72, 0, 8, 8 )
 
 [node name="Collision" type="CollisionShape2D" parent="Group/Mentor"]
-shape = SubResource( 13 )
+shape = SubResource( 1 )
 
 [node name="Follower" type="Position2D" parent="Group/Mentor"]
 position = Vector2( -8, 0 )
@@ -312,7 +112,7 @@ region_rect = Rect2( 81, 45, 8, 8 )
 [node name="Aura" type="Sprite" parent="Group/Mentor/Scepter"]
 visible = false
 self_modulate = Color( 1, 1, 1, 0.501961 )
-material = SubResource( 15 )
+material = SubResource( 2 )
 texture = ExtResource( 9 )
 
 [node name="Throw" type="RayCast2D" parent="Group/Mentor/Scepter"]
@@ -341,7 +141,7 @@ region_enabled = true
 region_rect = Rect2( 72, 0, 8, 8 )
 
 [node name="Collision" type="CollisionShape2D" parent="Group/Pupil"]
-shape = SubResource( 14 )
+shape = SubResource( 3 )
 
 [node name="Input" type="Node" parent="Group/Pupil"]
 script = ExtResource( 3 )

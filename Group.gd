@@ -8,6 +8,7 @@ export(int, LAYERS_2D_PHYSICS) var mask
 
 func _ready() -> void:
 	set_together(together)
+	$Camera.follow([$Mentor, $Pupil])
 
 
 func set_together(value: bool) -> void:

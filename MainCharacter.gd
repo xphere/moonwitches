@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+const SIZE := 8.0
+
 export(float) var max_speed := 32.0
 export(NodePath) var controller
 
@@ -17,6 +19,13 @@ func _physics_process(_delta: float) -> void:
 	var movement : Vector2 = _controller.get_movement()
 	if not movement:
 		return
+
+	var viewport_size := get_viewport().size
+	var on_screen = get_global_transform_with_canvas().origin
+	if (movement.x < 0.0 and on_screen.x < SIZE) or (movement.x > 0.0 and on_screen.x > viewport_size.x - SIZE):
+		movement.x = 0.0
+	if (movement.y < 0.0 and on_screen.y < SIZE) or (movement.y > 0.0 and on_screen.y > viewport_size.y - SIZE):
+		movement.y = 0.0
 
 	movement = move_and_slide(movement * _current_speed)
 
