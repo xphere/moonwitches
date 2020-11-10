@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Behaviour",
 "language": "GDScript",
 "path": "res://Behaviour.gd"
+}, {
+"base": "Node",
+"class": "Device",
+"language": "GDScript",
+"path": "res://Device.gd"
 } ]
 _global_script_class_icons={
-"Behaviour": ""
+"Behaviour": "",
+"Device": ""
 }
 
 [application]
