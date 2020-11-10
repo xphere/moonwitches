@@ -12,3 +12,8 @@ func apply() -> void:
 
 func stop() -> void:
 	pass
+
+
+func applies_to() -> Node:
+	var parent := get_parent()
+	return parent.applies_to() if parent as Behaviour else parent

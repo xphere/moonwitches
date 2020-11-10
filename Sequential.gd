@@ -4,18 +4,12 @@ export(bool) var loop := true
 export(bool) var free_after_finish := true
 export(bool) var autoplay_if_root := true
 
-var yielding : GDScriptFunctionState
 var next_loop : bool
 
 
 func _ready() -> void:
-	if not autoplay_if_root:
-		return
-	if not get_parent():
-		return
-	if get_parent() is Behaviour:
-		return
-	apply()
+	if autoplay_if_root and get_parent() == applies_to():
+		apply()
 
 
 func apply() -> void:
@@ -27,9 +21,7 @@ func apply() -> void:
 			if not (step and step.is_inside_tree()):
 				continue
 			count += 1
-			yielding = step.apply()
-			yield(yielding, "completed")
-			yielding = null
+			yield(step.apply(), "completed")
 		if count == 0 or not next_loop:
 			break
 	if free_after_finish:
@@ -38,6 +30,3 @@ func apply() -> void:
 
 func stop() -> void:
 	next_loop = false
-	if yielding:
-		yielding.unreference()
-		yielding = null
