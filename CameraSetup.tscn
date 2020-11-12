@@ -79,6 +79,17 @@ func _ready() -> void:
 	mentor = instance.find_node(\"Mentor\")
 	pupil = instance.find_node(\"Pupil\")
 
+	var rect : Rect2 = instance.get_map_limits()
+	mentor_camera.limit_left = rect.position.x
+	mentor_camera.limit_right = rect.end.x
+	mentor_camera.limit_top = rect.position.y
+	mentor_camera.limit_bottom = rect.end.y
+
+	pupil_camera.limit_left = rect.position.x
+	pupil_camera.limit_right = rect.end.x
+	pupil_camera.limit_top = rect.position.y
+	pupil_camera.limit_bottom = rect.end.y
+
 
 func _process(_delta: float) -> void:
 	var mentor_position := mentor.global_position
