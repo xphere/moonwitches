@@ -1,0 +1,121 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D pupil_view;
+uniform vec2 mentor_position;
+uniform vec2 pupil_position;
+uniform bool split;
+
+bool shows_pupil(vec2 uv) {
+	vec2 delta = pupil_position - mentor_position;
+	float slope = delta.x == 0.0 ? 0.0 : (-delta.y / delta.x);
+	bool is_right = uv.x > slope * (0.5 - uv.y) + 0.5;
+	bool is_pupil_right = pupil_position.x > mentor_position.x;
+	return (is_right && is_pupil_right) || (!is_right && !is_pupil_right);
+}
+
+void fragment() {
+	if (split && shows_pupil(UV)) {
+		COLOR = texture(pupil_view, UV);
+	} else {
+		COLOR = texture(TEXTURE, UV);
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/mentor_position = null
+shader_param/pupil_position = null
+shader_param/split = null
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends CanvasItem
+
+var mentor : Node2D
+var pupil : Node2D
+var previous := Vector2.ZERO
+
+
+func _ready() -> void:
+	var world_2d = $\"Viewport#Mentor\".world_2d
+	$\"Viewport#Pupil\".world_2d = world_2d
+	material.set_shader_param('pupil_view', $\"Viewport#Pupil\".get_texture())
+
+	var instance : Node = preload(\"res://Game.tscn\").instance()
+	$\"Viewport#Pupil\".add_child(instance)
+	mentor = instance.find_node(\"Mentor\")
+	pupil = instance.find_node(\"Pupil\")
+
+
+func _process(_delta: float) -> void:
+	var mentor_position := mentor.get_position()
+	var pupil_position := pupil.get_position()
+	var center := (mentor_position + pupil_position) / 2.0
+	if center == previous:
+		return
+	previous = center
+
+	var split_distance := 60.0
+	var difference := pupil_position - mentor_position
+	var should_split := difference.length() > split_distance
+	material.set_shader_param('split', should_split)
+	var clamped_difference := difference.clamped(split_distance)
+	$\"Viewport#Mentor/Camera\".position = mentor_position + 0.5 * clamped_difference
+	$\"Viewport#Pupil/Camera\".position = pupil_position - 0.5 * clamped_difference
+	if should_split:
+		material.set_shader_param('mentor_position', screen_position($\"Viewport#Mentor\", mentor))
+		material.set_shader_param('pupil_position', screen_position($\"Viewport#Pupil\", pupil))
+
+
+func screen_position(viewport: Viewport, item: CanvasItem) -> Vector2:
+	return (viewport.canvas_transform * item.get_global_transform()).origin / viewport.size
+"
+
+[node name="Screen" type="ViewportContainer"]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport#Pupil" type="Viewport" parent="."]
+size = Vector2( 320, 180 )
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_target_update_mode = 3
+audio_listener_enable_2d = true
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="CanvasModulate" type="CanvasModulate" parent="Viewport#Pupil"]
+color = Color( 0.501961, 0.501961, 0.501961, 1 )
+
+[node name="Camera" type="Camera2D" parent="Viewport#Pupil"]
+position = Vector2( 19, 84 )
+current = true
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="Viewport#Mentor" type="Viewport" parent="."]
+size = Vector2( 320, 180 )
+handle_input_locally = false
+disable_3d = true
+usage = 0
+render_target_update_mode = 3
+audio_listener_enable_2d = true
+__meta__ = {
+"_editor_description_": ""
+}
+
+[node name="Camera" type="Camera2D" parent="Viewport#Mentor"]
+position = Vector2( 19, 84 )
+current = true
+zoom = Vector2( 0.5, 0.5 )
