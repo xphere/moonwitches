@@ -12,22 +12,24 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Behaviour",
 "language": "GDScript",
-"path": "res://Behaviour.gd"
+"path": "res://scripts/behaviour/Behaviour.gd"
 }, {
 "base": "Node",
 "class": "Device",
 "language": "GDScript",
-"path": "res://Device.gd"
+"path": "res://mechanics/device/Device.gd"
 } ]
 _global_script_class_icons={
 "Behaviour": "",
-"Device": ""
+"Device": "",
+"State": "",
+"StateMachine": ""
 }
 
 [application]
 
 config/name="Game-off- 2020"
-run/main_scene="res://CameraSetup.tscn"
+run/main_scene="res://screens/CameraSetup.tscn"
 config/icon="res://icon.png"
 
 [display]

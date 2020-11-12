@@ -7,11 +7,11 @@ var _active := 0
 
 func _ready() -> void:
 	for child in get_children():
-		if not child is Device:
-			continue
-		_total += 1
-		(child as Device).connect("activate", self, "_on_child_activate")
-		(child as Device).connect("deactivate", self, "_on_child_deactivate")
+		if child is Device:
+			_total += 1
+			var _err : int
+			_err = child.connect("activate", self, "_on_child_activate")
+			_err = child.connect("deactivate", self, "_on_child_deactivate")
 
 
 func _on_child_activate() -> void:
