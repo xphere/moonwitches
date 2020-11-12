@@ -5,29 +5,54 @@ code = "shader_type canvas_item;
 render_mode blend_mix;
 
 uniform sampler2D pupil_view;
+uniform vec4 split_color : hint_color;
+uniform float split_width : hint_range(0.5, 10.0);
+uniform vec2 viewport_size;
 uniform vec2 mentor_position;
 uniform vec2 pupil_position;
 uniform bool split;
 
-bool shows_pupil(vec2 uv) {
-	vec2 delta = pupil_position - mentor_position;
-	float slope = delta.x == 0.0 ? 0.0 : (-delta.y / delta.x);
-	bool is_right = uv.x > slope * (0.5 - uv.y) + 0.5;
-	bool is_pupil_right = pupil_position.x > mentor_position.x;
-	return (is_right && is_pupil_right) || (!is_right && !is_pupil_right);
+float xor(float lhs, float rhs) {
+	return lhs * (1.0 - rhs) + rhs * (1.0 - lhs);
+}
+
+float distance_to_line(vec2 origin, float slope, vec2 point) {
+	vec2 calc = (point - origin) * viewport_size;
+	vec2 line = vec2(slope, 1.0) * viewport_size;
+
+	return abs(line.y * calc.x + line.x * calc.y) / length(line);
 }
 
 void fragment() {
-	if (split && shows_pupil(UV)) {
-		COLOR = texture(pupil_view, UV);
-	} else {
-		COLOR = texture(TEXTURE, UV);
+	vec2 uv = UV;
+	vec2 delta = pupil_position - mentor_position;
+	vec2 origin = vec2(0.5, 0.5);
+	float slope = -delta.y / delta.x;
+	float split_line = (0.5 - uv.y) * slope + 0.5;
+	float is_right = step(uv.x, split_line);
+	float is_pupil_right = step(mentor_position.x, pupil_position.x);
+
+	vec4 color = mix(
+		texture(TEXTURE, UV),
+		texture(pupil_view, UV),
+		xor(is_right, is_pupil_right)
+	);
+
+	if (split)  {
+		float distance_to_split = distance_to_line(origin, slope, UV);
+		float line = smoothstep(0.0, split_width, distance_to_split - split_width);
+		color = mix(split_color, color, line);
 	}
+
+	COLOR = color;
 }
 "
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
+shader_param/split_color = Color( 0, 0, 0, 1 )
+shader_param/split_width = 0.5
+shader_param/viewport_size = null
 shader_param/mentor_position = null
 shader_param/pupil_position = null
 shader_param/split = null
@@ -37,38 +62,41 @@ script/source = "extends CanvasItem
 
 var mentor : Node2D
 var pupil : Node2D
-var previous := Vector2.ZERO
+
+onready var mentor_viewport := $\"Viewport#Mentor\"
+onready var mentor_camera := mentor_viewport.get_node(\"Camera\")
+onready var pupil_viewport := $\"Viewport#Pupil\"
+onready var pupil_camera := pupil_viewport.get_node(\"Camera\")
 
 
 func _ready() -> void:
-	var world_2d = $\"Viewport#Mentor\".world_2d
-	$\"Viewport#Pupil\".world_2d = world_2d
-	material.set_shader_param('pupil_view', $\"Viewport#Pupil\".get_texture())
+	var world_2d = mentor_viewport.world_2d
+	pupil_viewport.world_2d = world_2d
+	material.set_shader_param('pupil_view', pupil_viewport.get_texture())
 
 	var instance : Node = preload(\"res://Game.tscn\").instance()
-	$\"Viewport#Pupil\".add_child(instance)
+	mentor_viewport.add_child(instance)
 	mentor = instance.find_node(\"Mentor\")
 	pupil = instance.find_node(\"Pupil\")
 
 
 func _process(_delta: float) -> void:
-	var mentor_position := mentor.get_position()
-	var pupil_position := pupil.get_position()
-	var center := (mentor_position + pupil_position) / 2.0
-	if center == previous:
-		return
-	previous = center
+	var mentor_position := mentor.global_position
+	var pupil_position := pupil.global_position
 
-	var split_distance := 60.0
+	var split_distance := min(mentor_viewport.size.x, mentor_viewport.size.y) / 3.0
 	var difference := pupil_position - mentor_position
+
+	var clamped_difference := difference.clamped(split_distance)
+	mentor_camera.position = mentor_position + 0.5 * clamped_difference
+	pupil_camera.position = pupil_position - 0.5 * clamped_difference
+
 	var should_split := difference.length() > split_distance
 	material.set_shader_param('split', should_split)
-	var clamped_difference := difference.clamped(split_distance)
-	$\"Viewport#Mentor/Camera\".position = mentor_position + 0.5 * clamped_difference
-	$\"Viewport#Pupil/Camera\".position = pupil_position - 0.5 * clamped_difference
 	if should_split:
-		material.set_shader_param('mentor_position', screen_position($\"Viewport#Mentor\", mentor))
-		material.set_shader_param('pupil_position', screen_position($\"Viewport#Pupil\", pupil))
+		material.set_shader_param('mentor_position', screen_position(mentor_viewport, mentor))
+		material.set_shader_param('pupil_position', screen_position(pupil_viewport, pupil))
+		material.set_shader_param('viewport_size', mentor_viewport.size)
 
 
 func screen_position(viewport: Viewport, item: CanvasItem) -> Vector2:
@@ -100,7 +128,6 @@ __meta__ = {
 color = Color( 0.501961, 0.501961, 0.501961, 1 )
 
 [node name="Camera" type="Camera2D" parent="Viewport#Pupil"]
-position = Vector2( 19, 84 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
 
@@ -116,6 +143,5 @@ __meta__ = {
 }
 
 [node name="Camera" type="Camera2D" parent="Viewport#Mentor"]
-position = Vector2( 19, 84 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
