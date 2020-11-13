@@ -28,3 +28,7 @@ func set_speed(speed: float) -> void:
 func set_controller(path: NodePath) -> void:
 	controller = path
 	_controller = get_node(controller)
+
+
+func hit() -> void:
+	get_tree().reload_current_scene()

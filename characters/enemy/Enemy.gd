@@ -12,3 +12,7 @@ func walk_to(location: Vector2) -> void:
 		if global_position.distance_squared_to(location) < DELTA:
 			break
 		move_and_slide((location - global_position).normalized() * speed)
+
+
+func _on_Hitbox_body_entered(body: Node) -> void:
+	body.hit()
