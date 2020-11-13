@@ -2,7 +2,7 @@
 
 [ext_resource path="res://levels/test/Test.tscn" type="PackedScene" id=1]
 
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
@@ -51,8 +51,8 @@ void fragment() {
 }
 "
 
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 shader_param/split_color = Color( 0, 0, 0, 1 )
 shader_param/split_width = 0.5
 shader_param/viewport_size = null
@@ -121,7 +121,7 @@ func screen_position(viewport: Viewport, item: CanvasItem) -> Vector2:
 "
 
 [node name="Screen" type="ViewportContainer"]
-material = SubResource( 5 )
+material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2

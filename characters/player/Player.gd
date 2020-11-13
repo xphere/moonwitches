@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 const SIZE := 8.0
 
-export(float) var max_speed := 32.0
+export(float) var max_speed := 42.0
 export(NodePath) var controller
 
 var _current_speed
