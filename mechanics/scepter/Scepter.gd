@@ -2,13 +2,17 @@ extends Node2D
 
 const REACH_DISTANCE := 18.0
 const DURATION_TIME := 5.0
-const COOLDOWN_TIME := 5.0
+const COOLDOWN_TIME := 1.0
 
 var _time := 0.0
 var _can_be_passed := true
 var _activated := false
 var _cooldown := false
 onready var _throw := $Throw
+
+
+func _ready() -> void:
+	_toggle_aura(false)
 
 
 func _process(delta: float) -> void:
@@ -70,10 +74,15 @@ func _activate_scepter() -> void:
 	if _activated or _cooldown:
 		return
 	_activated = true
-	_cooldown = true
-	$Aura.visible = true
+	_toggle_aura(_activated)
 	yield(get_tree().create_timer(DURATION_TIME), "timeout")
-	$Aura.visible = false
 	_activated = false
+	_cooldown = true
+	_toggle_aura(_activated)
 	yield(get_tree().create_timer(COOLDOWN_TIME), "timeout")
 	_cooldown = false
+
+
+func _toggle_aura(active: bool) -> void:
+	$Aura.visible = active
+	$Aura/Protection.set_deferred("disabled", not active)

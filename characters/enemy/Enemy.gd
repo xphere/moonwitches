@@ -45,13 +45,14 @@ func _on_Vision_body_exited(body: Node) -> void:
 	surroundings.erase(body)
 
 
-func has_line_of_vision(destination: Vector2, max_distance: float = 32.0) -> bool:
+func has_line_of_vision(destination: Vector2) -> bool:
 	var position := destination - global_position
 	var distance := position.length()
-	if distance > max_distance:
+
+	if distance > sight_distance:
 		return false
 
-	return _collides(position.normalized() * distance)
+	return not _collides($Vision/Ray, position.normalized() * distance)
 
 
 func walk_towards(destination: Vector2) -> void:
@@ -77,15 +78,14 @@ func respawn_at(destination: Vector2) -> void:
 
 
 func can_walk_straight(destination: Vector2) -> bool:
-	return _collides(destination - global_position)
+	return not _collides($Hitbox/Ray, destination - global_position)
 
 
-func _collides(destination: Vector2) -> bool:
-	var ray : RayCast2D = $Vision/Ray
+func _collides(ray: RayCast2D, destination: Vector2) -> bool:
 	ray.cast_to = destination
 	ray.force_raycast_update()
 
-	return not ray.is_colliding()
+	return ray.is_colliding()
 
 
 func is_near(position: Vector2) -> bool:
@@ -98,7 +98,7 @@ func search_target() -> Node2D:
 
 	for element in surroundings:
 		var target := element as Node2D
-		if not has_line_of_vision(target.global_position, sight_distance):
+		if not has_line_of_vision(target.global_position):
 			continue
 		var target_distance := target.global_position.distance_squared_to(global_position)
 		if target_distance < distance:

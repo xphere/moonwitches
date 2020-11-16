@@ -4,7 +4,7 @@ class_name Device
 signal activate()
 signal deactivate()
 
-export(bool) var state := false setget _set_state
+var state := false setget _set_state
 
 
 func _set_state(value: bool) -> void:

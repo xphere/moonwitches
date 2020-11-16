@@ -11,6 +11,7 @@ func update(_delta: float, _board: Dictionary) -> void:
 	if target:
 		timer.stop()
 		enemy.run_towards(target.global_position)
+
 	elif timer.is_stopped():
 		timer.start()
 

@@ -2,7 +2,6 @@
 
 [ext_resource path="res://characters/player/Player.tscn" type="PackedScene" id=1]
 
-
 [node name="Pupil" instance=ExtResource( 1 )]
 collision_layer = 4
 max_speed = 32.0
