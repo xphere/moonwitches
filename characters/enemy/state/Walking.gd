@@ -13,14 +13,13 @@ func update(delta: float, board: Dictionary) -> void:
 
 	var target := enemy.search_target()
 	if target:
-		enemy.chase_to(target)
-		return
+		enemy.chase()
 
-	if enemy.is_near(destination):
+	elif enemy.is_near(destination):
 		emit_signal("completed")
 
 	elif enemy.can_walk_straight(destination):
-		enemy.move_towards(destination, enemy.speed)
+		enemy.walk_towards(destination)
 
 	else:
 		enemy.respawn_at(destination)

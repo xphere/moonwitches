@@ -3,7 +3,7 @@ class_name Enemy
 
 const DELTA = 1.5
 
-export(float) var speed := 8.0
+export(float) var speed := 16.0
 export(float) var chase_speed := 24.0
 export(float) var sight_distance := 32.0
 var surroundings := []
@@ -20,7 +20,7 @@ func wait(seconds: float) -> void:
 	yield(get_tree().create_timer(seconds), "timeout")
 
 
-func chase_to(player: Node2D) -> void:
+func chase() -> void:
 	$States.push_state()
 	yield(
 		$States.change_to("Chasing"),
@@ -54,9 +54,15 @@ func has_line_of_vision(destination: Vector2, max_distance: float = 32.0) -> boo
 	return _collides(position.normalized() * distance)
 
 
-func move_towards(destination: Vector2, speed: float) -> void:
+func walk_towards(destination: Vector2) -> void:
 	var position := destination - global_position
 	var velocity := position.clamped(speed)
+	move_and_slide(velocity)
+
+
+func run_towards(destination: Vector2) -> void:
+	var position := destination - global_position
+	var velocity := position.normalized() * chase_speed
 	move_and_slide(velocity)
 
 

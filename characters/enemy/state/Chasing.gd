@@ -10,7 +10,7 @@ func update(_delta: float, _board: Dictionary) -> void:
 
 	if target:
 		timer.stop()
-		enemy.move_towards(target.global_position, enemy.chase_speed)
+		enemy.run_towards(target.global_position)
 	elif timer.is_stopped():
 		timer.start()
 
