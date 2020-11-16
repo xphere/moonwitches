@@ -81,9 +81,16 @@ func is_near(position: Vector2) -> bool:
 
 
 func search_target() -> Node2D:
+	var closest_target
+	var distance := INF
+
 	for element in surroundings:
 		var target := element as Node2D
-		if has_line_of_vision(target.global_position, sight_distance):
-			return target
+		if not has_line_of_vision(target.global_position, sight_distance):
+			continue
+		var target_distance := target.global_position.distance_squared_to(global_position)
+		if target_distance < distance:
+			distance = target_distance
+			closest_target = target
 
-	return null
+	return closest_target as Node2D
