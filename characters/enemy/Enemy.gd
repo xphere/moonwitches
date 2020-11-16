@@ -61,7 +61,13 @@ func move_towards(destination: Vector2, speed: float) -> void:
 
 
 func respawn_at(destination: Vector2) -> void:
+	$States.push_state()
+	$Animation.play("Respawn")
+	yield($Animation, "animation_finished")
 	global_position = destination
+	$Animation.play_backwards("Respawn")
+	yield($Animation, "animation_finished")
+	$States.pop_state()
 
 
 func can_walk_straight(destination: Vector2) -> bool:

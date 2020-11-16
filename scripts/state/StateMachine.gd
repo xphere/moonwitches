@@ -10,10 +10,14 @@ func _ready() -> void:
 	_enter_state(get_child(0) as State)
 
 
+func update(delta: float) -> void:
+	if _state:
+		_state.update(delta, _board)
+
+
 func change_to(name: String, settings: Dictionary = {}) -> void:
 	var state : State = find_node(name)
-	if _state:
-		_leave_state()
+	_leave_state()
 	for setting_name in settings:
 		_board[setting_name] = settings[setting_name]
 	_enter_state(state)
@@ -28,6 +32,7 @@ func push_state() -> void:
 
 
 func pop_state() -> void:
+	_leave_state()
 	_state = _stack.pop_back()
 
 
@@ -37,9 +42,6 @@ func _enter_state(state: State) -> void:
 
 
 func _leave_state() -> void:
-	_state.leave()
+	if _state:
+		_state.leave()
 	_state = null
-
-
-func update(delta: float) -> void:
-	_state.update(delta, _board)
