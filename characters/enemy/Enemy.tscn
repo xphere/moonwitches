@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/prototype.png" type="Texture" id=1]
 [ext_resource path="res://characters/enemy/Enemy.gd" type="Script" id=2]
+[ext_resource path="res://scripts/state/StateMachine.gd" type="Script" id=3]
+[ext_resource path="res://characters/enemy/state/Chasing.gd" type="Script" id=5]
+[ext_resource path="res://characters/enemy/state/Walking.gd" type="Script" id=7]
 
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 1 )
@@ -12,6 +15,9 @@ extents = Vector2( 4, 4 )
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 3.0
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 24.0
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 0
@@ -32,4 +38,30 @@ collision_mask = 6
 
 [node name="Collision" type="CollisionShape2D" parent="Hitbox"]
 shape = SubResource( 3 )
+
+[node name="Vision" type="Area2D" parent="."]
+monitorable = false
+collision_layer = 0
+collision_mask = 2147483654
+
+[node name="Range" type="CollisionShape2D" parent="Vision"]
+shape = SubResource( 4 )
+
+[node name="Ray" type="RayCast2D" parent="Vision"]
+cast_to = Vector2( 32, 0 )
+
+[node name="States" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Walking" type="Node" parent="States"]
+script = ExtResource( 7 )
+
+[node name="Chasing" type="Node" parent="States"]
+script = ExtResource( 5 )
+
+[node name="Timer" type="Timer" parent="States/Chasing"]
+wait_time = 5.0
 [connection signal="body_entered" from="Hitbox" to="." method="_on_Hitbox_body_entered"]
+[connection signal="body_entered" from="Vision" to="." method="_on_Vision_body_entered"]
+[connection signal="body_exited" from="Vision" to="." method="_on_Vision_body_exited"]
+[connection signal="timeout" from="States/Chasing/Timer" to="States/Chasing" method="_on_Timer_timeout"]
