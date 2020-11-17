@@ -7,7 +7,6 @@
 radius = 3.0
 
 [node name="Key" type="Area2D"]
-monitorable = false
 collision_layer = 0
 collision_mask = 6
 script = ExtResource( 1 )

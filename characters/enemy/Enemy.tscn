@@ -117,8 +117,6 @@ script = ExtResource( 2 )
 position = Vector2( 4, 4 )
 texture = SubResource( 1 )
 offset = Vector2( -4, -4 )
-region_enabled = true
-region_rect = Rect2( 0, 0, 8, 8 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 2 )
@@ -136,7 +134,6 @@ cast_to = Vector2( 32, 0 )
 collide_with_areas = true
 
 [node name="Vision" type="Area2D" parent="."]
-monitorable = false
 collision_layer = 0
 collision_mask = 2147483654
 

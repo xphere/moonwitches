@@ -73,10 +73,12 @@ func _can_throw(from: Vector2, to: Vector2) -> bool:
 func _activate_scepter() -> void:
 	if _activated or _cooldown:
 		return
+
 	_activated = true
 	_toggle_aura(_activated)
 	yield(get_tree().create_timer(DURATION_TIME), "timeout")
 	_activated = false
+
 	_cooldown = true
 	_toggle_aura(_activated)
 	yield(get_tree().create_timer(COOLDOWN_TIME), "timeout")

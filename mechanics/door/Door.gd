@@ -7,6 +7,9 @@ export(bool) var keep_open := true
 
 
 func _get_configuration_warning() -> String:
+	if owner == null:
+		return ""
+
 	if not _device or _device.is_empty() or not has_node(_device):
 		return "Requires a connected device to open it"
 
@@ -35,10 +38,9 @@ func _ready() -> void:
 
 func _open() -> void:
 	$Sprite.frame = 1
-	collision_mask = 0
+	$Collision.set_deferred("disabled", true)
 
 
 func _close() -> void:
 	$Sprite.frame = 0
-	$Collision.disabled = false
-	collision_mask = 2 + 4 + 8
+	$Collision.set_deferred("disabled", false)

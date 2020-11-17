@@ -158,7 +158,6 @@ position = Vector2( 20, 116 )
 position = Vector2( 82, 84 )
 rotation = 1.5708
 _device = NodePath("../All#A")
-keep_open = true
 
 [node name="All#B" type="Node" parent="Level"]
 script = ExtResource( 16 )
@@ -173,7 +172,6 @@ position = Vector2( 204, 148 )
 position = Vector2( 218, 148 )
 rotation = 1.5708
 _device = NodePath("../All#B")
-keep_open = true
 
 [node name="Key#C" parent="Level" instance=ExtResource( 13 )]
 position = Vector2( 132, 20 )
@@ -181,7 +179,6 @@ position = Vector2( 132, 20 )
 [node name="Door#C" parent="Level" instance=ExtResource( 15 )]
 position = Vector2( 92, 132 )
 _device = NodePath("../Key#C")
-keep_open = true
 
 [node name="Button#D" parent="Level" instance=ExtResource( 14 )]
 position = Vector2( 228, 116 )
@@ -190,7 +187,6 @@ position = Vector2( 228, 116 )
 position = Vector2( 220, 20 )
 rotation = 1.5708
 _device = NodePath("../Button#D")
-keep_open = true
 
 [node name="Key#E" parent="Level" instance=ExtResource( 13 )]
 position = Vector2( 20, 28 )
@@ -199,7 +195,6 @@ position = Vector2( 20, 28 )
 position = Vector2( 100, 52 )
 rotation = 1.5708
 _device = NodePath("../Key#E")
-keep_open = true
 
 [node name="Mechanics" type="TileMap" parent="." groups=[
 "level",
