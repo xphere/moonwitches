@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://levels/test/Test.tscn" type="PackedScene" id=1]
+[ext_resource path="res://screens/scene/CustomScene.gd" type="Script" id=1]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -61,75 +61,15 @@ shader_param/pupil_position = null
 shader_param/split = null
 shader_param/force = -1.0
 
-[sub_resource type="GDScript" id=3]
-script/source = "extends CanvasItem
-
-export(PackedScene) var scene
-
-var mentor : Node2D
-var pupil : Node2D
-
-onready var mentor_viewport := $\"Viewport#Mentor\"
-onready var mentor_camera := mentor_viewport.get_node(\"Camera\")
-onready var pupil_viewport := $\"Viewport#Pupil\"
-onready var pupil_camera := pupil_viewport.get_node(\"Camera\")
-
-
-func _ready() -> void:
-	var world_2d = mentor_viewport.world_2d
-	pupil_viewport.world_2d = world_2d
-	material.set_shader_param('pupil_view', pupil_viewport.get_texture())
-
-	var instance : Node = scene.instance()
-	mentor_viewport.add_child(instance)
-	mentor = instance.find_node(\"Mentor\")
-	pupil = instance.find_node(\"Pupil\")
-
-	var rect : Rect2 = instance.get_map_limits()
-	mentor_camera.limit_left = rect.position.x
-	mentor_camera.limit_right = rect.end.x
-	mentor_camera.limit_top = rect.position.y
-	mentor_camera.limit_bottom = rect.end.y
-
-	pupil_camera.limit_left = rect.position.x
-	pupil_camera.limit_right = rect.end.x
-	pupil_camera.limit_top = rect.position.y
-	pupil_camera.limit_bottom = rect.end.y
-
-
-func _process(_delta: float) -> void:
-	var mentor_position := mentor.global_position
-	var pupil_position := pupil.global_position
-
-	var split_distance := min(mentor_viewport.size.x, mentor_viewport.size.y) / 3.0
-	var difference := pupil_position - mentor_position
-
-	var clamped_difference := difference.clamped(split_distance)
-	mentor_camera.position = mentor_position + 0.5 * clamped_difference
-	pupil_camera.position = pupil_position - 0.5 * clamped_difference
-
-	var should_split := difference.length() > split_distance
-	material.set_shader_param('split', should_split)
-	if should_split:
-		material.set_shader_param('mentor_position', screen_position(mentor_viewport, mentor))
-		material.set_shader_param('pupil_position', screen_position(pupil_viewport, pupil))
-		material.set_shader_param('viewport_size', mentor_viewport.size)
-
-
-func screen_position(viewport: Viewport, item: CanvasItem) -> Vector2:
-	return (viewport.canvas_transform * item.get_global_transform()).origin / viewport.size
-"
-
-[node name="Screen" type="ViewportContainer"]
+[node name="Scene" type="ViewportContainer"]
 material = SubResource( 2 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-script = SubResource( 3 )
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-scene = ExtResource( 1 )
 
 [node name="Viewport#Pupil" type="Viewport" parent="."]
 size = Vector2( 320, 180 )
@@ -141,9 +81,6 @@ audio_listener_enable_2d = true
 __meta__ = {
 "_editor_description_": ""
 }
-
-[node name="CanvasModulate" type="CanvasModulate" parent="Viewport#Pupil"]
-color = Color( 0.501961, 0.501961, 0.501961, 1 )
 
 [node name="Camera" type="Camera2D" parent="Viewport#Pupil"]
 current = true

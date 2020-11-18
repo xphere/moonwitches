@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://screens/scene/Scene.tscn" type="PackedScene" id=1]
+[ext_resource path="res://screens/dialog/Dialog.tscn" type="PackedScene" id=2]
+[ext_resource path="res://screens/game/Game.gd" type="Script" id=3]
+
+[node name="Game" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scene" parent="." instance=ExtResource( 1 )]
+pause_mode = 1
+
+[node name="Dialog" parent="." instance=ExtResource( 2 )]

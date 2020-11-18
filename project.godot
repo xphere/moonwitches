@@ -19,10 +19,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://mechanics/device/Device.gd"
 }, {
+"base": "NinePatchRect",
+"class": "Dialog",
+"language": "GDScript",
+"path": "res://screens/dialog/Dialog.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Enemy",
 "language": "GDScript",
 "path": "res://characters/enemy/Enemy.gd"
+}, {
+"base": "CanvasItem",
+"class": "Scene",
+"language": "GDScript",
+"path": "res://screens/scene/Scene.gd"
 }, {
 "base": "Node",
 "class": "State",
@@ -37,7 +47,9 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Behaviour": "",
 "Device": "",
+"Dialog": "",
 "Enemy": "",
+"Scene": "",
 "State": "",
 "StateMachine": ""
 }
@@ -45,8 +57,16 @@ _global_script_class_icons={
 [application]
 
 config/name="Game-off- 2020"
-run/main_scene="res://screens/CameraSetup.tscn"
+run/main_scene="res://screens/Main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Game="*res://screens/game/Game.tscn"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

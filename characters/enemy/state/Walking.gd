@@ -8,7 +8,7 @@ func enter(board: Dictionary) -> void:
 	destination = board["destination"] if board.has("destination") else owner.global_position
 
 
-func update(delta: float, board: Dictionary) -> void:
+func update(_delta: float, _board: Dictionary) -> void:
 	var enemy := owner as Enemy
 
 	var target := enemy.search_target()
