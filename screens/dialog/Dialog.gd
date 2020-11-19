@@ -22,5 +22,9 @@ func text(name: String, text: String, time: float) -> void:
 
 
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
-	call_deferred("emit_signal", "completed")
+	call_deferred("_completed")
 	visible = false
+
+
+func _completed() -> void:
+	emit_signal("completed")

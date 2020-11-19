@@ -3,7 +3,7 @@ extends Node
 signal completed()
 
 export(String) var character
-export(String) var dialogue
+export(String, MULTILINE) var dialogue
 export(float) var time := 1.0
 
 

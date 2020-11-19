@@ -33,19 +33,22 @@ func _process(_delta: float) -> void:
 		return
 
 	var child : Node
-	while current <= get_child_count():
+	while current < get_child_count():
 		child = get_child(current)
 		current += 1
 		if child.has_method("execute") and child.has_signal("completed"):
 			break
+		child = null
 
-	if child and current <= get_child_count():
+	if child:
 		child.connect("completed", self, "_on_completed_action")
 		child.call_deferred("execute")
 
-	elif keep_paused:
-		is_paused = false
-		Game.unpause()
+	else:
+		emit_signal("completed")
+		if keep_paused:
+			is_paused = false
+			Game.unpause()
 
 
 func _on_completed_action() -> void:

@@ -29,6 +29,9 @@ func _ready() -> void:
 	if Engine.editor_hint:
 		return
 
+	if not has_node(_device):
+		return
+
 	var device := get_node(_device) as Device
 	if not device:
 		return

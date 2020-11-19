@@ -14,6 +14,5 @@ __meta__ = {
 }
 
 [node name="Scene" parent="." instance=ExtResource( 1 )]
-pause_mode = 1
 
 [node name="Dialog" parent="." instance=ExtResource( 2 )]

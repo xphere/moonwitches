@@ -1,5 +1,7 @@
 extends Scene
 
+signal scene_ready(scene)
+
 onready var mentor_viewport : Viewport = $"Viewport#Mentor"
 onready var mentor_camera : Camera2D = mentor_viewport.get_node("Camera")
 onready var pupil_viewport : Viewport = $"Viewport#Pupil"
@@ -8,6 +10,7 @@ onready var pupil_camera : Camera2D = pupil_viewport.get_node("Camera")
 var mentor : Node2D
 var pupil : Node2D
 var current_scene : Node
+var camera_position := Vector2.ZERO
 
 
 func _ready() -> void:
@@ -30,20 +33,29 @@ func _on_load_started() -> void:
 
 func _on_scene_created(scene: Node) -> void:
 	current_scene = scene
-	mentor_viewport.add_child(scene)
-
+	scene.pause_mode = Node.PAUSE_MODE_STOP
 	mentor = scene.find_node("Mentor")
 	pupil = scene.find_node("Pupil")
-
+	mentor_viewport.call_deferred("add_child", scene)
+	yield(scene, "ready")
 	set_camera_limits(scene.get_map_limits())
-
-	set_process(true)
 	Game.unpause()
+	emit_signal("scene_ready", scene)
+	set_process(true)
 
 
 func _process(_delta: float) -> void:
+	_update_cameras()
+
+
+func _update_cameras() -> void:
 	var mentor_position := mentor.global_position
 	var pupil_position := pupil.global_position
+
+	var center := 0.5 * (mentor_position + pupil_position)
+	if camera_position == center:
+		return
+	camera_position = center
 
 	var split_distance := min(mentor_viewport.size.x, mentor_viewport.size.y) / 3.0
 	var difference := pupil_position - mentor_position
@@ -63,6 +75,7 @@ func _process(_delta: float) -> void:
 func set_camera_limits(rect: Rect2) -> void:
 	_set_camera_limits(mentor_camera, rect)
 	_set_camera_limits(pupil_camera, rect)
+	_update_cameras()
 
 
 func _set_camera_limits(camera: Camera2D, rect: Rect2) -> void:
