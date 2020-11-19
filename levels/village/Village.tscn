@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://levels/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://scripts/action/Reaction.gd" type="Script" id=8]
 [ext_resource path="res://scripts/trigger/Any.gd" type="Script" id=9]
 [ext_resource path="res://scripts/trigger/Ready.gd" type="Script" id=10]
+[ext_resource path="res://mechanics/proximity/Proximity.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scripts/action/Remove.gd" type="Script" id=12]
 [ext_resource path="res://mechanics/door/Door.tscn" type="PackedScene" id=15]
 
 [sub_resource type="GDScript" id=1]
@@ -19,6 +21,8 @@ script/source = "extends Node2D
 func get_map_limits() -> Rect2:
 	return Rect2(8.0, -16.0, 112.0, 88.00);
 "
+
+[sub_resource type="CircleShape2D" id=3]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12, 12 )
@@ -37,6 +41,13 @@ tile_data = PoolIntArray( -131077, 0, 65537, -131076, 0, 65537, -131075, 0, 6553
 
 [node name="Door" parent="Level" instance=ExtResource( 15 )]
 position = Vector2( 68, 52 )
+_device = NodePath("Proximity")
+keep_open = false
+
+[node name="Proximity" parent="Level/Door" instance=ExtResource( 11 )]
+
+[node name="Near" type="CollisionShape2D" parent="Level/Door/Proximity"]
+shape = SubResource( 3 )
 
 [node name="Group" parent="." instance=ExtResource( 4 )]
 together = false
@@ -88,17 +99,19 @@ script = ExtResource( 5 )
 character = "Gyna"
 dialogue = "** sigh **"
 
+[node name="remove" type="Node" parent="on load"]
+script = ExtResource( 12 )
+
 [node name="on exit" type="Node" parent="."]
 script = ExtResource( 8 )
-trigger = NodePath("trigger/near door")
 
 [node name="trigger" type="Node" parent="on exit"]
 script = ExtResource( 9 )
 
-[node name="near door" parent="on exit/trigger" instance=ExtResource( 2 )]
-position = Vector2( 68, 54 )
+[node name="exit" parent="on exit/trigger" instance=ExtResource( 2 )]
+position = Vector2( 68, 65 )
 
-[node name="Collision" type="CollisionShape2D" parent="on exit/trigger/near door"]
+[node name="Collision" type="CollisionShape2D" parent="on exit/trigger/exit"]
 shape = SubResource( 2 )
 
 [node name="action" type="Node" parent="on exit"]
