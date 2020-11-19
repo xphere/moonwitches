@@ -30,9 +30,13 @@ func _ready() -> void:
 		return
 
 	var device := get_node(_device) as Device
+	if not device:
+		return
+
 	device.connect("activate", self, "_open")
 	if not keep_open:
 		device.connect("deactivate", self, "_close")
+
 	_close()
 
 

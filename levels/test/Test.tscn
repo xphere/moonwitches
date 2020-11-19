@@ -1,9 +1,11 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://levels/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://mechanics/mechanics.tres" type="TileSet" id=2]
 [ext_resource path="res://mechanics/scepter/Scepter.tscn" type="PackedScene" id=3]
 [ext_resource path="res://characters/group/Group.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/action/ChangeScene.gd" type="Script" id=6]
 [ext_resource path="res://characters/enemy/Enemy.tscn" type="PackedScene" id=10]
 [ext_resource path="res://mechanics/Mechanics.gd" type="Script" id=12]
 [ext_resource path="res://mechanics/key/Key.tscn" type="PackedScene" id=13]
@@ -21,6 +23,9 @@ script/source = "extends Node2D
 func get_map_limits() -> Rect2:
 	return Rect2(0.0, 0.0, 248.0, 168.0)
 "
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 12, 12 )
 
 [node name="Map" type="Node2D"]
 script = SubResource( 1 )
@@ -158,6 +163,7 @@ position = Vector2( 20, 116 )
 position = Vector2( 82, 84 )
 rotation = 1.5708
 _device = NodePath("../All#A")
+keep_open = true
 
 [node name="All#B" type="Node" parent="Level"]
 script = ExtResource( 16 )
@@ -172,6 +178,7 @@ position = Vector2( 204, 148 )
 position = Vector2( 218, 148 )
 rotation = 1.5708
 _device = NodePath("../All#B")
+keep_open = true
 
 [node name="Key#C" parent="Level" instance=ExtResource( 13 )]
 position = Vector2( 132, 20 )
@@ -179,6 +186,7 @@ position = Vector2( 132, 20 )
 [node name="Door#C" parent="Level" instance=ExtResource( 15 )]
 position = Vector2( 92, 132 )
 _device = NodePath("../Key#C")
+keep_open = true
 
 [node name="Button#D" parent="Level" instance=ExtResource( 14 )]
 position = Vector2( 228, 116 )
@@ -187,6 +195,7 @@ position = Vector2( 228, 116 )
 position = Vector2( 220, 20 )
 rotation = 1.5708
 _device = NodePath("../Button#D")
+keep_open = true
 
 [node name="Key#E" parent="Level" instance=ExtResource( 13 )]
 position = Vector2( 20, 28 )
@@ -195,6 +204,7 @@ position = Vector2( 20, 28 )
 position = Vector2( 100, 52 )
 rotation = 1.5708
 _device = NodePath("../Key#E")
+keep_open = true
 
 [node name="Mechanics" type="TileMap" parent="." groups=[
 "level",
@@ -226,5 +236,18 @@ position = Vector2( 19, 84 )
 
 [node name="Pupil" parent="Group" index="1"]
 position = Vector2( 11, 84 )
+
+[node name="on exit" type="Node" parent="."]
+
+[node name="Area" parent="on exit" instance=ExtResource( 5 )]
+
+[node name="Collision" type="CollisionShape2D" parent="on exit/Area"]
+position = Vector2( 237, 20 )
+shape = SubResource( 2 )
+
+[node name="ChangeScene#Village" type="Node" parent="on exit"]
+script = ExtResource( 6 )
+next_scene = "res://levels/village/Village.tscn"
+[connection signal="triggered" from="on exit/Area" to="on exit/ChangeScene#Village" method="execute"]
 
 [editable path="Group"]
