@@ -39,7 +39,6 @@ func _on_scene_created(scene: Node) -> void:
 	pupil = scene.find_node("Pupil")
 	mentor_viewport.call_deferred("add_child", scene)
 	yield(scene, "ready")
-	set_camera_limits(scene.get_map_limits())
 	material.set_shader_param('viewport_size', mentor_viewport.size)
 	Game.unpause()
 	emit_signal("scene_ready", scene)
@@ -47,10 +46,6 @@ func _on_scene_created(scene: Node) -> void:
 
 
 func _process(_delta: float) -> void:
-	_update_cameras()
-
-
-func _update_cameras() -> void:
 	var difference := (pupil.global_position - mentor.global_position).clamped(max_distance)
 	mentor_camera.global_position = mentor.global_position + 0.5 * difference
 	pupil_camera.global_position = pupil.global_position - 0.5 * difference
@@ -61,19 +56,6 @@ func _update_cameras() -> void:
 
 func should_split() -> bool:
 	return (mentor.global_position - pupil.global_position).length() > max_distance
-
-
-func set_camera_limits(rect: Rect2) -> void:
-	_set_camera_limits(mentor_camera, rect)
-	_set_camera_limits(pupil_camera, rect)
-	_update_cameras()
-
-
-func _set_camera_limits(camera: Camera2D, rect: Rect2) -> void:
-	camera.limit_left = int(rect.position.x)
-	camera.limit_top = int(rect.position.y)
-	camera.limit_right = int(rect.end.x)
-	camera.limit_bottom = int(rect.end.y)
 
 
 func _screen_position(viewport: Viewport, item: CanvasItem) -> Vector2:

@@ -12,6 +12,7 @@
 [ext_resource path="res://scripts/trigger/Ready.gd" type="Script" id=10]
 [ext_resource path="res://mechanics/proximity/Proximity.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scripts/action/Remove.gd" type="Script" id=12]
+[ext_resource path="res://scripts/action/CameraLimit.gd" type="Script" id=13]
 [ext_resource path="res://mechanics/door/Door.tscn" type="PackedScene" id=15]
 
 [sub_resource type="GDScript" id=1]
@@ -69,6 +70,15 @@ script = ExtResource( 10 )
 [node name="action" type="Node" parent="on load"]
 script = ExtResource( 6 )
 keep_paused = true
+
+[node name="limit camera" type="Node" parent="on load/action"]
+script = ExtResource( 13 )
+
+[node name="TopLeft" type="Position2D" parent="on load/action/limit camera"]
+position = Vector2( -120, -208 )
+
+[node name="BottomRight" type="Position2D" parent="on load/action/limit camera"]
+position = Vector2( 456, 232 )
 
 [node name="dialogue #1" type="Node" parent="on load/action"]
 script = ExtResource( 5 )
