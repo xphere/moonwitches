@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/aura.png" type="Texture" id=1]
+[ext_resource path="res://assets/graphics/aura.png" type="Texture" id=1]
 [ext_resource path="res://mechanics/scepter/Scepter.gd" type="Script" id=2]
-[ext_resource path="res://assets/prototype.png" type="Texture" id=3]
+[ext_resource path="res://assets/graphics/prototype.png" type="Texture" id=3]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 blend_mode = 1

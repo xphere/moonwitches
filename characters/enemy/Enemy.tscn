@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://assets/prototype.png" type="Texture" id=1]
+[ext_resource path="res://assets/graphics/prototype.png" type="Texture" id=1]
 [ext_resource path="res://characters/enemy/Enemy.gd" type="Script" id=2]
 [ext_resource path="res://scripts/state/StateMachine.gd" type="Script" id=3]
 [ext_resource path="res://characters/enemy/state/Chasing.gd" type="Script" id=5]
