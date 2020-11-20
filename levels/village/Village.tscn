@@ -74,25 +74,21 @@ keep_paused = true
 script = ExtResource( 5 )
 character = "Gyna"
 dialogue = "The time has come..."
-time = 2.0
 
 [node name="dialogue #2" type="Node" parent="on load/action"]
 script = ExtResource( 5 )
 character = "Gyna"
 dialogue = "Ann, wake up!"
-time = 1.0
 
 [node name="dialogue #3" type="Node" parent="on load/action"]
 script = ExtResource( 5 )
 character = "Gyna"
 dialogue = "The elders will be here any minute now."
-time = 2.0
 
 [node name="dialogue #4" type="Node" parent="on load/action"]
 script = ExtResource( 5 )
 character = "Ann"
 dialogue = "Yaaawwwnnn... zzz zzz..."
-time = 2.0
 
 [node name="dialogue #5" type="Node" parent="on load/action"]
 script = ExtResource( 5 )
@@ -127,13 +123,11 @@ dialogue = "Let's go!"
 script = ExtResource( 5 )
 character = "Ann"
 dialogue = "Can't wait to see the full moon tonight!"
-time = 2.0
 
 [node name="dialogue #3" type="Node" parent="on exit/action"]
 script = ExtResource( 5 )
 character = "Gyna"
 dialogue = "Yeah, you're going to love it"
-time = 2.0
 
 [node name="change scene" type="Node" parent="on exit/action"]
 script = ExtResource( 7 )

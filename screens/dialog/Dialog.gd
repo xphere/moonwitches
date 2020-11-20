@@ -6,25 +6,45 @@ signal completed();
 onready var _name := $MarginContainer/HBoxContainer/Name
 onready var _text := $MarginContainer/HBoxContainer/Text
 onready var _animation := $MarginContainer/Outer/Inner/AnimationPlayer
+var should_be_visible := 0
+var writing := false
 
 
 func _ready() -> void:
+	set_process_input(false)
 	if owner:
 		visible = false
 
 
-func text(name: String, text: String, time: float) -> void:
+func text(name: String, text: String, chars_per_second: float) -> void:
+	should_be_visible += 1
+	_animation.play("Reset")
 	_name.text = name
 	_text.text = text
-	_animation.playback_speed = 1.0 / time;
+	if should_be_visible > 0:
+		visible = true
+		set_process_input(true)
+	writing = true
+	_animation.playback_speed = chars_per_second / (text.length() + chars_per_second)
 	_animation.play("Play")
-	visible = true
 
 
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
-	call_deferred("_completed")
-	visible = false
+	writing = false
 
 
-func _completed() -> void:
-	emit_signal("completed")
+func _input(event: InputEvent) -> void:
+	if not event is InputEventKey or not event.is_pressed() or event.is_echo():
+		return
+
+	if writing:
+		_animation.seek(1.0, true)
+		writing = false
+
+	else:
+		writing = false
+		emit_signal("completed")
+		should_be_visible -= 1
+		if should_be_visible <= 0:
+			visible = false
+			set_process_input(false)

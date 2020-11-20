@@ -4,11 +4,11 @@ signal completed()
 
 export(String) var character
 export(String, MULTILINE) var dialogue
-export(float) var time := 1.0
+export(float) var chars_per_second := 20.0
 
 
 func execute() -> void:
-	Game.dialog.text(character, dialogue, time)
+	Game.dialog.text(character, dialogue, chars_per_second)
 	Game.dialog.connect("completed", self, "_on_dialog_completed", [], CONNECT_ONESHOT)
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/graphics/prototype.png" type="Texture" id=2]
@@ -8,7 +8,7 @@
 atlas = ExtResource( 2 )
 region = Rect2( 36, 54, 26, 26 )
 
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=2]
 outline_size = 1
 outline_color = Color( 0.392157, 0.462745, 0.909804, 1 )
 extra_spacing_bottom = -2
@@ -16,7 +16,7 @@ extra_spacing_char = -1
 extra_spacing_space = -1
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=7]
+[sub_resource type="DynamicFont" id=3]
 outline_size = 1
 outline_color = Color( 0, 0.223529, 0.52549, 1 )
 extra_spacing_bottom = -2
@@ -24,7 +24,7 @@ extra_spacing_char = -1
 extra_spacing_space = -1
 font_data = ExtResource( 1 )
 
-[sub_resource type="Shader" id=2]
+[sub_resource type="Shader" id=4]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
@@ -38,20 +38,19 @@ void fragment() {
 	COLOR.rgb = mix(background.rgb, COLOR.rgb, step(180.0 + degrees(atan(-vec.x, vec.y)), 360.0 * progress));
 }"
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
 shader_param/progress = 1.0
 shader_param/radius = 0.475
 shader_param/background = Color( 1, 1, 1, 1 )
 
-[sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 4 )
 shader_param/progress = 0.0
 shader_param/radius = 0.4
 shader_param/background = Color( 0, 0.223529, 0.52549, 1 )
 
-[sub_resource type="Animation" id=5]
-resource_name = "Play"
+[sub_resource type="Animation" id=7]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/progress")
 tracks/0/interp = 1
@@ -64,6 +63,62 @@ tracks/0/keys = {
 "update": 0,
 "values": [ 0.0, 1.0 ]
 }
+tracks/1/type = "value"
+tracks/1/path = NodePath("../../HBoxContainer/Text:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Next:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "Reset"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../../HBoxContainer/Text:percent_visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 2 )
+region = Rect2( 63, 72, 8, 8 )
 
 [node name="Dialog" type="NinePatchRect"]
 anchor_left = 0.5
@@ -111,7 +166,7 @@ __meta__ = {
 margin_right = 310.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 0, 14 )
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 2 )
 text = "Actor"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -121,15 +176,16 @@ __meta__ = {
 margin_top = 14.0
 margin_right = 310.0
 margin_bottom = 26.0
-custom_fonts/font = SubResource( 7 )
+custom_fonts/font = SubResource( 3 )
 text = "Dialog"
 autowrap = true
+percent_visible = 0.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Outer" type="ColorRect" parent="MarginContainer"]
-material = SubResource( 3 )
+material = SubResource( 5 )
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -143,7 +199,7 @@ __meta__ = {
 }
 
 [node name="Inner" type="ColorRect" parent="MarginContainer/Outer"]
-material = SubResource( 4 )
+material = SubResource( 6 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -159,5 +215,11 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/Outer/Inner"]
-anims/Play = SubResource( 5 )
+anims/Play = SubResource( 7 )
+anims/Reset = SubResource( 8 )
+
+[node name="Next" type="Sprite" parent="MarginContainer/Outer/Inner"]
+visible = false
+texture = SubResource( 9 )
+offset = Vector2( 5, 5 )
 [connection signal="animation_finished" from="MarginContainer/Outer/Inner/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
