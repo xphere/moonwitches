@@ -6,6 +6,7 @@ onready var mentor_viewport : Viewport = $"Viewport#Mentor"
 onready var mentor_camera : Camera2D = mentor_viewport.get_node("Camera")
 onready var pupil_viewport : Viewport = $"Viewport#Pupil"
 onready var pupil_camera : Camera2D = pupil_viewport.get_node("Camera")
+onready var max_distance := 0.5 * min(mentor_viewport.size.x, mentor_viewport.size.y)
 
 var mentor : Node2D
 var pupil : Node2D
@@ -39,6 +40,7 @@ func _on_scene_created(scene: Node) -> void:
 	mentor_viewport.call_deferred("add_child", scene)
 	yield(scene, "ready")
 	set_camera_limits(scene.get_map_limits())
+	material.set_shader_param('viewport_size', mentor_viewport.size)
 	Game.unpause()
 	emit_signal("scene_ready", scene)
 	set_process(true)
@@ -49,27 +51,16 @@ func _process(_delta: float) -> void:
 
 
 func _update_cameras() -> void:
-	var mentor_position := mentor.global_position
-	var pupil_position := pupil.global_position
+	var difference := (pupil.global_position - mentor.global_position).clamped(max_distance)
+	mentor_camera.global_position = mentor.global_position + 0.5 * difference
+	pupil_camera.global_position = pupil.global_position - 0.5 * difference
+	material.set_shader_param('mentor_position', _screen_position(mentor_viewport, mentor))
+	material.set_shader_param('pupil_position', _screen_position(pupil_viewport, pupil))
+	material.set_shader_param('split', should_split())
 
-	var center := 0.5 * (mentor_position + pupil_position)
-	if camera_position == center:
-		return
-	camera_position = center
 
-	var split_distance := min(mentor_viewport.size.x, mentor_viewport.size.y) / 3.0
-	var difference := pupil_position - mentor_position
-
-	var clamped_difference := difference.clamped(split_distance)
-	mentor_camera.position = mentor_position + 0.5 * clamped_difference
-	pupil_camera.position = pupil_position - 0.5 * clamped_difference
-
-	var should_split := difference.length() > split_distance
-	material.set_shader_param('split', should_split)
-	if should_split:
-		material.set_shader_param('mentor_position', _screen_position(mentor_viewport, mentor))
-		material.set_shader_param('pupil_position', _screen_position(pupil_viewport, pupil))
-		material.set_shader_param('viewport_size', mentor_viewport.size)
+func should_split() -> bool:
+	return (mentor.global_position - pupil.global_position).length() > max_distance
 
 
 func set_camera_limits(rect: Rect2) -> void:

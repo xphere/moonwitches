@@ -1,68 +1,19 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://screens/scene/CustomScene.gd" type="Script" id=1]
+[ext_resource path="res://screens/scene/CameraSplit.shader" type="Shader" id=2]
 
-[sub_resource type="Shader" id=1]
-code = "shader_type canvas_item;
-render_mode blend_mix;
-
-uniform sampler2D pupil_view;
-uniform vec4 split_color : hint_color;
-uniform float split_width : hint_range(0.5, 10.0);
-uniform vec2 viewport_size;
-uniform vec2 mentor_position;
-uniform vec2 pupil_position;
-uniform bool split;
-uniform float force = -1.0;
-
-float xor(float lhs, float rhs) {
-	return lhs * (1.0 - rhs) + rhs * (1.0 - lhs);
-}
-
-float distance_to_line(vec2 origin, float slope, vec2 point) {
-	vec2 calc = (point - origin) * viewport_size;
-	vec2 line = vec2(slope, 1.0) * viewport_size;
-
-	return abs(line.y * calc.x + line.x * calc.y) / length(line);
-}
-
-void fragment() {
-	vec2 uv = UV;
-	vec2 delta = pupil_position - mentor_position;
-	vec2 origin = vec2(0.5, 0.5);
-	float slope = -delta.y / delta.x;
-	float split_line = (0.5 - uv.y) * slope + 0.5;
-	float is_right = step(uv.x, split_line);
-	float is_pupil_right = step(mentor_position.x, pupil_position.x);
-
-	vec4 color = mix(
-		texture(TEXTURE, UV),
-		texture(pupil_view, UV),
-		force == -1.0 ? xor(is_right, is_pupil_right) : force
-	);
-
-	if (split)  {
-		float distance_to_split = distance_to_line(origin, slope, UV);
-		float line = smoothstep(0.0, split_width, distance_to_split - split_width);
-		color = mix(split_color, color, line);
-	}
-
-	COLOR = color;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
 shader_param/split_color = Color( 0, 0, 0, 1 )
 shader_param/split_width = 0.5
 shader_param/viewport_size = null
 shader_param/mentor_position = null
 shader_param/pupil_position = null
 shader_param/split = null
-shader_param/force = -1.0
 
 [node name="Scene" type="ViewportContainer"]
-material = SubResource( 2 )
+material = SubResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
