@@ -182,6 +182,6 @@ keep_paused = true
 
 [node name="change scene" type="Node" parent="on leaving village/action"]
 script = ExtResource( 7 )
-next_scene = "res://levels/test/Test.tscn"
+next_scene = "res://levels/woods/Woods.tscn"
 
 [editable path="Group"]
