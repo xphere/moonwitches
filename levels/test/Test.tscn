@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://levels/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://mechanics/mechanics.tres" type="TileSet" id=2]
@@ -21,19 +21,10 @@
 [ext_resource path="res://scripts/behaviour/Sequential.gd" type="Script" id=19]
 [ext_resource path="res://scripts/action/Reaction.gd" type="Script" id=20]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Node2D
-
-
-func get_map_limits() -> Rect2:
-	return Rect2(0.0, 0.0, 248.0, 168.0)
-"
-
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12, 12 )
 
 [node name="Map" type="Node2D"]
-script = SubResource( 1 )
 
 [node name="Level" type="TileMap" parent="." groups=[
 "level",
