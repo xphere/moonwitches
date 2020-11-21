@@ -4,8 +4,10 @@ const REACH_DISTANCE := 18.0
 const DURATION_TIME := 5.0
 const COOLDOWN_TIME := 1.0
 
+export(bool) var can_be_passed := true
+export(bool) var can_be_activated := true
+
 var _time := 0.0
-var _can_be_passed := true
 var _activated := false
 var _cooldown := false
 onready var _throw := $Throw
@@ -29,7 +31,7 @@ func _input(event: InputEvent) -> void:
 
 
 func _pass_scepter() -> void:
-	if not _can_be_passed:
+	if not can_be_passed:
 		return
 
 	var _new_owner = _get_protagonist_in_reach()
@@ -71,7 +73,7 @@ func _can_throw(from: Vector2, to: Vector2) -> bool:
 
 
 func _activate_scepter() -> void:
-	if _activated or _cooldown:
+	if not can_be_activated or _activated or _cooldown:
 		return
 
 	_activated = true

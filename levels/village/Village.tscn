@@ -57,6 +57,8 @@ is_ability_available = false
 position = Vector2( 64, 20 )
 
 [node name="Scepter" parent="Group/Mentor" index="0" instance=ExtResource( 3 )]
+can_be_passed = false
+can_be_activated = false
 
 [node name="Pupil" parent="Group" index="1"]
 position = Vector2( 19, 20 )
