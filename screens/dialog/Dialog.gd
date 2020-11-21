@@ -19,6 +19,7 @@ func _ready() -> void:
 func text(name: String, text: String, chars_per_second: float) -> void:
 	should_be_visible += 1
 	_animation.play("Reset")
+	_text.visible_characters = 0
 	_name.text = name
 	_text.text = text
 	if should_be_visible > 0:
