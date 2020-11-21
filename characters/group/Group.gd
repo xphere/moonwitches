@@ -2,6 +2,7 @@ extends Node
 
 const GROUP_DISTANCE := 24.0
 
+export(bool) var is_ability_available := true
 export(bool) var together := false
 export(int, LAYERS_2D_PHYSICS) var mask
 
@@ -24,11 +25,14 @@ func set_together(value: bool) -> void:
 
 
 func _input(event) -> void:
-	if event.is_action_pressed("change_group") and _can_change():
+	if event.is_action_pressed("change_group") and _can_change_group():
 		set_together(not together)
 
 
-func _can_change() -> bool:
+func _can_change_group() -> bool:
+	if not is_ability_available:
+		return false
+
 	if together:
 		return true
 
