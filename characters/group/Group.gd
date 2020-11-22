@@ -3,7 +3,7 @@ extends Node
 const GROUP_DISTANCE := 24.0
 
 export(bool) var is_ability_available := true
-export(bool) var together := false
+export(bool) var together := true
 export(int, LAYERS_2D_PHYSICS) var mask
 
 

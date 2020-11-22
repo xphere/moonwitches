@@ -21,7 +21,7 @@
 [ext_resource path="res://scripts/behaviour/Sequential.gd" type="Script" id=19]
 [ext_resource path="res://scripts/action/Reaction.gd" type="Script" id=20]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
 
 [node name="Map" type="Node2D"]
@@ -260,7 +260,7 @@ script = ExtResource( 7 )
 
 [node name="Collision" type="CollisionShape2D" parent="on exit/Area"]
 position = Vector2( 237, 20 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="ChangeScene#Village" type="Node" parent="on exit"]
 script = ExtResource( 6 )

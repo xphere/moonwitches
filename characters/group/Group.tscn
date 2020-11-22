@@ -9,7 +9,6 @@
 
 [node name="Group" type="Node"]
 script = ExtResource( 3 )
-together = true
 mask = 1
 
 [node name="Mentor" parent="." instance=ExtResource( 2 )]
