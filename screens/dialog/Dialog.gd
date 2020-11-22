@@ -26,7 +26,7 @@ func text(name: String, text: String, chars_per_second: float) -> void:
 		visible = true
 		set_process_input(true)
 	writing = true
-	_animation.playback_speed = chars_per_second / (text.length() + chars_per_second)
+	_animation.playback_speed = chars_per_second / text.length()
 	_animation.play("Play")
 
 
