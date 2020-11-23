@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://levels/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -15,6 +15,7 @@
 [ext_resource path="res://scripts/action/CameraLimit.gd" type="Script" id=13]
 [ext_resource path="res://scripts/action/ChangeDisabled.gd" type="Script" id=14]
 [ext_resource path="res://mechanics/gap/Gap.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scripts/action/CameraFollow.gd" type="Script" id=16]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 28 )
@@ -160,6 +161,11 @@ shape = SubResource( 1 )
 [node name="action" type="Node" parent="on reaching road block"]
 script = ExtResource( 6 )
 keep_paused = true
+
+[node name="follow" type="Node" parent="on reaching road block/action"]
+script = ExtResource( 16 )
+follow = NodePath("../../trigger/road block")
+recover_on_remove = true
 
 [node name="dialog #1" type="Node" parent="on reaching road block/action"]
 script = ExtResource( 5 )

@@ -35,8 +35,7 @@ func _on_load_started() -> void:
 func _on_scene_created(scene: Node) -> void:
 	current_scene = scene
 	scene.pause_mode = Node.PAUSE_MODE_STOP
-	mentor = scene.find_node("Mentor")
-	pupil = scene.find_node("Pupil")
+	follow_characters()
 	mentor_viewport.call_deferred("add_child", scene)
 	yield(scene, "ready")
 	material.set_shader_param('viewport_size', mentor_viewport.size)
@@ -45,23 +44,45 @@ func _on_scene_created(scene: Node) -> void:
 	set_process(true)
 
 
+func follow_characters() -> void:
+	mentor = current_scene.find_node("Mentor")
+	pupil = current_scene.find_node("Pupil")
+
+
+func follow(node: Node2D) -> void:
+	mentor = node
+	pupil = node
+
+
 func _process(_delta: float) -> void:
-	var difference := pupil.global_position - mentor.global_position
-	difference.x = clamp(difference.x, -max_distance.x, max_distance.x)
-	difference.y = clamp(difference.y, -max_distance.y, max_distance.y)
-	mentor_camera.global_position = mentor.global_position + 0.5 * difference
-	pupil_camera.global_position = pupil.global_position - 0.5 * difference
-	material.set_shader_param('mentor_position', _screen_position(mentor_viewport, mentor))
-	material.set_shader_param('pupil_position', _screen_position(pupil_viewport, pupil))
-	material.set_shader_param('split', should_split())
+	_update_cameras()
+	material.set_shader_param('mentor_position', _viewport_uv(mentor_viewport, mentor))
+	material.set_shader_param('pupil_position', _viewport_uv(pupil_viewport, pupil))
+	material.set_shader_param('split', _should_split_cameras())
 
 
-func should_split() -> bool:
+func _should_split_cameras() -> bool:
 	var origin := mentor_viewport.canvas_transform.origin
 	var destination := pupil_viewport.canvas_transform.origin
 
-	return origin.distance_squared_to(destination) > 0.1
+	return origin.distance_to(destination) > 1.0
 
 
-func _screen_position(viewport: Viewport, item: CanvasItem) -> Vector2:
+func _viewport_uv(viewport: Viewport, item: CanvasItem) -> Vector2:
 	return (viewport.canvas_transform * item.get_global_transform()).origin / viewport.size
+
+
+func _update_cameras() -> void:
+	var difference := Vector2(
+		clamp(
+			pupil.global_position.x - mentor.global_position.x,
+			-max_distance.x, max_distance.x
+		),
+		clamp(
+			pupil.global_position.y - mentor.global_position.y,
+			-max_distance.y, max_distance.y
+		)
+	)
+
+	mentor_camera.global_position = mentor.global_position + 0.5 * difference
+	pupil_camera.global_position = pupil.global_position - 0.5 * difference
