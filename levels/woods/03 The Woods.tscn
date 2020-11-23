@@ -107,7 +107,6 @@ is_ability_available = false
 
 [node name="Mentor" parent="Group" index="0"]
 position = Vector2( -146, 11 )
-controller = NodePath("../../../Woods/Group/Mentor/Input")
 
 [node name="Scepter" parent="Group/Mentor" index="0" instance=ExtResource( 3 )]
 visible = false
@@ -116,10 +115,6 @@ can_be_activated = false
 
 [node name="Pupil" parent="Group" index="1"]
 position = Vector2( -154, 11 )
-controller = NodePath("../../../Woods/Group/Pupil/Follow")
-
-[node name="Follow" parent="Group/Pupil" index="4"]
-following = NodePath("../../../../Woods/Group/Mentor/Follower")
 
 [node name="Together" parent="Group" index="2"]
 position = Vector2( -146, 11 )
@@ -165,7 +160,7 @@ keep_paused = true
 [node name="follow" type="Node" parent="on reaching road block/action"]
 script = ExtResource( 16 )
 follow = NodePath("../../trigger/road block")
-recover_on_remove = true
+restore_after_parent_completes = true
 
 [node name="dialog #1" type="Node" parent="on reaching road block/action"]
 script = ExtResource( 5 )
@@ -282,6 +277,6 @@ keep_paused = true
 
 [node name="change scene" type="Node" parent="on leaving woods/action"]
 script = ExtResource( 7 )
-next_scene = "res://levels/test/Test.tscn"
+next_scene = "res://levels/test/Select.tscn"
 
 [editable path="Group"]

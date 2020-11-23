@@ -1,7 +1,7 @@
 extends NinePatchRect
 class_name Dialog
 
-signal completed();
+signal completed()
 
 onready var _name := $MarginContainer/HBoxContainer/Name
 onready var _text := $MarginContainer/HBoxContainer/Text

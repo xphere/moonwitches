@@ -1,9 +1,9 @@
 extends CanvasItem
 class_name Scene
 
-signal load_started();
-signal load_finished();
-signal scene_created(scene);
+signal load_started()
+signal load_finished()
+signal scene_created(scene)
 
 
 func load(path: String) -> void:

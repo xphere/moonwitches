@@ -1,6 +1,6 @@
 extends Node
 
-signal completed();
+signal completed()
 
 export(NodePath) var trigger : NodePath = "trigger"
 export(NodePath) var action : NodePath = "action"

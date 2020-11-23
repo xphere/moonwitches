@@ -47,22 +47,22 @@ func _animate_limits(limits: Rect2) -> void:
 		tween.interpolate_property(
 			camera, "limit_left",
 			camera.limit_left, int(limits.position.x),
-			duration, Tween.TRANS_CUBIC, Tween.EASE_OUT
+			duration, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
 		)
 		tween.interpolate_property(
 			camera, "limit_top",
 			camera.limit_top, int(limits.position.y),
-			duration, Tween.TRANS_CUBIC, Tween.EASE_OUT
+			duration, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
 		)
 		tween.interpolate_property(
 			camera, "limit_right",
 			camera.limit_right, int(limits.end.x),
-			duration, Tween.TRANS_CUBIC, Tween.EASE_OUT
+			duration, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
 		)
 		tween.interpolate_property(
 			camera, "limit_bottom",
 			camera.limit_bottom, int(limits.end.y),
-			duration, Tween.TRANS_CUBIC, Tween.EASE_OUT
+			duration, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT
 		)
 	tween.connect("tween_all_completed", self, "_on_tween_completed", [ tween ])
 	tween.start()

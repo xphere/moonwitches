@@ -11,7 +11,6 @@ onready var max_distance := 0.25 * mentor_viewport.size
 var mentor : Node2D
 var pupil : Node2D
 var current_scene : Node
-var camera_position := Vector2.ZERO
 
 
 func _ready() -> void:

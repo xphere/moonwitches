@@ -245,6 +245,7 @@ keep_paused = true
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 9 )
+duration = 0.0
 
 [node name="TopLeft" type="Position2D" parent="on load/action/limit camera"]
 

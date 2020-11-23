@@ -1,12 +1,13 @@
 extends Control
 
-signal paused();
-signal unpaused();
+signal paused()
+signal unpaused()
 
 var _pause_state := 0
 
-onready var dialog : Dialog = $Dialog
-onready var scene : Scene = $Scene
+onready var dialog := $Dialog as Dialog
+onready var scene := $Scene as Scene
+onready var transition := $Transition as Transition
 
 
 func pause() -> void:
