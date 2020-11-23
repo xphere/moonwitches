@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://screens/scene/Scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://screens/dialog/Dialog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://screens/game/Game.gd" type="Script" id=3]
+[ext_resource path="res://assets/sounds/Night Ambient.ogg" type="AudioStream" id=4]
 [ext_resource path="res://screens/transition/Transition.tscn" type="PackedScene" id=5]
 
 [node name="Game" type="Control"]
@@ -20,3 +21,7 @@ __meta__ = {
 
 [node name="Transition" parent="." instance=ExtResource( 5 )]
 visible = false
+
+[node name="Background" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+autoplay = true

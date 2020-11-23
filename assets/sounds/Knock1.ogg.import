@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Knock1.ogg-a4eb439fc494c13736e1cea5a68049f8.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/Knock1.ogg"
+dest_files=[ "res://.import/Knock1.ogg-a4eb439fc494c13736e1cea5a68049f8.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
