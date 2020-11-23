@@ -41,7 +41,7 @@ func _process(_delta: float) -> void:
 		child = null
 
 	if child:
-		child.connect("completed", self, "_on_completed_action")
+		child.connect("completed", self, "_on_completed_action", [], CONNECT_ONESHOT)
 		child.call_deferred("execute")
 
 	else:
