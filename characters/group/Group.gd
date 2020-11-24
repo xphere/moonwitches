@@ -12,20 +12,26 @@ const GROUP_DISTANCE := 24.0
 export(bool) var is_ability_available := true
 export(bool) var together := true
 export(int, LAYERS_2D_PHYSICS) var mask
-var _paused := false
+
+onready var _paused := Game.is_paused()
 
 
 func _ready() -> void:
-	set_together(together)
 	Game.connect("paused", self, "_on_paused")
 	Game.connect("unpaused", self, "_on_unpaused")
+	_set_together(together)
 
 
 func set_together(value: bool) -> void:
+	if value == together:
+		return
+	_set_together(value)
+
+
+func _set_together(value: bool) -> void:
 	var is_paused := _paused
 	if is_paused:
 		_on_unpaused()
-
 	together = value
 	$Mentor.collision_mask = ($Mentor.collision_mask | mask) if value else ($Mentor.collision_mask ^ mask)
 	$Mentor.set_speed(
@@ -36,7 +42,6 @@ func set_together(value: bool) -> void:
 			$Pupil/Follow if together else $Pupil/Input
 		)
 	)
-
 	if is_paused:
 		_on_paused()
 
@@ -90,9 +95,6 @@ func _on_unpaused() -> void:
 
 
 func walk_to(position: Vector2, who) -> void:
-	if not _paused:
-		return
-
 	var were_together := together
 	set_together(who == Who.Both)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=51 format=2]
 
 [ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -35,6 +35,7 @@
 [ext_resource path="res://scripts/action/Group.gd" type="Script" id=33]
 [ext_resource path="res://scripts/action/ChangeDisabled.gd" type="Script" id=34]
 [ext_resource path="res://scripts/action/CameraFollow.gd" type="Script" id=35]
+[ext_resource path="res://scripts/action/PlayAnimation.gd" type="Script" id=36]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Conclusion"
@@ -87,16 +88,34 @@ tracks/0/keys = {
 
 [sub_resource type="CircleShape2D" id=3]
 
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 19 )
-region = Rect2( 81, 45, 8, 8 )
+[sub_resource type="Animation" id=4]
+resource_name = "Toll"
+length = 25.0
+loop = true
+tracks/0/type = "audio"
+tracks/0/path = NodePath("Bell")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 20 )
+} ],
+"times": PoolRealArray( 1 )
+}
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 19 )
+region = Rect2( 81, 45, 8, 8 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 19 )
 region = Rect2( 107, 71, 10, 10 )
 
-[sub_resource type="Animation" id=6]
-resource_name = "Glow"
+[sub_resource type="Animation" id=7]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Glow:self_modulate")
@@ -123,7 +142,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 4 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=8]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -150,46 +169,25 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0.501961 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=9]
 outline_size = 1
 outline_color = Color( 0.133333, 0.137255, 0.137255, 1 )
 font_data = ExtResource( 1 )
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 19 )
 region = Rect2( 63, 54, 8, 8 )
-
-[sub_resource type="GDScript" id=10]
-script/source = "extends Node
-
-signal completed()
-
-export(bool) var wait := false
-export(NodePath) var animation_path : NodePath
-export(String) var track_name : String
-
-
-func execute() -> void:
-	var animation := get_node(animation_path) as AnimationPlayer
-
-	animation.play(track_name)
-	if wait:
-		animation.connect(\"finished\", self, \"_on_animation_finished\")
-	else:
-		emit_signal(\"completed\")
-
-
-func _on_animation_finished() -> void:
-	emit_signal(\"completed\")
-"
 
 [sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 12, 12 )
 
-[sub_resource type="CircleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 40, 12 )
+
+[sub_resource type="CircleShape2D" id=13]
 radius = 24.0
 
-[sub_resource type="GDScript" id=13]
+[sub_resource type="GDScript" id=14]
 script/source = "extends Node
 
 signal completed()
@@ -291,20 +289,30 @@ autoplay = true
 max_distance = 60.0
 attenuation = 2.0
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Level/Church"]
+root_node = NodePath(".")
+anims/Toll = SubResource( 4 )
+
+[node name="Bell" type="AudioStreamPlayer2D" parent="Level/Church/AnimationPlayer"]
+position = Vector2( 44, -114 )
+stream = ExtResource( 20 )
+max_distance = 500.0
+attenuation = 0.5
+
 [node name="Scepter" type="Sprite" parent="Level/Church"]
 position = Vector2( 0, 4 )
 z_index = 128
-texture = SubResource( 4 )
+texture = SubResource( 5 )
 
 [node name="Glow" type="Sprite" parent="Level/Church/Scepter"]
 self_modulate = Color( 1, 1, 1, 0.501961 )
 show_behind_parent = true
-texture = SubResource( 5 )
+texture = SubResource( 6 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Level/Church/Scepter"]
 autoplay = "Glow"
-anims/Glow = SubResource( 6 )
-anims/Take = SubResource( 7 )
+anims/Glow = SubResource( 7 )
+anims/Take = SubResource( 8 )
 
 [node name="Group" parent="." instance=ExtResource( 6 )]
 is_ability_available = false
@@ -353,7 +361,6 @@ script = ExtResource( 16 )
 [node name="walk" type="Node2D" parent="on load/action/scene"]
 position = Vector2( 100, 20 )
 script = ExtResource( 32 )
-group_path = NodePath("../../../../Group")
 who = 1
 
 [node name="dialogue #1" type="Node" parent="on load/action/scene"]
@@ -388,12 +395,9 @@ dialogue = "** sigh **"
 script = ExtResource( 16 )
 
 [node name="bell sound" type="Node" parent="on load/action/scene/transition #1"]
-script = ExtResource( 23 )
-audio_path = NodePath("Bell")
-
-[node name="Bell" type="AudioStreamPlayer" parent="on load/action/scene/transition #1/bell sound"]
-stream = ExtResource( 20 )
-mix_target = 1
+script = ExtResource( 36 )
+animation_path = NodePath("../../../../../Level/Church/AnimationPlayer")
+track_name = "Toll"
 
 [node name="in" type="Node" parent="on load/action/scene/transition #1"]
 script = ExtResource( 9 )
@@ -412,11 +416,11 @@ margin_left = 106.0
 margin_top = 83.0
 margin_right = 214.0
 margin_bottom = 97.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 9 )
 text = "One hour later..."
 
 [node name="Watch" type="Sprite" parent="on load/action/scene/transition #1/in/One hour later/Text"]
-texture = SubResource( 9 )
+texture = SubResource( 10 )
 centered = false
 offset = Vector2( -10, 3 )
 
@@ -446,7 +450,7 @@ clear_overlay = false
 script = ExtResource( 16 )
 
 [node name="music Meanwhile" type="Node" parent="on load/action/scene/dialogue #2"]
-script = SubResource( 10 )
+script = ExtResource( 36 )
 animation_path = NodePath("../../../../../Music")
 track_name = "Meanwhile"
 
@@ -509,6 +513,55 @@ position = Vector2( 456, 232 )
 [node name="remove" type="Node" parent="on exit home"]
 script = ExtResource( 14 )
 
+[node name="halfway the village" type="Node" parent="."]
+script = ExtResource( 17 )
+
+[node name="trigger" type="Node" parent="halfway the village"]
+script = ExtResource( 12 )
+
+[node name="location" parent="halfway the village/trigger" instance=ExtResource( 2 )]
+position = Vector2( 264, 4 )
+
+[node name="Collision" type="CollisionShape2D" parent="halfway the village/trigger/location"]
+shape = SubResource( 12 )
+
+[node name="action" type="Node" parent="halfway the village"]
+script = ExtResource( 16 )
+
+[node name="dialog #1" type="Node" parent="halfway the village/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "The village is... too quiet."
+
+[node name="dialog #2" type="Node" parent="halfway the village/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "It's almost midnight, Gyna."
+
+[node name="dialog #3" type="Node" parent="halfway the village/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Today's the most important night of the year!
+It's unusually quiet!"
+
+[node name="dialog #4" type="Node" parent="halfway the village/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "You sure it's the right date?"
+
+[node name="dialog #5" type="Node" parent="halfway the village/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "..."
+
+[node name="dialog #6" type="Node" parent="halfway the village/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Let's visit the church."
+
+[node name="remove" type="Node" parent="halfway the village"]
+script = ExtResource( 14 )
+
 [node name="on leaving village" type="Node" parent="."]
 script = ExtResource( 17 )
 
@@ -528,7 +581,6 @@ script = ExtResource( 16 )
 [node name="walk" type="Node2D" parent="on leaving village/action"]
 position = Vector2( 482, 4 )
 script = ExtResource( 32 )
-group_path = NodePath("../../../Group")
 
 [node name="fade out" type="Node" parent="on leaving village/action"]
 script = ExtResource( 9 )
@@ -536,6 +588,9 @@ script = ExtResource( 9 )
 [node name="change scene" type="Node" parent="on leaving village/action"]
 script = ExtResource( 11 )
 next_scene = "res://levels/woods/02 The Road.tscn"
+
+[node name="remove" type="Node" parent="on leaving village"]
+script = ExtResource( 14 )
 
 [node name="neighbour #1" type="Node" parent="."]
 script = ExtResource( 17 )
@@ -778,7 +833,7 @@ collision_mask = 14
 
 [node name="Near" type="CollisionShape2D" parent="graveyard/trigger"]
 rotation = -1.5708
-shape = SubResource( 12 )
+shape = SubResource( 13 )
 
 [node name="action" type="Node" parent="graveyard"]
 script = ExtResource( 16 )
@@ -887,7 +942,7 @@ __meta__ = {
 }
 
 [node name="music Conclusion" type="Node" parent="on entering church/action"]
-script = SubResource( 10 )
+script = ExtResource( 36 )
 animation_path = NodePath("../../../Music")
 track_name = "Conclusion"
 
@@ -904,7 +959,6 @@ restore_after_parent_completes = true
 [node name="walk front" type="Node2D" parent="on entering church/action"]
 position = Vector2( 44, -148 )
 script = ExtResource( 32 )
-group_path = NodePath("../../../Group")
 
 [node name="dialogue #1" type="Node" parent="on entering church/action"]
 script = ExtResource( 15 )
@@ -919,7 +973,6 @@ dialogue = "Yeah, except no one's here."
 [node name="walk circle" type="Node2D" parent="on entering church/action"]
 position = Vector2( 44, -114 )
 script = ExtResource( 32 )
-group_path = NodePath("../../../Group")
 who = 1
 
 [node name="dialogue #3" type="Node" parent="on entering church/action"]
@@ -944,14 +997,13 @@ dialogue = "It's an honor that I will fulfill.
 With or without the help of the elders."
 
 [node name="take scepter" type="Node" parent="on entering church/action"]
-script = SubResource( 13 )
+script = SubResource( 14 )
 still_scepter = NodePath("../../../Level/Church/Scepter")
 scepter = NodePath("../../../Group/Mentor/Scepter")
 
 [node name="walk front #2" type="Node2D" parent="on entering church/action"]
 position = Vector2( 44, -148 )
 script = ExtResource( 32 )
-group_path = NodePath("../../../Group")
 
 [node name="disable check leaving town" type="Node" parent="on entering church/action"]
 script = ExtResource( 34 )
@@ -989,7 +1041,6 @@ dialogue = "We should look for the elders before leaving the village."
 [node name="walk circle" type="Node2D" parent="leaving without scepter/action"]
 position = Vector2( 399, 4 )
 script = ExtResource( 32 )
-group_path = NodePath("../../../Group")
 who = 1
 
 [editable path="Group"]

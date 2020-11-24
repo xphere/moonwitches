@@ -20,3 +20,7 @@ func unpause() -> void:
 	_pause_state -= 1
 	if _pause_state == 0:
 		emit_signal("unpaused")
+
+
+func is_paused() -> bool:
+	return _pause_state > 0

@@ -37,7 +37,8 @@ func push_controller(path: NodePath) -> void:
 
 
 func pop_controller() -> void:
-	set_controller(_controller_stack.pop_back())
+	if not _controller_stack.empty():
+		set_controller(_controller_stack.pop_back())
 
 
 func hit() -> void:
