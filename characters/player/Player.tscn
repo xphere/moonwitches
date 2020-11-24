@@ -41,5 +41,6 @@ light_mask = 0
 shape = SubResource( 1 )
 
 [node name="Light" parent="." instance=ExtResource( 1 )]
+visible = false
 material = SubResource( 3 )
 shadow_color = Color( 0, 0, 0, 1 )

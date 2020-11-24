@@ -43,7 +43,6 @@ func _input(event: InputEvent) -> void:
 		writing = false
 
 	else:
-		writing = false
 		emit_signal("completed")
 		should_be_visible -= 1
 		if should_be_visible <= 0:

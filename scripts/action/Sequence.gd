@@ -2,7 +2,7 @@ extends Node
 
 signal completed()
 
-export(bool) var keep_paused := false
+export(bool) var keep_paused := true
 var current : int = -1
 var is_paused := false
 

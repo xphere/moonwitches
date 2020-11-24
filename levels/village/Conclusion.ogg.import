@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Conclusion.ogg-a8411ccfb6c7c8db92bbad4abfb24d7e.oggstr"
+
+[deps]
+
+source_file="res://levels/village/Conclusion.ogg"
+dest_files=[ "res://.import/Conclusion.ogg-a8411ccfb6c7c8db92bbad4abfb24d7e.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

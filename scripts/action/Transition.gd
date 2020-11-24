@@ -11,7 +11,7 @@ export(float) var duration := 1.0
 
 
 func execute() -> void:
-	Game.transition.connect("completed", self, "_on_transition_completed")
+	Game.transition.connect("completed", self, "_on_transition_completed", [], CONNECT_ONESHOT)
 	if transition == State.Show:
 		_add_overlay()
 		Game.transition.fade_in(duration)

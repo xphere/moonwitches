@@ -1,17 +1,31 @@
 extends Node
+class_name Group
+
+enum Who {
+	Both,
+	Mentor,
+	Pupil,
+}
 
 const GROUP_DISTANCE := 24.0
 
 export(bool) var is_ability_available := true
 export(bool) var together := true
 export(int, LAYERS_2D_PHYSICS) var mask
+var _paused := false
 
 
 func _ready() -> void:
 	set_together(together)
+	Game.connect("paused", self, "_on_paused")
+	Game.connect("unpaused", self, "_on_unpaused")
 
 
 func set_together(value: bool) -> void:
+	var is_paused := _paused
+	if is_paused:
+		_on_unpaused()
+
 	together = value
 	$Mentor.collision_mask = ($Mentor.collision_mask | mask) if value else ($Mentor.collision_mask ^ mask)
 	$Mentor.set_speed(
@@ -23,9 +37,12 @@ func set_together(value: bool) -> void:
 		)
 	)
 
+	if is_paused:
+		_on_paused()
+
 
 func _input(event) -> void:
-	if event.is_action_pressed("change_group") and _can_change_group():
+	if event.is_action_pressed("change_group") and not _paused and _can_change_group():
 		set_together(not together)
 
 
@@ -50,3 +67,37 @@ func _can_change_group() -> bool:
 	_together.enabled = false
 
 	return not is_colliding
+
+
+func _on_paused() -> void:
+	if _paused:
+		return
+
+	_paused = true
+	$Mentor.push_controller($Mentor.get_path_to($Mentor/Cinematic))
+	if not together:
+		$Pupil.push_controller($Pupil.get_path_to($Pupil/Cinematic))
+
+
+func _on_unpaused() -> void:
+	if not _paused:
+		return
+
+	_paused = false
+	$Mentor.pop_controller()
+	if not together:
+		$Pupil.pop_controller()
+
+
+func walk_to(position: Vector2, who) -> void:
+	if not _paused:
+		return
+
+	var were_together := together
+	set_together(who == Who.Both)
+
+	var cinematic := $Pupil/Cinematic if who == Who.Pupil else $Mentor/Cinematic
+	cinematic.call_deferred("walk_to", position)
+	yield(cinematic, "completed")
+
+	set_together(were_together)

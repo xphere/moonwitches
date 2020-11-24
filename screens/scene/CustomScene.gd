@@ -51,6 +51,8 @@ func follow_characters() -> void:
 func follow(node: Node2D) -> void:
 	mentor = node
 	pupil = node
+	if not node.is_connected("tree_exiting", self, "follow_characters"):
+		node.connect("tree_exiting", self, "follow_characters")
 
 
 func _process(_delta: float) -> void:
