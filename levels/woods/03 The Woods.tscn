@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://levels/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -13,11 +13,16 @@
 [ext_resource path="res://mechanics/crawl_space/CrawlSpace.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scripts/action/Transition.gd" type="Script" id=12]
 [ext_resource path="res://scripts/action/CameraLimit.gd" type="Script" id=13]
-[ext_resource path="res://scripts/action/ChangeDisabled.gd" type="Script" id=14]
+[ext_resource path="res://scripts/action/BoolProperty.gd" type="Script" id=14]
 [ext_resource path="res://mechanics/gap/Gap.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scripts/action/CameraFollow.gd" type="Script" id=16]
 [ext_resource path="res://assets/sounds/Fire.ogg" type="AudioStream" id=17]
 [ext_resource path="res://scripts/action/Walk.gd" type="Script" id=18]
+[ext_resource path="res://scripts/action/Savegame.gd" type="Script" id=19]
+[ext_resource path="res://characters/enemy/behaviour/Wait.gd" type="Script" id=20]
+[ext_resource path="res://scripts/behaviour/Sequential.gd" type="Script" id=21]
+[ext_resource path="res://characters/enemy/behaviour/Walk.gd" type="Script" id=22]
+[ext_resource path="res://characters/enemy/Enemy.tscn" type="PackedScene" id=23]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 28 )
@@ -133,6 +138,45 @@ __meta__ = {
 "_editor_description_": ""
 }
 
+[node name="Enemy #1" parent="Level" instance=ExtResource( 23 )]
+
+[node name="Route" type="Node" parent="Level/Enemy #1"]
+script = ExtResource( 21 )
+
+[node name="walk #1" type="Node2D" parent="Level/Enemy #1/Route"]
+position = Vector2( 69, 0 )
+script = ExtResource( 22 )
+
+[node name="wait #1" type="Node" parent="Level/Enemy #1/Route"]
+script = ExtResource( 20 )
+
+[node name="walk #2" type="Node2D" parent="Level/Enemy #1/Route"]
+position = Vector2( -19, 0 )
+script = ExtResource( 22 )
+
+[node name="wait #2" type="Node" parent="Level/Enemy #1/Route"]
+script = ExtResource( 20 )
+
+[node name="Enemy #2" parent="Level" instance=ExtResource( 23 )]
+position = Vector2( 69, 31 )
+
+[node name="Route" type="Node" parent="Level/Enemy #2"]
+script = ExtResource( 21 )
+
+[node name="walk #1" type="Node2D" parent="Level/Enemy #2/Route"]
+position = Vector2( -19, 31 )
+script = ExtResource( 22 )
+
+[node name="wait #1" type="Node" parent="Level/Enemy #2/Route"]
+script = ExtResource( 20 )
+
+[node name="walk #2" type="Node2D" parent="Level/Enemy #2/Route"]
+position = Vector2( 69, 31 )
+script = ExtResource( 22 )
+
+[node name="wait #2" type="Node" parent="Level/Enemy #2/Route"]
+script = ExtResource( 20 )
+
 [node name="Group" parent="." instance=ExtResource( 4 )]
 is_ability_available = false
 
@@ -174,6 +218,31 @@ transition = 1
 [node name="walk" type="Node2D" parent="on load/action"]
 position = Vector2( -98, 12 )
 script = ExtResource( 18 )
+
+[node name="dialogue #1" type="Node" parent="on load/action"]
+script = ExtResource( 5 )
+character = "Gyna"
+dialogue = "Do you know the legend of The Road, Ann?"
+
+[node name="dialogue #2" type="Node" parent="on load/action"]
+script = ExtResource( 5 )
+character = "Ann"
+dialogue = "They say the ancients traveled through it.
+Inside heavy smoking scrap beasts."
+
+[node name="dialogue #3" type="Node" parent="on load/action"]
+script = ExtResource( 5 )
+character = "Gyna"
+dialogue = "Do you think it's true?"
+
+[node name="dialogue #4" type="Node" parent="on load/action"]
+script = ExtResource( 5 )
+character = "Ann"
+dialogue = "I can't tell the difference between children's stories and legends of old times."
+
+[node name="savegame" type="Node2D" parent="on load/action"]
+position = Vector2( -98, -5 )
+script = ExtResource( 19 )
 
 [node name="on reaching road block" type="Node" parent="."]
 script = ExtResource( 8 )
@@ -219,6 +288,11 @@ dialogue = "I think I saw a path through the forest near the graveyard, let's se
 [node name="activate near graveyard" type="Node" parent="on reaching road block/action"]
 script = ExtResource( 14 )
 node = NodePath("../../../near graveyard")
+property_name = "disabled"
+
+[node name="savegame" type="Node2D" parent="on reaching road block/action"]
+position = Vector2( 244, -8 )
+script = ExtResource( 19 )
 
 [node name="near graveyard" type="Node" parent="."]
 script = ExtResource( 8 )
