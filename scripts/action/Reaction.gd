@@ -2,34 +2,64 @@ extends Node
 
 signal completed()
 
-export(NodePath) var trigger : NodePath = "trigger"
-export(NodePath) var action : NodePath = "action"
 export(bool) var disabled := false
+export(bool) var once := true
+export(bool) var pause := true
+
+onready var _trigger := $trigger
+onready var _action := $action
+
+var _triggered := false
 
 
 func _ready() -> void:
-	var parent := get_parent()
-	if parent.has_signal("completed") and parent.has_method("execute"):
-		return
-	execute()
+	if not disabled:
+		_connect_to_trigger()
 
 
-func execute() -> void:
-	var _trigger := get_node(trigger)
-	_trigger.connect("triggered", self, "_on_trigger_triggered")
+func set_disable(value: bool) -> void:
+	disabled = value
+	if disabled:
+		_disconnect_from_trigger()
+	else:
+		_connect_to_trigger()
 
 
-func _on_trigger_triggered() -> void:
+func _connect_to_trigger() -> void:
+	_trigger.connect("triggered", self, "_on_trigger")
+
+
+func _disconnect_from_trigger() -> void:
+	_trigger.disconnect("triggered", self, "_on_trigger")
+
+
+func _connect_to_action_completed() -> void:
+	_action.connect("completed", self, "_on_action_completed", [], CONNECT_ONESHOT)
+
+
+func _on_trigger() -> void:
 	if disabled:
 		return
 
-	disabled = true
-	var _action := get_node(action)
-	_action.connect("completed", self, "_on_action_completed", [ _action ])
+	_disconnect_from_trigger()
+	_connect_to_action_completed()
+
+	if pause:
+		Game.pause()
+		connect("completed", self, "_unpause")
+		connect("tree_exiting", Game, "unpause")
+
 	_action.execute()
 
 
-func _on_action_completed(_action: Node) -> void:
-	disabled = false
-	_action.disconnect("completed", self, "_on_action_completed")
+func _on_action_completed() -> void:
 	emit_signal("completed")
+	if once:
+		queue_free()
+	else:
+		_connect_to_trigger()
+
+
+func _unpause() -> void:
+	Game.unpause()
+	disconnect("tree_exiting", Game, "unpause")

@@ -11,7 +11,7 @@ func execute() -> void:
 
 	player.call_deferred("play")
 	if wait:
-		player.connect("finished", self, "_on_play_finished")
+		player.connect("finished", self, "_on_play_finished", [], CONNECT_ONESHOT)
 	else:
 		emit_signal("completed")
 

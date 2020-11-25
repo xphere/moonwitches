@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://levels/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -11,12 +11,13 @@
 [ext_resource path="res://scripts/trigger/Any.gd" type="Script" id=9]
 [ext_resource path="res://scripts/trigger/Ready.gd" type="Script" id=10]
 [ext_resource path="res://mechanics/crawl_space/CrawlSpace.tscn" type="PackedScene" id=11]
-[ext_resource path="res://scripts/action/Remove.gd" type="Script" id=12]
+[ext_resource path="res://scripts/action/Transition.gd" type="Script" id=12]
 [ext_resource path="res://scripts/action/CameraLimit.gd" type="Script" id=13]
 [ext_resource path="res://scripts/action/ChangeDisabled.gd" type="Script" id=14]
 [ext_resource path="res://mechanics/gap/Gap.tscn" type="PackedScene" id=15]
 [ext_resource path="res://scripts/action/CameraFollow.gd" type="Script" id=16]
 [ext_resource path="res://assets/sounds/Fire.ogg" type="AudioStream" id=17]
+[ext_resource path="res://scripts/action/Walk.gd" type="Script" id=18]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 28 )
@@ -40,6 +41,9 @@ func execute() -> void:
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 12, 12 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 28, 8 )
 
 [node name="Woods" type="Node2D"]
 
@@ -136,9 +140,7 @@ is_ability_available = false
 position = Vector2( -146, 11 )
 
 [node name="Scepter" parent="Group/Mentor" index="0" instance=ExtResource( 3 )]
-visible = false
 can_be_passed = false
-can_be_activated = false
 
 [node name="Pupil" parent="Group" index="1"]
 position = Vector2( -154, 11 )
@@ -165,8 +167,13 @@ position = Vector2( -120, -48 )
 [node name="bottom right" type="Position2D" parent="on load/action/limit camera"]
 position = Vector2( 456, 64 )
 
-[node name="remove" type="Node" parent="on load"]
+[node name="fade in" type="Node" parent="on load/action"]
 script = ExtResource( 12 )
+transition = 1
+
+[node name="walk" type="Node2D" parent="on load/action"]
+position = Vector2( -98, 12 )
+script = ExtResource( 18 )
 
 [node name="on reaching road block" type="Node" parent="."]
 script = ExtResource( 8 )
@@ -212,9 +219,6 @@ dialogue = "I think I saw a path through the forest near the graveyard, let's se
 [node name="activate near graveyard" type="Node" parent="on reaching road block/action"]
 script = ExtResource( 14 )
 node = NodePath("../../../near graveyard")
-
-[node name="remove" type="Node" parent="on reaching road block"]
-script = ExtResource( 12 )
 
 [node name="near graveyard" type="Node" parent="."]
 script = ExtResource( 8 )
@@ -280,9 +284,6 @@ dialogue = "Sure, take care."
 script = SubResource( 3 )
 group = NodePath("../../../Group")
 
-[node name="remove" type="Node" parent="near graveyard"]
-script = ExtResource( 12 )
-
 [node name="on leaving woods" type="Node" parent="."]
 script = ExtResource( 8 )
 
@@ -302,5 +303,13 @@ script = ExtResource( 6 )
 [node name="change scene" type="Node" parent="on leaving woods/action"]
 script = ExtResource( 7 )
 next_scene = "res://levels/test/Select.tscn"
+
+[node name="Left Limit" type="StaticBody2D" parent="."]
+position = Vector2( -120, 12 )
+
+[node name="Collision" type="CollisionShape2D" parent="Left Limit"]
+rotation = 1.5708
+shape = SubResource( 5 )
+one_way_collision = true
 
 [editable path="Group"]

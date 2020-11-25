@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://levels/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://mechanics/mechanics.tres" type="TileSet" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://characters/group/Group.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/action/ChangeScene.gd" type="Script" id=6]
-[ext_resource path="res://scripts/action/Remove.gd" type="Script" id=7]
 [ext_resource path="res://scripts/action/Sequence.gd" type="Script" id=8]
 [ext_resource path="res://scripts/action/CameraLimit.gd" type="Script" id=9]
 [ext_resource path="res://characters/enemy/Enemy.tscn" type="PackedScene" id=10]
@@ -241,19 +240,14 @@ script = ExtResource( 11 )
 
 [node name="action" type="Node" parent="on load"]
 script = ExtResource( 8 )
-keep_paused = true
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 9 )
-duration = 0.0
 
 [node name="TopLeft" type="Position2D" parent="on load/action/limit camera"]
 
 [node name="BottomRight" type="Position2D" parent="on load/action/limit camera"]
 position = Vector2( 248, 168 )
-
-[node name="remove" type="Node" parent="on load"]
-script = ExtResource( 7 )
 
 [node name="on exit" type="Node" parent="."]
 

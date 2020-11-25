@@ -29,7 +29,7 @@ func fade_out(duration: float) -> void:
 	animation.play("hide")
 
 
-func _on_animation_finished(name: String) -> void:
+func _on_animation_finished(_name: String) -> void:
 	emit_signal("completed")
 
 

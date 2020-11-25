@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=2]
+[gd_scene load_steps=50 format=2]
 
 [ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -13,7 +13,6 @@
 [ext_resource path="res://scripts/action/ChangeScene.gd" type="Script" id=11]
 [ext_resource path="res://scripts/trigger/Any.gd" type="Script" id=12]
 [ext_resource path="res://scripts/trigger/Ready.gd" type="Script" id=13]
-[ext_resource path="res://scripts/action/Remove.gd" type="Script" id=14]
 [ext_resource path="res://scripts/action/Dialogue.gd" type="Script" id=15]
 [ext_resource path="res://scripts/action/Sequence.gd" type="Script" id=16]
 [ext_resource path="res://scripts/action/Reaction.gd" type="Script" id=17]
@@ -343,7 +342,6 @@ script = ExtResource( 8 )
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 10 )
-duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/limit camera"]
 position = Vector2( -16, -8 )
@@ -436,7 +434,6 @@ node = NodePath("../../../../../Group/Pupil")
 
 [node name="group together" type="Node" parent="on load/action/scene/transition #1"]
 script = ExtResource( 33 )
-group = NodePath("../../../../../Group")
 
 [node name="wait" type="Node" parent="on load/action/scene/transition #1"]
 script = ExtResource( 7 )
@@ -482,11 +479,9 @@ character = "Gyna"
 dialogue = "Something is wrong, Ann.
 Let's take a look outside."
 
-[node name="remove" type="Node" parent="on load"]
-script = ExtResource( 14 )
-
 [node name="on exit home" type="Node" parent="."]
 script = ExtResource( 17 )
+pause = false
 
 [node name="trigger" type="Node" parent="on exit home"]
 script = ExtResource( 12 )
@@ -498,7 +493,7 @@ position = Vector2( 68, 65 )
 shape = SubResource( 11 )
 
 [node name="action" type="Node" parent="on exit home"]
-script = ExtResource( 8 )
+script = ExtResource( 16 )
 
 [node name="limit camera" type="Node" parent="on exit home/action"]
 script = ExtResource( 10 )
@@ -509,9 +504,6 @@ position = Vector2( -120, -208 )
 
 [node name="bottom right" type="Position2D" parent="on exit home/action/limit camera"]
 position = Vector2( 456, 232 )
-
-[node name="remove" type="Node" parent="on exit home"]
-script = ExtResource( 14 )
 
 [node name="halfway the village" type="Node" parent="."]
 script = ExtResource( 17 )
@@ -559,9 +551,6 @@ script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "Let's visit the church."
 
-[node name="remove" type="Node" parent="halfway the village"]
-script = ExtResource( 14 )
-
 [node name="on leaving village" type="Node" parent="."]
 script = ExtResource( 17 )
 
@@ -588,9 +577,6 @@ script = ExtResource( 9 )
 [node name="change scene" type="Node" parent="on leaving village/action"]
 script = ExtResource( 11 )
 next_scene = "res://levels/woods/02 The Road.tscn"
-
-[node name="remove" type="Node" parent="on leaving village"]
-script = ExtResource( 14 )
 
 [node name="neighbour #1" type="Node" parent="."]
 script = ExtResource( 17 )
@@ -621,9 +607,6 @@ __meta__ = {
 character = "Gyna"
 dialogue = "Looks like our neighbour Ms. Craig isn't at home."
 
-[node name="remove" type="Node" parent="neighbour #1"]
-script = ExtResource( 14 )
-
 [node name="neighbour #2" type="Node" parent="."]
 script = ExtResource( 17 )
 
@@ -649,9 +632,6 @@ action = NodePath("../../../knock")
 script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "It's too quiet at Ms. Moulder's home. Nobody's here."
-
-[node name="remove" type="Node" parent="neighbour #2"]
-script = ExtResource( 14 )
 
 [node name="neighbour #3" type="Node" parent="."]
 script = ExtResource( 17 )
@@ -682,9 +662,6 @@ script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "Not a soul at Ms. Brooks either."
 
-[node name="remove" type="Node" parent="neighbour #3"]
-script = ExtResource( 14 )
-
 [node name="neighbour #4" type="Node" parent="."]
 script = ExtResource( 17 )
 
@@ -710,9 +687,6 @@ action = NodePath("../../../knock")
 script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "Hi? Ms. Bolton? Anybody home?"
-
-[node name="remove" type="Node" parent="neighbour #4"]
-script = ExtResource( 14 )
 
 [node name="neighbour #5" type="Node" parent="."]
 script = ExtResource( 17 )
@@ -740,9 +714,6 @@ script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "Ms. Shipley and Ms. Morrell may be out..."
 
-[node name="remove" type="Node" parent="neighbour #5"]
-script = ExtResource( 14 )
-
 [node name="neighbour #6" type="Node" parent="."]
 script = ExtResource( 17 )
 
@@ -765,9 +736,6 @@ script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "Ms. Matfield was reported missing last week.
 I hope she's ok."
-
-[node name="remove" type="Node" parent="neighbour #6"]
-script = ExtResource( 14 )
 
 [node name="neighbour #7" type="Node" parent="."]
 script = ExtResource( 17 )
@@ -796,9 +764,6 @@ character = "Gyna"
 dialogue = "Ms. Wardrope? Hello?
 Nobody answers..."
 
-[node name="remove" type="Node" parent="neighbour #7"]
-script = ExtResource( 14 )
-
 [node name="neighbour #8" type="Node" parent="."]
 script = ExtResource( 17 )
 
@@ -820,9 +785,6 @@ __meta__ = {
 script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "Not even the front sign remembers who lived here."
-
-[node name="remove" type="Node" parent="neighbour #8"]
-script = ExtResource( 14 )
 
 [node name="graveyard" type="Node" parent="."]
 script = ExtResource( 17 )
@@ -863,9 +825,6 @@ script = ExtResource( 15 )
 character = "Ann"
 dialogue = "No one except the dead."
 
-[node name="remove" type="Node" parent="graveyard"]
-script = ExtResource( 14 )
-
 [node name="blockade" type="Node" parent="."]
 script = ExtResource( 17 )
 
@@ -892,9 +851,6 @@ dialogue = "We should clean this mess, it's blocking the way."
 script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "And we will. But not today."
-
-[node name="remove" type="Node" parent="blockade"]
-script = ExtResource( 14 )
 
 [node name="knock" type="Node" parent="."]
 script = ExtResource( 27 )
@@ -945,11 +901,6 @@ __meta__ = {
 script = ExtResource( 36 )
 animation_path = NodePath("../../../Music")
 track_name = "Conclusion"
-
-[node name="split" type="Node" parent="on entering church/action"]
-script = ExtResource( 33 )
-group = NodePath("../../../Group")
-together = false
 
 [node name="camera follows scepter" type="Node" parent="on entering church/action"]
 script = ExtResource( 35 )
@@ -1010,22 +961,15 @@ script = ExtResource( 34 )
 node = NodePath("../../../leaving without scepter")
 disable = true
 
-[node name="group" type="Node" parent="on entering church/action"]
-script = ExtResource( 33 )
-group = NodePath("../../../Group")
-
-[node name="remove" type="Node" parent="on entering church"]
-script = ExtResource( 14 )
-
 [node name="leaving without scepter" type="Node" parent="."]
 script = ExtResource( 17 )
+once = false
 
 [node name="trigger" type="Node" parent="leaving without scepter"]
 script = ExtResource( 12 )
 
 [node name="exit" parent="leaving without scepter/trigger" instance=ExtResource( 2 )]
 position = Vector2( 420, 4 )
-expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="leaving without scepter/trigger/exit"]
 shape = SubResource( 11 )
@@ -1041,6 +985,5 @@ dialogue = "We should look for the elders before leaving the village."
 [node name="walk circle" type="Node2D" parent="leaving without scepter/action"]
 position = Vector2( 399, 4 )
 script = ExtResource( 32 )
-who = 1
 
 [editable path="Group"]

@@ -2,7 +2,7 @@ extends Node2D
 
 const REACH_DISTANCE := 18.0
 const DURATION_TIME := 5.0
-const COOLDOWN_TIME := 1.0
+const COOLDOWN_TIME := 10.0
 
 export(bool) var can_be_passed := true
 export(bool) var can_be_activated := true

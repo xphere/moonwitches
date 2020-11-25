@@ -16,6 +16,5 @@ func _on_Exit_body_exited(_body: Node) -> void:
 
 func _set_amount(amount: int) -> void:
 	_amount = amount
-	if _amount != expected:
-		return
-	emit_signal("triggered")
+	if _amount == expected:
+		emit_signal("triggered")

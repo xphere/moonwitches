@@ -13,42 +13,38 @@ export(bool) var is_ability_available := true
 export(bool) var together := true
 export(int, LAYERS_2D_PHYSICS) var mask
 
-onready var _paused := Game.is_paused()
-
 
 func _ready() -> void:
+	set_together(together)
 	Game.connect("paused", self, "_on_paused")
 	Game.connect("unpaused", self, "_on_unpaused")
-	_set_together(together)
 
 
 func set_together(value: bool) -> void:
-	if value == together:
-		return
-	_set_together(value)
+	together = value
+	if Game.is_paused():
+		_as_cinematic(together)
+	else:
+		_set_together(together)
 
 
 func _set_together(value: bool) -> void:
-	var is_paused := _paused
-	if is_paused:
-		_on_unpaused()
 	together = value
-	$Mentor.collision_mask = ($Mentor.collision_mask | mask) if value else ($Mentor.collision_mask ^ mask)
-	$Mentor.set_speed(
-		$Pupil.max_speed if together else $Mentor.max_speed
-	)
-	$Pupil.set_controller(
-		$Pupil.get_path_to(
-			$Pupil/Follow if together else $Pupil/Input
-		)
-	)
-	if is_paused:
-		_on_paused()
+
+	$Mentor.set_controller($Mentor.get_path_to($Mentor/Input))
+	$Mentor.collision_mask = ($Mentor.collision_mask | mask) if together \
+						else ($Mentor.collision_mask ^ mask)
+
+	var mentor_max_speed : float = $Pupil.max_speed if together else $Mentor.max_speed
+	$Mentor.set_speed(mentor_max_speed)
+
+	var pupil_controller := $Pupil/Follow if together else $Pupil/Input
+	$Pupil.set_controller($Pupil.get_path_to(pupil_controller))
 
 
 func _input(event) -> void:
-	if event.is_action_pressed("change_group") and not _paused and _can_change_group():
-		set_together(not together)
+	if event.is_action_pressed("change_group") and not Game.is_paused() and _can_change_group():
+		_set_together(not together)
 
 
 func _can_change_group() -> bool:
@@ -75,31 +71,22 @@ func _can_change_group() -> bool:
 
 
 func _on_paused() -> void:
-	if _paused:
-		return
-
-	_paused = true
-	$Mentor.push_controller($Mentor.get_path_to($Mentor/Cinematic))
-	if not together:
-		$Pupil.push_controller($Pupil.get_path_to($Pupil/Cinematic))
+	_as_cinematic(together)
 
 
 func _on_unpaused() -> void:
-	if not _paused:
-		return
+	_set_together(together)
 
-	_paused = false
-	$Mentor.pop_controller()
-	if not together:
-		$Pupil.pop_controller()
+
+func _as_cinematic(value: bool) -> void:
+	$Mentor.set_controller($Mentor.get_path_to($Mentor/Cinematic))
+	$Pupil.set_controller($Pupil.get_path_to($Pupil/Follow if value else $Pupil/Cinematic))
 
 
 func walk_to(position: Vector2, who) -> void:
-	var were_together := together
-	set_together(who == Who.Both)
-
+	var walk_together : bool = who == Who.Both
+	if together != walk_together:
+		_as_cinematic(walk_together)
 	var cinematic := $Pupil/Cinematic if who == Who.Pupil else $Mentor/Cinematic
 	cinematic.call_deferred("walk_to", position)
 	yield(cinematic, "completed")
-
-	set_together(were_together)
