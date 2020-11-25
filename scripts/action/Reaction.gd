@@ -2,7 +2,7 @@ extends Node
 
 signal completed()
 
-export(bool) var disabled := false
+export(bool) var disabled := false setget set_disable
 export(bool) var once := true
 export(bool) var pause := true
 
@@ -24,14 +24,20 @@ func set_disable(value: bool) -> void:
 
 
 func _connect_to_trigger() -> void:
+	if not _trigger:
+		return
 	_trigger.connect("triggered", self, "_on_trigger")
 
 
 func _disconnect_from_trigger() -> void:
+	if not _trigger:
+		return
 	_trigger.disconnect("triggered", self, "_on_trigger")
 
 
 func _connect_to_action_completed() -> void:
+	if not _action:
+		return
 	_action.connect("completed", self, "_on_action_completed", [], CONNECT_ONESHOT)
 
 
