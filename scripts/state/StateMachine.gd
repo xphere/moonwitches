@@ -45,3 +45,15 @@ func _leave_state() -> void:
 	if _state:
 		_state.leave()
 	_state = null
+
+
+func save() -> Dictionary:
+	return {
+		name = _state.name,
+		data = _state.save(),
+		board = _board,
+	}
+
+
+func restore(data: Dictionary) -> void:
+	get_node(data["name"]).restore(data["data"])

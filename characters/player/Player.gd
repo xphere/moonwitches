@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+signal hit()
+
 const SIZE := 8.0
 
 export(float) var max_speed := 42.0
@@ -31,4 +33,4 @@ func set_controller(path: NodePath) -> void:
 
 
 func hit() -> void:
-	get_tree().reload_current_scene()
+	emit_signal("hit")

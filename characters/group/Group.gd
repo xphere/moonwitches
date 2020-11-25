@@ -18,6 +18,8 @@ func _ready() -> void:
 	set_together(together)
 	Game.connect("paused", self, "_on_paused")
 	Game.connect("unpaused", self, "_on_unpaused")
+	$Mentor.connect("hit", self, "_on_player_hit")
+	$Pupil.connect("hit", self, "_on_player_hit")
 
 
 func set_together(value: bool) -> void:
@@ -78,6 +80,10 @@ func _on_unpaused() -> void:
 	_set_together(together)
 
 
+func _on_player_hit() -> void:
+	Game.restore()
+
+
 func _as_cinematic(value: bool) -> void:
 	$Mentor.set_controller($Mentor.get_path_to($Mentor/Cinematic))
 	$Pupil.set_controller($Pupil.get_path_to($Pupil/Follow if value else $Pupil/Cinematic))
@@ -90,3 +96,21 @@ func walk_to(position: Vector2, who) -> void:
 	var cinematic := $Pupil/Cinematic if who == Who.Pupil else $Mentor/Cinematic
 	cinematic.call_deferred("walk_to", position)
 	yield(cinematic, "completed")
+
+
+func save() -> Dictionary:
+	return {
+		"mentor": $Mentor.global_position,
+		"follower": $Mentor/Follower.global_position,
+		"pupil": $Pupil.global_position,
+		"available": is_ability_available,
+		"together": together,
+	}
+
+
+func restore(data: Dictionary) -> void:
+	$Mentor.global_position = data["mentor"]
+	$Mentor/Follower.global_position = data["follower"]
+	$Pupil.global_position = data["pupil"]
+	is_ability_available = data["available"]
+	together = data["together"]

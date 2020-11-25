@@ -23,7 +23,7 @@ func wait(seconds: float) -> void:
 func chase() -> void:
 	$States.push_state()
 	yield(
-		$States.change_to("Chasing"),
+		$States.change_to("Chasing", { chase_from = global_position }),
 		"completed"
 	)
 	$States.pop_state()

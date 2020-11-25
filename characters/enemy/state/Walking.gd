@@ -4,6 +4,7 @@ signal completed()
 
 var destination : Vector2
 
+
 func enter(board: Dictionary) -> void:
 	destination = board["destination"] if board.has("destination") else owner.global_position
 
@@ -23,3 +24,13 @@ func update(_delta: float, _board: Dictionary) -> void:
 
 	else:
 		enemy.respawn_at(destination)
+
+
+func save() -> Dictionary:
+	return {
+		destination = destination,
+	}
+
+
+func restore(data: Dictionary) -> void:
+	destination = data["destination"]

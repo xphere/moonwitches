@@ -33,8 +33,12 @@ func _process(_delta: float) -> void:
 		child.call_deferred("execute")
 
 	else:
-		emit_signal("completed")
+		call_deferred("_on_children_processed")
 
 
 func _on_completed_action() -> void:
 	set_process(true)
+
+
+func _on_children_processed() -> void:
+	emit_signal("completed")

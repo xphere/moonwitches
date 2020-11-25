@@ -10,6 +10,7 @@
 
 [node name="Group" type="Node" groups=[
 "group",
+"restorable",
 ]]
 script = ExtResource( 3 )
 mask = 1

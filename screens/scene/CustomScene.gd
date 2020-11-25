@@ -39,8 +39,8 @@ func _on_scene_created(scene: Node) -> void:
 	yield(scene, "ready")
 	material.set_shader_param('viewport_size', mentor_viewport.size)
 	Game.unpause()
-	emit_signal("scene_ready", scene)
 	set_process(true)
+	emit_signal("scene_ready", scene)
 
 
 func follow_characters() -> void:

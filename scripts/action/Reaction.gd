@@ -9,8 +9,6 @@ export(bool) var pause := true
 onready var _trigger := $trigger
 onready var _action := $action
 
-var _triggered := false
-
 
 func _ready() -> void:
 	if not disabled:
@@ -47,7 +45,7 @@ func _on_trigger() -> void:
 	if pause:
 		Game.pause()
 		connect("completed", self, "_unpause")
-		connect("tree_exiting", Game, "unpause")
+		connect("tree_exiting", self, "_unpause")
 
 	_action.execute()
 
@@ -62,4 +60,4 @@ func _on_action_completed() -> void:
 
 func _unpause() -> void:
 	Game.unpause()
-	disconnect("tree_exiting", Game, "unpause")
+	disconnect("tree_exiting", self, "_unpause")

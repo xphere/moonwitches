@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://mechanics/scepter/Scepter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -20,14 +20,15 @@
 [ext_resource path="res://scripts/action/BoolProperty.gd" type="Script" id=18]
 [ext_resource path="res://characters/enemy/behaviour/Wait.gd" type="Script" id=19]
 [ext_resource path="res://scripts/behaviour/Sequential.gd" type="Script" id=20]
-
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 12, 12 )
+[ext_resource path="res://scripts/action/Savegame.gd" type="Script" id=21]
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 12, 32 )
+extents = Vector2( 12, 12 )
 
 [sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 12, 32 )
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 28, 8 )
 
 [node name="Road" type="Node2D"]
@@ -127,7 +128,6 @@ script = ExtResource( 7 )
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 10 )
-duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/limit camera"]
 position = Vector2( -120, -48 )
@@ -180,7 +180,7 @@ position = Vector2( 444, 4 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on leaving road/trigger/exit"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="action" type="Node" parent="on leaving road"]
 script = ExtResource( 7 )
@@ -206,7 +206,7 @@ script = ExtResource( 4 )
 position = Vector2( 76, 9 )
 
 [node name="Collision" type="CollisionShape2D" parent="near first enemy/trigger/bonfire"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="action" type="Node" parent="near first enemy"]
 script = ExtResource( 7 )
@@ -265,6 +265,10 @@ node = NodePath("../../../Group/Mentor/Scepter")
 property_name = "can_be_activated"
 value = true
 
+[node name="savegame" type="Node2D" parent="near first enemy/action"]
+position = Vector2( 76, -4 )
+script = ExtResource( 21 )
+
 [node name="past first enemy" type="Node" parent="."]
 script = ExtResource( 5 )
 
@@ -275,7 +279,7 @@ script = ExtResource( 4 )
 position = Vector2( 204, 9 )
 
 [node name="Collision" type="CollisionShape2D" parent="past first enemy/trigger/area"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="action" type="Node" parent="past first enemy"]
 script = ExtResource( 7 )
@@ -326,7 +330,7 @@ script = ExtResource( 4 )
 position = Vector2( 332, 0 )
 
 [node name="Collision" type="CollisionShape2D" parent="near second enemy/trigger/area"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="action" type="Node" parent="near second enemy"]
 script = ExtResource( 7 )
@@ -346,7 +350,7 @@ position = Vector2( -120, 12 )
 
 [node name="Collision" type="CollisionShape2D" parent="left limit"]
 rotation = 1.5708
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 one_way_collision = true
 
 [editable path="Group"]
