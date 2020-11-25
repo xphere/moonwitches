@@ -111,7 +111,7 @@ can_be_passed = false
 can_be_activated = false
 
 [node name="Pupil" parent="Group" index="1"]
-position = Vector2( -154, 12 )
+position = Vector2( -153, 12 )
 
 [node name="Together" parent="Group" index="2"]
 position = Vector2( -146, 12 )
@@ -341,10 +341,10 @@ script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "Here's another one... Careful"
 
-[node name="Left Limit" type="StaticBody2D" parent="."]
+[node name="left limit" type="StaticBody2D" parent="."]
 position = Vector2( -120, 12 )
 
-[node name="Collision" type="CollisionShape2D" parent="Left Limit"]
+[node name="Collision" type="CollisionShape2D" parent="left limit"]
 rotation = 1.5708
 shape = SubResource( 3 )
 one_way_collision = true
