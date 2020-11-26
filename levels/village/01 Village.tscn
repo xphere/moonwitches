@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=2]
+[gd_scene load_steps=53 format=2]
 
 [ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://scripts/action/ChangeScene.gd" type="Script" id=11]
 [ext_resource path="res://scripts/trigger/Any.gd" type="Script" id=12]
 [ext_resource path="res://scripts/trigger/Ready.gd" type="Script" id=13]
+[ext_resource path="res://assets/graphics/bindings/keyboard.png" type="Texture" id=14]
 [ext_resource path="res://scripts/action/Dialogue.gd" type="Script" id=15]
 [ext_resource path="res://scripts/action/Sequence.gd" type="Script" id=16]
 [ext_resource path="res://scripts/action/Reaction.gd" type="Script" id=17]
@@ -35,6 +36,8 @@
 [ext_resource path="res://scripts/action/ChangeDisabled.gd" type="Script" id=34]
 [ext_resource path="res://scripts/action/CameraFollow.gd" type="Script" id=35]
 [ext_resource path="res://scripts/action/PlayAnimation.gd" type="Script" id=36]
+[ext_resource path="res://assets/graphics/bindings/gyna.png" type="Texture" id=37]
+[ext_resource path="res://scripts/action/WaitKey.gd" type="Script" id=38]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Conclusion"
@@ -479,6 +482,60 @@ script = ExtResource( 15 )
 character = "Gyna"
 dialogue = "Something is wrong, Ann.
 Let's take a look outside."
+
+[node name="transition #2" type="Node" parent="on load/action/scene"]
+script = ExtResource( 16 )
+
+[node name="in" type="Node" parent="on load/action/scene/transition #2"]
+script = ExtResource( 9 )
+overlay = NodePath("Overlay")
+color = Color( 0, 0, 0, 0.501961 )
+
+[node name="Overlay" type="Control" parent="on load/action/scene/transition #2/in"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keyboard" type="TextureRect" parent="on load/action/scene/transition #2/in/Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 14 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Gyna" type="TextureRect" parent="on load/action/scene/transition #2/in/Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 37 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="on load/action/scene/transition #2/in/Overlay"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+custom_fonts/font = SubResource( 9 )
+text = "Use this keys to move Gyna"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wait key" type="Node" parent="on load/action/scene/transition #2"]
+script = ExtResource( 38 )
+
+[node name="out" type="Node" parent="on load/action/scene/transition #2"]
+script = ExtResource( 9 )
+transition = 1
+clear_overlay = false
 
 [node name="on exit home" type="Node" parent="."]
 script = ExtResource( 17 )

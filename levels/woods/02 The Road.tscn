@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://mechanics/scepter/Scepter.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -21,6 +21,10 @@
 [ext_resource path="res://characters/enemy/behaviour/Wait.gd" type="Script" id=19]
 [ext_resource path="res://scripts/behaviour/Sequential.gd" type="Script" id=20]
 [ext_resource path="res://scripts/action/Savegame.gd" type="Script" id=21]
+[ext_resource path="res://scripts/action/WaitKey.gd" type="Script" id=22]
+[ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=23]
+[ext_resource path="res://assets/graphics/bindings/scepter.png" type="Texture" id=24]
+[ext_resource path="res://assets/graphics/bindings/keyboard.png" type="Texture" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 12 )
@@ -28,7 +32,12 @@ extents = Vector2( 12, 12 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12, 32 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="DynamicFont" id=3]
+outline_size = 1
+outline_color = Color( 0.133333, 0.137255, 0.137255, 1 )
+font_data = ExtResource( 23 )
+
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 28, 8 )
 
 [node name="Road" type="Node2D"]
@@ -262,6 +271,60 @@ node = NodePath("../../../Group/Mentor/Scepter")
 property_name = "can_be_activated"
 value = true
 
+[node name="transition #1" type="Node" parent="near first enemy/action"]
+script = ExtResource( 7 )
+
+[node name="in" type="Node" parent="near first enemy/action/transition #1"]
+script = ExtResource( 14 )
+overlay = NodePath("../../transition #1/in/Overlay")
+color = Color( 0, 0, 0, 0.501961 )
+
+[node name="Overlay" type="Control" parent="near first enemy/action/transition #1/in"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keyboard" type="TextureRect" parent="near first enemy/action/transition #1/in/Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 25 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Scepter" type="TextureRect" parent="near first enemy/action/transition #1/in/Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 24 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="near first enemy/action/transition #1/in/Overlay"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+custom_fonts/font = SubResource( 3 )
+text = "Use this keys to activate the scepter"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wait key" type="Node" parent="near first enemy/action/transition #1"]
+script = ExtResource( 22 )
+
+[node name="out" type="Node" parent="near first enemy/action/transition #1"]
+script = ExtResource( 14 )
+transition = 1
+clear_overlay = false
+
 [node name="savegame" type="Node2D" parent="near first enemy/action"]
 position = Vector2( 76, -4 )
 script = ExtResource( 21 )
@@ -351,7 +414,7 @@ position = Vector2( -120, 12 )
 
 [node name="Collision" type="CollisionShape2D" parent="left limit"]
 rotation = 1.5708
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 one_way_collision = true
 
 [editable path="Group"]

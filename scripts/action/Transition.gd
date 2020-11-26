@@ -8,11 +8,13 @@ export(State) var transition := State.Show
 export(NodePath) var overlay : NodePath
 export(bool) var clear_overlay := true
 export(float) var duration := 1.0
+export(Color) var color := Color.black
 
 
 func execute() -> void:
 	Game.transition.connect("completed", self, "_on_transition_completed", [], CONNECT_ONESHOT)
 	if transition == State.Show:
+		Game.transition.color = color
 		_add_overlay()
 		Game.transition.fade_in(duration)
 	else:
