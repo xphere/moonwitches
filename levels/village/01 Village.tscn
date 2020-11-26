@@ -342,6 +342,7 @@ script = ExtResource( 8 )
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 10 )
+duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/limit camera"]
 position = Vector2( -16, -8 )
@@ -357,7 +358,7 @@ transition = 1
 script = ExtResource( 16 )
 
 [node name="walk" type="Node2D" parent="on load/action/scene"]
-position = Vector2( 100, 20 )
+position = Vector2( 108, 20 )
 script = ExtResource( 32 )
 who = 1
 

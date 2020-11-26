@@ -35,6 +35,8 @@ func _on_scene_created(scene: Node) -> void:
 	current_scene = scene
 	scene.pause_mode = Node.PAUSE_MODE_STOP
 	follow_characters()
+	Game.dialog.set_talker("Gyna", mentor)
+	Game.dialog.set_talker("Ann", pupil)
 	mentor_viewport.call_deferred("add_child", scene)
 	yield(scene, "ready")
 	material.set_shader_param('viewport_size', mentor_viewport.size)
