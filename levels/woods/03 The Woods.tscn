@@ -27,6 +27,7 @@
 [ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=25]
 [ext_resource path="res://assets/graphics/bindings/ann.png" type="Texture" id=26]
 [ext_resource path="res://assets/graphics/bindings/keyboard.png" type="Texture" id=27]
+[ext_resource path="res://scripts/action/ReparentNode.gd" type="Script" id=28]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 12, 28 )
@@ -34,29 +35,15 @@ extents = Vector2( 12, 28 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12, 12 )
 
-[sub_resource type="GDScript" id=3]
-script/source = "extends Node
-
-signal completed()
-
-export(NodePath) var group : NodePath
-export(bool) var together := false
-
-
-func execute() -> void:
-	get_node(group).set_together(together)
-	emit_signal(\"completed\")
-"
-
-[sub_resource type="DynamicFont" id=6]
+[sub_resource type="DynamicFont" id=4]
 outline_size = 1
 outline_color = Color( 0.133333, 0.137255, 0.137255, 1 )
 font_data = ExtResource( 25 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 12, 12 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 28, 8 )
 
 [node name="Woods" type="Node2D"]
@@ -186,6 +173,44 @@ script = ExtResource( 22 )
 [node name="wait #2" type="Node" parent="Level/Enemy #2/Route"]
 script = ExtResource( 20 )
 
+[node name="Enemy #3" parent="Level" instance=ExtResource( 23 )]
+position = Vector2( 104, 15 )
+
+[node name="Route" type="Node" parent="Level/Enemy #3"]
+script = ExtResource( 21 )
+
+[node name="walk #1" type="Node2D" parent="Level/Enemy #3/Route"]
+position = Vector2( 133, 15 )
+script = ExtResource( 22 )
+
+[node name="wait #1" type="Node" parent="Level/Enemy #3/Route"]
+script = ExtResource( 20 )
+
+[node name="walk #2" type="Node2D" parent="Level/Enemy #3/Route"]
+position = Vector2( 0, 15 )
+script = ExtResource( 22 )
+
+[node name="wait #2" type="Node" parent="Level/Enemy #3/Route"]
+script = ExtResource( 20 )
+
+[node name="Enemy #4" parent="Level" instance=ExtResource( 23 )]
+position = Vector2( -77, 84 )
+
+[node name="Enemy #5" parent="Level" instance=ExtResource( 23 )]
+position = Vector2( 65, 154 )
+
+[node name="Enemy #6" parent="Level" instance=ExtResource( 23 )]
+position = Vector2( 284, 84 )
+
+[node name="Enemy #7" parent="Level" instance=ExtResource( 23 )]
+position = Vector2( 419, 97 )
+
+[node name="Enemy #8" parent="Level" instance=ExtResource( 23 )]
+position = Vector2( 338, -22 )
+
+[node name="Enemy #9" parent="Level" instance=ExtResource( 23 )]
+position = Vector2( 338, 0 )
+
 [node name="Group" parent="." instance=ExtResource( 4 )]
 is_ability_available = false
 
@@ -212,7 +237,6 @@ script = ExtResource( 6 )
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 13 )
-duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/limit camera"]
 position = Vector2( -120, -48 )
@@ -362,8 +386,14 @@ character = "Gyna"
 dialogue = "Sure, take care."
 
 [node name="group split" type="Node" parent="near graveyard/action"]
-script = SubResource( 3 )
-group = NodePath("../../../Group")
+script = ExtResource( 14 )
+node = NodePath("../../../Group")
+property_name = "together"
+
+[node name="give scepter to Ann" type="Node" parent="near graveyard/action"]
+script = ExtResource( 28 )
+node = NodePath("../../../Group/Mentor/Scepter")
+parent = NodePath("../../../Group/Pupil")
 
 [node name="transition #1" type="Node" parent="near graveyard/action"]
 script = ExtResource( 6 )
@@ -404,7 +434,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -14.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 4 )
 text = "Use this keys to move Ann"
 align = 1
 __meta__ = {
@@ -434,7 +464,7 @@ position = Vector2( 456, 4 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on leaving woods/trigger/exit"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="action" type="Node" parent="on leaving woods"]
 script = ExtResource( 6 )
@@ -449,7 +479,7 @@ collision_mask = 7
 
 [node name="Collision" type="CollisionShape2D" parent="left limit"]
 rotation = 1.5708
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 one_way_collision = true
 
 [node name="crawl no-return" type="StaticBody2D" parent="."]
@@ -459,7 +489,7 @@ collision_mask = 4
 
 [node name="Collision" type="CollisionShape2D" parent="crawl no-return"]
 rotation = 1.5708
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 one_way_collision = true
 
 [editable path="Group"]

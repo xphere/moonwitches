@@ -5,7 +5,7 @@ signal completed()
 enum State { Show, Hide }
 
 export(State) var transition := State.Show
-export(NodePath) var overlay : NodePath
+export(NodePath) var overlay : NodePath = "Overlay"
 export(bool) var clear_overlay := true
 export(float) var duration := 1.0
 export(Color) var color := Color.black
@@ -31,13 +31,10 @@ func _add_overlay() -> void:
 	if clear_overlay:
 		Game.transition.clear_overlay()
 
-	if not overlay:
+	if not overlay or not has_node(overlay):
 		return
 
 	var node := get_node(overlay)
-	if not node:
-		return
-
 	var instance := node.duplicate()
 	if instance is CanvasItem:
 		instance.show()
