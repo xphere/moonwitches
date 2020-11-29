@@ -36,9 +36,9 @@ func _ready() -> void:
 	if not device:
 		return
 
-	device.connect("activate", self, "_open")
+	device.connect("activate", self, "_on_activate")
 	if not keep_open:
-		device.connect("deactivate", self, "_close")
+		device.connect("deactivate", self, "_on_deactivate")
 
 	_close()
 
@@ -48,6 +48,16 @@ func _open() -> void:
 	$Collision.set_deferred("disabled", true)
 
 
+func _on_activate() -> void:
+	_open()
+	$Sounds/AnimationPlayer.play("Open")
+
+
 func _close() -> void:
 	$Sprite.frame = 0
 	$Collision.set_deferred("disabled", false)
+
+
+func _on_deactivate() -> void:
+	_close()
+	$Sounds/AnimationPlayer.play("Close")
