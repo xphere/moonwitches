@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Dialog.wav-39bf2506b8b6af6c521c288835726063.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Dialog.wav"
+dest_files=[ "res://.import/Dialog.wav-39bf2506b8b6af6c521c288835726063.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

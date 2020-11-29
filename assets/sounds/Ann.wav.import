@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Ann.wav-9b9720e837fba2465ba096ba8ba37cd4.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Ann.wav"
+dest_files=[ "res://.import/Ann.wav-9b9720e837fba2465ba096ba8ba37cd4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

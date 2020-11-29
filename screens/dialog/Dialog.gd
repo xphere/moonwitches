@@ -3,15 +3,19 @@ class_name Dialog
 
 signal completed()
 
+export var _default_sound : AudioStream
+
 onready var _name := $MarginContainer/HBoxContainer/Name
 onready var _text := $MarginContainer/HBoxContainer/Text
 onready var _animation := $MarginContainer/Outer/Inner/AnimationPlayer
 onready var _bubble := $Bubble
+onready var _audio := $AudioStreamPlayer
 onready var _default_color := self_modulate
 var should_be_visible := 0
 var writing := false
 var _profiles := {}
 var _talkers := {}
+var _time := 0.0
 
 
 func _ready() -> void:
@@ -21,11 +25,8 @@ func _ready() -> void:
 		visible = false
 
 
-func config(_profile: String, _color: Color, character_name: String) -> void:
-	_profiles[_profile] = {
-		color = _color,
-		name = character_name,
-	}
+func add_profile(profile_name: String, profile: Dictionary) -> void:
+	_profiles[profile_name] = profile
 
 
 func set_talker(_profile: String, talker: Node2D) -> void:
@@ -39,11 +40,12 @@ func text(profile: String, text: String, chars_per_second: float) -> void:
 
 	var _profile : Dictionary = _profiles[profile] if _profiles.has(profile) else {
 		color = _default_color,
-		name = profile,
+		sound = _default_sound,
+		character_name = profile,
 	}
 
 	self_modulate = _profile.color
-	_name.text = _profile.name
+	_name.text = _profile.character_name
 	_text.text = text
 
 	if _talkers.has(profile):
@@ -58,8 +60,21 @@ func text(profile: String, text: String, chars_per_second: float) -> void:
 		set_process_input(true)
 
 	writing = true
+	_time = 0.25
+	_audio.stream = _profile.sound
+
 	_animation.playback_speed = chars_per_second / text.length()
 	_animation.play("Play")
+
+
+func _process(delta: float) -> void:
+	if writing:
+		_time += delta
+		var limit := 0.1 + randf() * 0.2
+		if _time > limit:
+			_time -= limit
+			_audio.pitch_scale = 0.85 + 0.3 * randf()
+			_audio.play()
 
 
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:

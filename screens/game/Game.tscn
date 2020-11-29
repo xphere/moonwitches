@@ -1,11 +1,13 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://screens/scene/Scene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://screens/dialog/Dialog.tscn" type="PackedScene" id=2]
 [ext_resource path="res://screens/game/Game.gd" type="Script" id=3]
 [ext_resource path="res://assets/sounds/Night Ambient.ogg" type="AudioStream" id=4]
 [ext_resource path="res://screens/transition/Transition.tscn" type="PackedScene" id=5]
-[ext_resource path="res://screens/dialog/DialogConfig.gd" type="Script" id=6]
+[ext_resource path="res://screens/dialog/AddProfile.gd" type="Script" id=6]
+[ext_resource path="res://assets/sounds/Ann.wav" type="AudioStream" id=7]
+[ext_resource path="res://assets/sounds/Gyna.wav" type="AudioStream" id=8]
 
 [node name="Game" type="Control"]
 pause_mode = 2
@@ -24,11 +26,13 @@ __meta__ = {
 script = ExtResource( 6 )
 character_name = "Gyna"
 color = Color( 0.447059, 0.113725, 0.541176, 1 )
+sound = ExtResource( 8 )
 
 [node name="Ann" type="Node" parent="Dialog"]
 script = ExtResource( 6 )
 character_name = "Ann"
 color = Color( 0.0392157, 0.411765, 0.631373, 1 )
+sound = ExtResource( 7 )
 
 [node name="Transition" parent="." instance=ExtResource( 5 )]
 visible = false
