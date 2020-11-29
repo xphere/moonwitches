@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -38,6 +38,8 @@
 [ext_resource path="res://scripts/action/PlayAnimation.gd" type="Script" id=36]
 [ext_resource path="res://assets/graphics/bindings/gyna.png" type="Texture" id=37]
 [ext_resource path="res://scripts/action/WaitKey.gd" type="Script" id=38]
+[ext_resource path="res://assets/graphics/title.png" type="Texture" id=39]
+[ext_resource path="res://assets/graphics/game-off-2020.png" type="Texture" id=40]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Conclusion"
@@ -629,6 +631,78 @@ script = ExtResource( 16 )
 position = Vector2( 482, 4 )
 script = ExtResource( 32 )
 
+[node name="title" type="Node" parent="on leaving village/action"]
+script = ExtResource( 16 )
+
+[node name="in" type="Node" parent="on leaving village/action/title"]
+script = ExtResource( 9 )
+color = Color( 1, 1, 1, 0 )
+
+[node name="Overlay" type="Control" parent="on leaving village/action/title/in"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Sprite" parent="on leaving village/action/title/in/Overlay"]
+texture = ExtResource( 39 )
+
+[node name="wait" type="Node" parent="on leaving village/action/title"]
+script = ExtResource( 7 )
+duration = 2.0
+
+[node name="out" type="Node" parent="on leaving village/action/title"]
+script = ExtResource( 9 )
+transition = 1
+clear_overlay = false
+
+[node name="game-off" type="Node" parent="on leaving village/action"]
+script = ExtResource( 16 )
+
+[node name="in" type="Node" parent="on leaving village/action/game-off"]
+script = ExtResource( 9 )
+overlay = NodePath("../../game-off/in/Overlay")
+color = Color( 1, 1, 1, 0 )
+
+[node name="Overlay" type="Control" parent="on leaving village/action/game-off/in"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Sprite" parent="on leaving village/action/game-off/in/Overlay"]
+position = Vector2( 160, 96 )
+texture = ExtResource( 40 )
+
+[node name="Label" type="Label" parent="on leaving village/action/game-off/in/Overlay"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -69.5
+margin_top = -55.0
+margin_right = 69.5
+margin_bottom = -41.0
+custom_fonts/font = SubResource( 9 )
+text = "Proudly submitted to"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wait" type="Node" parent="on leaving village/action/game-off"]
+script = ExtResource( 7 )
+
+[node name="out" type="Node" parent="on leaving village/action/game-off"]
+script = ExtResource( 9 )
+transition = 1
+clear_overlay = false
+
 [node name="fade out" type="Node" parent="on leaving village/action"]
 script = ExtResource( 9 )
 
@@ -920,6 +994,7 @@ audio_path = NodePath("Audio")
 
 [node name="Audio" type="AudioStreamPlayer" parent="knock/knock#1"]
 stream = ExtResource( 24 )
+volume_db = -12.0
 
 [node name="knock#2" type="Node" parent="knock"]
 script = ExtResource( 23 )
@@ -928,6 +1003,7 @@ audio_path = NodePath("Audio")
 
 [node name="Audio" type="AudioStreamPlayer" parent="knock/knock#2"]
 stream = ExtResource( 25 )
+volume_db = -12.0
 
 [node name="knock#3" type="Node" parent="knock"]
 script = ExtResource( 23 )
@@ -936,6 +1012,7 @@ audio_path = NodePath("Audio")
 
 [node name="Audio" type="AudioStreamPlayer" parent="knock/knock#3"]
 stream = ExtResource( 26 )
+volume_db = -12.0
 
 [node name="on entering church" type="Node" parent="."]
 script = ExtResource( 17 )
