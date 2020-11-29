@@ -160,7 +160,8 @@ dialogue = "Oh, thanks to the bright light of the full moon we can travel safe t
 [node name="dialog #2" type="Node" parent="on load/action"]
 script = ExtResource( 15 )
 character = "Ann"
-dialogue = "Was that part of the ritual?"
+dialogue = "Was that part of the ritual?
+I don't remember you teaching me this."
 
 [node name="dialog #3" type="Node" parent="on load/action"]
 script = ExtResource( 15 )
@@ -176,7 +177,8 @@ dialogue = "The Road with a capital R?"
 [node name="dialog #5" type="Node" parent="on load/action"]
 script = ExtResource( 15 )
 character = "Gyna"
-dialogue = "Just follow me, OK?"
+dialogue = "You still have so much to learn...
+Just follow me, OK?"
 
 [node name="on leaving road" type="Node" parent="."]
 script = ExtResource( 5 )
