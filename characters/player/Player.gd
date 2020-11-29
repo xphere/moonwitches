@@ -4,8 +4,8 @@ signal hit()
 
 const SIZE := 8.0
 
-export(float) var max_speed := 42.0
-export(NodePath) var controller
+export var max_speed := 42.0
+export var controller : NodePath
 
 var _current_speed
 var _controller

@@ -1,8 +1,8 @@
 extends Behaviour
 
-export(bool) var loop := true
-export(bool) var free_after_finish := true
-export(bool) var autoplay_if_root := true
+export var loop := true
+export var free_after_finish := true
+export var autoplay_if_root := true
 
 var next_loop : bool
 

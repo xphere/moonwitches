@@ -1,9 +1,9 @@
 extends Node
 
-export(String) var action_up
-export(String) var action_down
-export(String) var action_left
-export(String) var action_right
+export var action_up : String
+export var action_down : String
+export var action_left : String
+export var action_right : String
 
 
 func get_movement() -> Vector2:

@@ -2,7 +2,7 @@ extends Node
 
 signal completed()
 
-export(bool) var together := true
+export var together := true
 
 
 func execute() -> void:

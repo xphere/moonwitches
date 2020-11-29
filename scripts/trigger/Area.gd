@@ -2,8 +2,9 @@ extends Area2D
 
 signal triggered()
 
+export var expected := 1
+
 var _amount := 0
-export(int) var expected := 1
 
 
 func _on_Exit_body_entered(_body: Node) -> void:

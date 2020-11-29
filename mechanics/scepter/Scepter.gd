@@ -2,8 +2,8 @@ extends Node2D
 
 const REACH_DISTANCE := 18.0
 
-export(bool) var can_be_passed := true
-export(bool) var can_be_activated := true
+export var can_be_passed := true
+export var can_be_activated := true
 
 onready var _throw := $Throw
 

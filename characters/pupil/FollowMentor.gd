@@ -1,6 +1,6 @@
 extends Node
 
-export(NodePath) var following
+export var following : NodePath
 
 
 func get_movement() -> Vector2:

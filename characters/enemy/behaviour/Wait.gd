@@ -1,6 +1,6 @@
 extends Behaviour
 
-export(float) var elapsed_time := 1.0
+export var elapsed_time := 1.0
 
 
 func apply() -> void:

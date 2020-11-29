@@ -2,8 +2,8 @@ extends Node
 
 signal completed()
 
-export(NodePath) var node : NodePath
-export(bool) var disable := false
+export var node : NodePath
+export var disable := false
 
 
 func execute() -> void:

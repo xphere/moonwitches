@@ -2,8 +2,8 @@ extends Node
 
 signal completed()
 
-export(NodePath) var node : NodePath
-export(NodePath) var parent : NodePath
+export var node : NodePath
+export var parent : NodePath
 onready var _node := get_node(node)
 onready var _parent := get_node(parent)
 

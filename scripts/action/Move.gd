@@ -2,7 +2,7 @@ extends Node2D
 
 signal completed()
 
-export(NodePath) var node : NodePath
+export var node : NodePath
 
 
 func execute() -> void:

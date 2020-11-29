@@ -3,7 +3,7 @@ extends Node
 
 signal completed()
 
-export(float) var duration := 0.0
+export var duration := 0.0
 
 var _current : Node
 

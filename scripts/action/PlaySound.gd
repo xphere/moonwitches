@@ -2,8 +2,8 @@ extends Node
 
 signal completed()
 
-export(bool) var wait := false
-export(NodePath) var audio_path : NodePath
+export var wait := false
+export var audio_path : NodePath
 
 
 func execute() -> void:

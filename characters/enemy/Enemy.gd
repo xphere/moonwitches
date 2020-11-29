@@ -3,10 +3,10 @@ class_name Enemy
 
 const DELTA = 1.5
 
-export(float) var speed := 16.0
-export(float) var chase_speed := 24.0
-export(float) var sight_distance := 32.0
-export(float) var smoothness := 1.0
+export var speed := 16.0
+export var chase_speed := 24.0
+export var sight_distance := 32.0
+export var smoothness := 1.0
 var surroundings := []
 var velocity := Vector2.ZERO
 

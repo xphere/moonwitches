@@ -5,10 +5,10 @@ signal completed()
 enum State { Show, Hide }
 
 export(State) var transition := State.Show
-export(NodePath) var overlay : NodePath = "Overlay"
-export(bool) var clear_overlay := true
-export(float) var duration := 1.0
-export(Color) var color := Color.black
+export var overlay : NodePath = "Overlay"
+export var clear_overlay := true
+export var duration := 1.0
+export var color := Color.black
 
 
 func execute() -> void:

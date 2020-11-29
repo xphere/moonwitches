@@ -9,8 +9,8 @@ enum Who {
 
 const GROUP_DISTANCE := 24.0
 
-export(bool) var is_ability_available := true
-export(bool) var together := true
+export var is_ability_available := true
+export var together := true
 export(int, LAYERS_2D_PHYSICS) var wall_mask
 
 

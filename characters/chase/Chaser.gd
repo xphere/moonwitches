@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export(float) var speed := 32.0
+export var speed := 32.0
 
 onready var body := get_node(".") as KinematicBody2D
 onready var ray := get_node("Ray") as RayCast2D

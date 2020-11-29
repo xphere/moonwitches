@@ -2,9 +2,9 @@ extends Node
 
 signal completed()
 
-export(bool) var wait := false
-export(NodePath) var animation_path : NodePath
-export(String) var track_name : String
+export var wait := false
+export var animation_path : NodePath
+export var track_name : String
 
 
 func execute() -> void:

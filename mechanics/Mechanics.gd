@@ -1,6 +1,6 @@
 extends TileMap
 
-export(NodePath) var level
+export var level : NodePath
 
 
 func _ready() -> void:

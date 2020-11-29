@@ -1,9 +1,8 @@
 tool
 extends StaticBody2D
 
-
-export(NodePath) var _device : NodePath setget _set_device
-export(bool) var keep_open := true
+export var _device : NodePath setget _set_device
+export var keep_open := true
 
 
 func _get_configuration_warning() -> String:

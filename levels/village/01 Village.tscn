@@ -195,8 +195,9 @@ radius = 24.0
 script/source = "extends Node
 
 signal completed()
-export(NodePath) var still_scepter : NodePath
-export(NodePath) var scepter : NodePath
+
+export var still_scepter : NodePath
+export var scepter : NodePath
 
 
 func execute() -> void:

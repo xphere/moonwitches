@@ -7,9 +7,9 @@ enum Position {
 	Top = Control.PRESET_TOP_WIDE,
 }
 
-export(String) var character
-export(String, MULTILINE) var dialogue
-export(float) var chars_per_second := 20.0
+export var character : String
+export(String, MULTILINE) var dialogue : String
+export var chars_per_second := 20.0
 export(Position) var position := Position.Bottom
 
 

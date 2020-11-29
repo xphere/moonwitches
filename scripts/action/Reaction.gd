@@ -2,9 +2,9 @@ extends Node
 
 signal completed()
 
-export(bool) var disabled := false setget set_disable
-export(bool) var once := true
-export(bool) var pause := true
+export var disabled := false setget set_disable
+export var once := true
+export var pause := true
 
 onready var _trigger := $trigger
 onready var _action := $action

@@ -1,8 +1,8 @@
 extends PathFollow2D
 class_name Wave
 
-export(float) var speed := 32.0
-export(bool) var use_hitbox := false
+export var speed := 32.0
+export var use_hitbox := false
 
 onready var chasers := $Chasers as Node
 

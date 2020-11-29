@@ -2,7 +2,7 @@ extends Node
 
 signal completed()
 
-export(String, FILE, "*.tscn") var next_scene
+export(String, FILE, "*.tscn") var next_scene : String
 
 
 func execute() -> void:
