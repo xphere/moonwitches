@@ -11,7 +11,7 @@ const GROUP_DISTANCE := 24.0
 
 export(bool) var is_ability_available := true
 export(bool) var together := true
-export(int, LAYERS_2D_PHYSICS) var mask
+export(int, LAYERS_2D_PHYSICS) var wall_mask
 
 
 func _ready() -> void:
@@ -34,8 +34,8 @@ func _set_together(value: bool) -> void:
 	together = value
 
 	$Mentor.set_controller($Mentor.get_path_to($Mentor/Input))
-	$Mentor.collision_mask = ($Mentor.collision_mask | mask) if together \
-						else ($Mentor.collision_mask ^ mask)
+	$Mentor.collision_mask = ($Mentor.collision_mask | wall_mask) if together \
+						else ($Mentor.collision_mask ^ wall_mask)
 
 	var mentor_max_speed : float = $Pupil.max_speed if together else $Mentor.max_speed
 	$Mentor.set_speed(mentor_max_speed)

@@ -2,7 +2,7 @@ extends Node
 
 signal completed()
 
-export(NodePath) var follow : NodePath
+export(NodePath) var follow : NodePath = "."
 export(bool) var restore_after_parent_completes := false
 
 

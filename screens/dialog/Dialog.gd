@@ -21,10 +21,10 @@ func _ready() -> void:
 		visible = false
 
 
-func config(_profile: String, _color: Color, _name: String) -> void:
+func config(_profile: String, _color: Color, character_name: String) -> void:
 	_profiles[_profile] = {
 		color = _color,
-		name = _name,
+		name = character_name,
 	}
 
 

@@ -10,8 +10,8 @@
 atlas = ExtResource( 1 )
 region = Rect2( 90, 0, 8, 8 )
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 4, 4 )
+[sub_resource type="CircleShape2D" id=2]
+radius = 4.0
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 3.0

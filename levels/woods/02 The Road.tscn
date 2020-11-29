@@ -137,7 +137,6 @@ script = ExtResource( 7 )
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 10 )
-duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/limit camera"]
 position = Vector2( -120, -48 )
@@ -201,6 +200,7 @@ script = ExtResource( 13 )
 
 [node name="fade out" type="Node" parent="on leaving road/action"]
 script = ExtResource( 14 )
+overlay = NodePath("")
 
 [node name="change scene" type="Node" parent="on leaving road/action"]
 script = ExtResource( 9 )
@@ -343,10 +343,6 @@ shape = SubResource( 2 )
 
 [node name="action" type="Node" parent="past first enemy"]
 script = ExtResource( 7 )
-
-[node name="walk to safety" type="Node2D" parent="past first enemy/action"]
-position = Vector2( 204, 12 )
-script = ExtResource( 13 )
 
 [node name="dialog #1" type="Node" parent="past first enemy/action"]
 script = ExtResource( 15 )

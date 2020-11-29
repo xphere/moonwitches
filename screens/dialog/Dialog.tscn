@@ -14,7 +14,7 @@ extra_spacing_char = -1
 extra_spacing_space = -1
 font_data = ExtResource( 1 )
 
-[sub_resource type="Shader" id=4]
+[sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
@@ -28,19 +28,19 @@ void fragment() {
 	COLOR.rgb = mix(background.rgb, COLOR.rgb, step(180.0 + degrees(atan(-vec.x, vec.y)), 360.0 * progress));
 }"
 
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
 shader_param/progress = 1.0
 shader_param/radius = 0.475
 shader_param/background = Color( 1, 1, 1, 1 )
 
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 4 )
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 3 )
 shader_param/progress = 1.0
 shader_param/radius = 0.4
 shader_param/background = Color( 0.760784, 0.760784, 0.819608, 1 )
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:material:shader_param/progress")
 tracks/0/interp = 1
@@ -78,7 +78,7 @@ tracks/2/keys = {
 "values": [ false, true ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=7]
 resource_name = "Reset"
 length = 0.001
 tracks/0/type = "value"
@@ -106,15 +106,15 @@ tracks/1/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="AtlasTexture" id=9]
+[sub_resource type="AtlasTexture" id=8]
 atlas = ExtResource( 2 )
 region = Rect2( 63, 72, 8, 8 )
 
-[sub_resource type="AtlasTexture" id=10]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 2 )
 region = Rect2( 27, 72, 8, 8 )
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=10]
 resource_name = "Pop"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:position")
@@ -217,7 +217,7 @@ __meta__ = {
 }
 
 [node name="Outer" type="ColorRect" parent="MarginContainer"]
-material = SubResource( 5 )
+material = SubResource( 4 )
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -231,7 +231,7 @@ __meta__ = {
 }
 
 [node name="Inner" type="ColorRect" parent="MarginContainer/Outer"]
-material = SubResource( 6 )
+material = SubResource( 5 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -246,11 +246,11 @@ __meta__ = {
 }
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer/Outer/Inner"]
-anims/Play = SubResource( 7 )
-anims/Reset = SubResource( 8 )
+anims/Play = SubResource( 6 )
+anims/Reset = SubResource( 7 )
 
 [node name="Next" type="Sprite" parent="MarginContainer/Outer/Inner"]
-texture = SubResource( 9 )
+texture = SubResource( 8 )
 offset = Vector2( 5, 5 )
 
 [node name="Bubble" type="Node2D" parent="."]
@@ -258,7 +258,7 @@ light_mask = 0
 position = Vector2( 0, -5 )
 
 [node name="Sprite" type="Sprite" parent="Bubble"]
-texture = SubResource( 10 )
+texture = SubResource( 9 )
 centered = false
 offset = Vector2( -5, -8 )
 region_enabled = true
@@ -266,5 +266,5 @@ region_rect = Rect2( 0, 0, 8, 8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Bubble"]
 playback_speed = 3.0
-anims/Pop = SubResource( 11 )
+anims/Pop = SubResource( 10 )
 [connection signal="animation_finished" from="MarginContainer/Outer/Inner/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -13,7 +13,7 @@
 "restorable",
 ]]
 script = ExtResource( 3 )
-mask = 1
+wall_mask = 1
 
 [node name="Mentor" parent="." instance=ExtResource( 2 )]
 controller = NodePath("Input")

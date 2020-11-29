@@ -6,7 +6,14 @@ const DELTA = 1.5
 export(float) var speed := 16.0
 export(float) var chase_speed := 24.0
 export(float) var sight_distance := 32.0
+export(float) var smoothness := 1.0
 var surroundings := []
+var velocity := Vector2.ZERO
+
+
+func _ready() -> void:
+	Game.connect("paused", self, "_on_paused")
+	Game.connect("unpaused", self, "_on_unpaused")
 
 
 func walk_to(destination: Vector2) -> void:
@@ -45,6 +52,16 @@ func _on_Vision_body_exited(body: Node) -> void:
 	surroundings.erase(body)
 
 
+func _on_paused() -> void:
+	set_process(false)
+	set_physics_process(false)
+
+
+func _on_unpaused() -> void:
+	set_process(true)
+	set_physics_process(true)
+
+
 func has_line_of_vision(destination: Vector2) -> bool:
 	var position := destination - global_position
 	var distance := position.length()
@@ -57,13 +74,17 @@ func has_line_of_vision(destination: Vector2) -> bool:
 
 func walk_towards(destination: Vector2) -> void:
 	var position := destination - global_position
-	var velocity := position.clamped(speed)
+	velocity = position.clamped(speed)
+	if smoothness < 1.0:
+		var forced := position.normalized() * speed
+		velocity = (velocity * smoothness) + (forced * (1.0 - smoothness))
+
 	move_and_slide(velocity)
 
 
 func run_towards(destination: Vector2) -> void:
 	var position := destination - global_position
-	var velocity := position.normalized() * chase_speed
+	velocity = position.normalized() * chase_speed
 	move_and_slide(velocity)
 
 

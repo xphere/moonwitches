@@ -9,7 +9,9 @@ blend_mode = 1
 
 [sub_resource type="CircleShape2D" id=2]
 
-[node name="Scepter" type="Node2D"]
+[node name="Scepter" type="Node2D" groups=[
+"restorable",
+]]
 z_index = 1024
 script = ExtResource( 2 )
 
@@ -32,3 +34,13 @@ shape = SubResource( 2 )
 
 [node name="Throw" type="RayCast2D" parent="."]
 cast_to = Vector2( 8, 0 )
+
+[node name="Duration" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+[connection signal="timeout" from="Duration" to="." method="_on_Duration_timeout"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_Cooldown_timeout"]

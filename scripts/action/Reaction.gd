@@ -11,11 +11,19 @@ onready var _action := $action
 
 
 func _ready() -> void:
+	add_to_group("restorable")
 	if not disabled:
 		_connect_to_trigger()
 
 
 func set_disable(value: bool) -> void:
+	if _trigger and _action:
+		_set_disable(value)
+	else:
+		disabled = value
+
+
+func _set_disable(value: bool) -> void:
 	disabled = value
 	if disabled:
 		_disconnect_from_trigger()
@@ -24,20 +32,14 @@ func set_disable(value: bool) -> void:
 
 
 func _connect_to_trigger() -> void:
-	if not _trigger:
-		return
 	_trigger.connect("triggered", self, "_on_trigger")
 
 
 func _disconnect_from_trigger() -> void:
-	if not _trigger:
-		return
 	_trigger.disconnect("triggered", self, "_on_trigger")
 
 
 func _connect_to_action_completed() -> void:
-	if not _action:
-		return
 	_action.connect("completed", self, "_on_action_completed", [], CONNECT_ONESHOT)
 
 
@@ -45,7 +47,7 @@ func _on_trigger() -> void:
 	if disabled:
 		return
 
-	_disconnect_from_trigger()
+	_set_disable(true)
 	_connect_to_action_completed()
 
 	if pause:
@@ -58,12 +60,22 @@ func _on_trigger() -> void:
 
 func _on_action_completed() -> void:
 	emit_signal("completed")
-	if once:
-		queue_free()
-	else:
-		_connect_to_trigger()
+	if not once:
+		_set_disable(false)
 
 
 func _unpause() -> void:
 	Game.unpause()
+	disconnect("completed", self, "_unpause")
 	disconnect("tree_exiting", self, "_unpause")
+
+
+func save() -> Dictionary:
+	return {
+		"disabled": disabled,
+	}
+
+
+func restore(data: Dictionary) -> void:
+	if disabled != data["disabled"]:
+		_set_disable(data["disabled"])

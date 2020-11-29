@@ -4,7 +4,7 @@ signal triggered()
 
 
 func _ready() -> void:
-	Game.scene.connect("scene_ready", self, "_on_scene_ready")
+	Game.scene.connect("scene_ready", self, "_on_scene_ready", [], CONNECT_ONESHOT)
 
 
 func _on_scene_ready(_scene: Node) -> void:

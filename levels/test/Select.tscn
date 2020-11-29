@@ -43,11 +43,57 @@ position = Vector2( 19, 17 )
 [node name="Together" parent="Group" index="2"]
 position = Vector2( 27, 17 )
 
+[node name="on load" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="trigger" type="Node" parent="on load"]
+script = ExtResource( 3 )
+
+[node name="action" type="Node" parent="on load"]
+script = ExtResource( 13 )
+
+[node name="top left" type="Position2D" parent="on load/action"]
+
+[node name="bottom right" type="Position2D" parent="on load/action"]
+position = Vector2( 320, 184 )
+
+[node name="current" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="trigger" parent="current" instance=ExtResource( 2 )]
+position = Vector2( 27, 41 )
+
+[node name="Collision" type="CollisionShape2D" parent="current/trigger"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="current/trigger"]
+texture = SubResource( 2 )
+
+[node name="Label" type="Label" parent="current/trigger"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 7.0
+custom_fonts/font = SubResource( 3 )
+text = "fade"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="action" type="Node" parent="current"]
+script = ExtResource( 7 )
+next_scene = "res://levels/test/Fade.tscn"
+
 [node name="on enter test" type="Node" parent="."]
 script = ExtResource( 8 )
 
 [node name="trigger" parent="on enter test" instance=ExtResource( 2 )]
-position = Vector2( 27, 153 )
+position = Vector2( 27, 65 )
 
 [node name="Collision" type="CollisionShape2D" parent="on enter test/trigger"]
 shape = SubResource( 1 )
@@ -79,7 +125,7 @@ next_scene = "res://levels/test/Test.tscn"
 script = ExtResource( 8 )
 
 [node name="trigger" parent="on enter village" instance=ExtResource( 2 )]
-position = Vector2( 27, 41 )
+position = Vector2( 91, 41 )
 
 [node name="Collision" type="CollisionShape2D" parent="on enter village/trigger"]
 shape = SubResource( 1 )
@@ -111,7 +157,7 @@ next_scene = "res://levels/village/01 Village.tscn"
 script = ExtResource( 8 )
 
 [node name="trigger" parent="on enter road" instance=ExtResource( 2 )]
-position = Vector2( 91, 41 )
+position = Vector2( 155, 41 )
 
 [node name="Collision" type="CollisionShape2D" parent="on enter road/trigger"]
 shape = SubResource( 1 )
@@ -143,7 +189,7 @@ next_scene = "res://levels/woods/02 The Road.tscn"
 script = ExtResource( 8 )
 
 [node name="trigger" parent="on enter woods" instance=ExtResource( 2 )]
-position = Vector2( 91, 65 )
+position = Vector2( 155, 65 )
 
 [node name="Collision" type="CollisionShape2D" parent="on enter woods/trigger"]
 shape = SubResource( 1 )
@@ -171,19 +217,36 @@ __meta__ = {
 script = ExtResource( 7 )
 next_scene = "res://levels/woods/03 The Woods.tscn"
 
-[node name="on load" type="Node" parent="."]
+[node name="on enter chase" type="Node" parent="."]
 script = ExtResource( 8 )
 
-[node name="trigger" type="Node" parent="on load"]
-script = ExtResource( 3 )
+[node name="trigger" parent="on enter chase" instance=ExtResource( 2 )]
+position = Vector2( 155, 89 )
 
-[node name="action" type="Node" parent="on load"]
-script = ExtResource( 13 )
-duration = 0.0
+[node name="Collision" type="CollisionShape2D" parent="on enter chase/trigger"]
+shape = SubResource( 1 )
 
-[node name="top left" type="Position2D" parent="on load/action"]
+[node name="Sprite" type="Sprite" parent="on enter chase/trigger"]
+texture = SubResource( 2 )
 
-[node name="bottom right" type="Position2D" parent="on load/action"]
-position = Vector2( 320, 184 )
+[node name="Label" type="Label" parent="on enter chase/trigger"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 7.0
+custom_fonts/font = SubResource( 3 )
+text = "chase"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="action" type="Node" parent="on enter chase"]
+script = ExtResource( 7 )
+next_scene = "res://levels/woods/04 The Chase.tscn"
 
 [editable path="Group"]

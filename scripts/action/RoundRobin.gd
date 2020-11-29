@@ -5,6 +5,8 @@ signal completed()
 var _available := []
 var _current := 0
 
+export var loop := true
+
 
 func _ready() -> void:
 	for child in get_children():
@@ -14,7 +16,10 @@ func _ready() -> void:
 
 func execute() -> void:
 	var child := get_child(_current)
-	_current = (_current + 1) % _available.size()
+	if loop:
+		_current = (_current + 1) % _available.size()
+	elif _current + 1 < _available.size():
+		_current += 1
 
 	child.connect("completed", self, "_on_completed_action", [], CONNECT_ONESHOT)
 	child.call_deferred("execute")

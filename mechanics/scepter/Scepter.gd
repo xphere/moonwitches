@@ -1,16 +1,15 @@
 extends Node2D
 
 const REACH_DISTANCE := 18.0
-const DURATION_TIME := 5.0
-const COOLDOWN_TIME := 10.0
 
 export(bool) var can_be_passed := true
 export(bool) var can_be_activated := true
 
+onready var _throw := $Throw
+
 var _time := 0.0
 var _activated := false
 var _cooldown := false
-onready var _throw := $Throw
 
 
 func _ready() -> void:
@@ -73,20 +72,45 @@ func _can_throw(from: Vector2, to: Vector2) -> bool:
 
 
 func _activate_scepter() -> void:
-	if not can_be_activated or _activated or _cooldown:
-		return
+	if can_be_activated and not _activated and not _cooldown:
+		_toggle_aura(true)
+		$Duration.start()
 
-	_activated = true
-	_toggle_aura(_activated)
-	yield(get_tree().create_timer(DURATION_TIME), "timeout")
-	_activated = false
 
+func _on_Duration_timeout() -> void:
+	_toggle_aura(false)
 	_cooldown = true
-	_toggle_aura(_activated)
-	yield(get_tree().create_timer(COOLDOWN_TIME), "timeout")
+	$Cooldown.start()
+
+
+func _on_Cooldown_timeout() -> void:
 	_cooldown = false
 
 
-func _toggle_aura(active: bool) -> void:
-	$Aura.visible = active
-	$Aura/Protection.set_deferred("disabled", not active)
+func _toggle_aura(value: bool) -> void:
+	_activated = value
+	$Aura.visible = _activated
+	$Aura/Protection.set_deferred("disabled", not _activated)
+
+
+func save() -> Dictionary:
+	return {
+		"can_be_passed": can_be_passed,
+		"can_be_activated": can_be_activated,
+		"parent": get_parent(),
+	}
+
+
+func restore(data: Dictionary) -> void:
+	$Duration.stop()
+	$Cooldown.stop()
+	_toggle_aura(false)
+	_cooldown = false
+
+	can_be_passed = data["can_be_passed"]
+	can_be_activated = data["can_be_activated"]
+
+	var _parent := data["parent"] as Node
+	if _parent != get_parent():
+		get_parent().remove_child(self)
+		_parent.add_child(self)

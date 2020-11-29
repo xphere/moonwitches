@@ -35,15 +35,15 @@ extents = Vector2( 12, 28 )
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 12, 12 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=3]
 outline_size = 1
 outline_color = Color( 0.133333, 0.137255, 0.137255, 1 )
 font_data = ExtResource( 25 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 12, 12 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 28, 8 )
 
 [node name="Woods" type="Node2D"]
@@ -434,7 +434,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -14.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "Use this keys to move Ann"
 align = 1
 __meta__ = {
@@ -464,7 +464,7 @@ position = Vector2( 456, 4 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on leaving woods/trigger/exit"]
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="action" type="Node" parent="on leaving woods"]
 script = ExtResource( 6 )
@@ -479,7 +479,7 @@ collision_mask = 7
 
 [node name="Collision" type="CollisionShape2D" parent="left limit"]
 rotation = 1.5708
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 one_way_collision = true
 
 [node name="crawl no-return" type="StaticBody2D" parent="."]
@@ -489,7 +489,7 @@ collision_mask = 4
 
 [node name="Collision" type="CollisionShape2D" parent="crawl no-return"]
 rotation = 1.5708
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 one_way_collision = true
 
 [editable path="Group"]
