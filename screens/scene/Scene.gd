@@ -7,6 +7,10 @@ signal scene_created(scene)
 
 
 func load(path: String) -> void:
+	call_deferred("_load", path)
+
+
+func _load(path: String) -> void:
 	emit_signal("load_started")
 	var packedScene := ResourceLoader.load(path, "PackedScene") as PackedScene
 	emit_signal("load_finished")

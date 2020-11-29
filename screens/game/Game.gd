@@ -41,3 +41,7 @@ func restore() -> void:
 	for instance_id in _saved_game.keys():
 		instance_from_id(instance_id).restore(_saved_game[instance_id])
 	emit_signal("restored")
+
+
+func clear() -> void:
+	_saved_game = {}

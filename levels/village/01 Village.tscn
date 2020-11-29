@@ -490,7 +490,6 @@ script = ExtResource( 16 )
 
 [node name="in" type="Node" parent="on load/action/scene/transition #2"]
 script = ExtResource( 9 )
-overlay = NodePath("Overlay")
 color = Color( 0, 0, 0, 0.501961 )
 
 [node name="Overlay" type="Control" parent="on load/action/scene/transition #2/in"]

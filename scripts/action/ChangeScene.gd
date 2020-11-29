@@ -6,5 +6,5 @@ export(String, FILE, "*.tscn") var next_scene
 
 
 func execute() -> void:
-	Game.scene.call_deferred("load", next_scene)
+	Game.scene.load(next_scene)
 	emit_signal("completed")

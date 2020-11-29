@@ -27,6 +27,7 @@ func _on_load_started() -> void:
 	set_process(false)
 	mentor = null
 	pupil = null
+	Game.clear()
 	if current_scene:
 		current_scene.queue_free()
 

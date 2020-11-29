@@ -65,16 +65,22 @@ func text(profile: String, text: String, chars_per_second: float) -> void:
 
 	_animation.playback_speed = chars_per_second / text.length()
 	_animation.play("Play")
+	set_process(true)
 
 
 func _process(delta: float) -> void:
-	if writing:
-		_time += delta
-		var limit := 0.1 + randf() * 0.2
-		if _time > limit:
-			_time -= limit
-			_audio.pitch_scale = 0.85 + 0.3 * randf()
-			_audio.play()
+	if not writing:
+		set_process(false)
+		return
+
+	_time += delta
+	var limit := 0.1 + randf() * 0.2
+	if _time < limit:
+		return
+
+	_time -= limit
+	_audio.pitch_scale = 0.85 + 0.3 * randf()
+	_audio.play()
 
 
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
