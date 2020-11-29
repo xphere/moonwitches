@@ -14,11 +14,33 @@ var _cooldown := false
 
 func _ready() -> void:
 	_toggle_aura(false)
+	Game.connect("paused", self, "_on_pause")
+	Game.connect("unpaused", self, "_on_unpause")
 
 
 func _process(delta: float) -> void:
 	_time += delta
 	$Sprite.position = Vector2(1.0, 0.0).rotated(_time * PI) * 8.0
+	var _progress := 0.0
+	if _activated:
+		_progress = 1.0 - ($Duration.time_left / $Duration.wait_time)
+	elif _cooldown:
+		_progress = $Cooldown.time_left / $Cooldown.wait_time
+	$Usage.material.set_shader_param('progress', _progress)
+
+
+func _on_pause() -> void:
+	if not $Duration.is_stopped():
+		$Duration.paused = true
+	if not $Cooldown.is_stopped():
+		$Cooldown.paused = true
+
+
+func _on_unpause() -> void:
+	if $Duration.is_paused():
+		$Duration.paused = false
+	if $Cooldown.is_paused():
+		$Cooldown.paused = false
 
 
 func _input(event: InputEvent) -> void:
@@ -90,6 +112,7 @@ func _on_Cooldown_timeout() -> void:
 func _toggle_aura(value: bool) -> void:
 	_activated = value
 	$Aura.visible = _activated
+	$Sprite/Aura.visible = _activated
 	$Aura/Protection.set_deferred("disabled", not _activated)
 
 
@@ -103,7 +126,9 @@ func save() -> Dictionary:
 
 func restore(data: Dictionary) -> void:
 	$Duration.stop()
+	$Duration.paused = false
 	$Cooldown.stop()
+	$Cooldown.paused = false
 	_toggle_aura(false)
 	_cooldown = false
 
