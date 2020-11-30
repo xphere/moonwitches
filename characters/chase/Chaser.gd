@@ -13,6 +13,9 @@ var distribution := 0.5
 func _ready() -> void:
 	Game.connect("paused", self, "_on_paused")
 	Game.connect("unpaused", self, "_on_unpaused")
+	var angle := randf() * TAU
+	$"Sprite#1".global_position.rotated(angle)
+	$"Sprite#2".global_position.rotated(angle)
 
 
 func _process(_delta: float) -> void:

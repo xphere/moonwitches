@@ -9,11 +9,13 @@ onready var chasers := $Chasers as Node
 var top : Vector2
 var bottom : Vector2
 var _needs_distribute := false
+var _was_restored := false
 
 
 func _ready() -> void:
 	Game.connect("paused", self, "_on_paused")
 	Game.connect("unpaused", self, "_on_unpaused")
+	Game.connect("restored", self, "_on_restored")
 	if use_hitbox:
 		$Hitbox.connect("body_entered", self, "_on_Hitbox_body_entered")
 	else:
@@ -77,4 +79,12 @@ func save() -> Dictionary:
 
 
 func restore(data: Dictionary) -> void:
+	_was_restored = true
 	offset = data["offset"]
+
+
+func _on_restored() -> void:
+	if not _was_restored:
+		queue_free()
+	_was_restored = false
+

@@ -14,6 +14,10 @@ onready var timer := Timer.new()
 
 
 func _ready() -> void:
+	Game.connect("paused", self, "_on_paused")
+	Game.connect("unpaused", self, "_on_unpaused")
+	set_process(false)
+	add_to_group("restorable")
 	timer.one_shot = true
 	timer.connect("timeout", self, "_on_timeout")
 	add_child(timer)
@@ -21,7 +25,19 @@ func _ready() -> void:
 
 func create() -> void:
 	pending += waves
-	_start_timer()
+	set_process(true)
+
+
+func _process(_delta: float) -> void:
+	set_process(false)
+	if pending == 0:
+		return
+
+	var _chasers := min_chasers + randi() % (max_chasers - min_chasers)
+	_create_wave(_chasers)
+	pending -= 1
+	if pending > 0:
+		_start_timer()
 
 
 func _start_timer() -> void:
@@ -31,14 +47,10 @@ func _start_timer() -> void:
 
 
 func _on_timeout() -> void:
-	var _chasers := min_chasers + randi() % (max_chasers - min_chasers)
-	_create_wave(_chasers)
-	pending -= 1
-	if pending > 0:
-		_start_timer()
+	set_process(true)
 
 
-func _create_wave(_chasers: int) -> Wave:
+func _create_wave(_chasers: int) -> void:
 	var _wave := wave.instance() as Wave
 	_wave.speed = speed
 	_wave.use_hitbox = true
@@ -49,4 +61,23 @@ func _create_wave(_chasers: int) -> Wave:
 		_wave.add_chaser(_chaser)
 		_chaser.speed = speed
 
-	return _wave
+
+func save() -> Dictionary:
+	return {
+		pending = pending,
+	}
+
+
+func restore(data: Dictionary) -> void:
+	timer.stop()
+	pending = data["pending"]
+	set_process(true)
+
+
+func _on_paused() -> void:
+	timer.paused = true
+
+
+func _on_unpaused() -> void:
+	timer.paused = false
+
