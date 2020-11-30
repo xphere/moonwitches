@@ -6,7 +6,7 @@ export var sound : AudioStream
 
 
 func _ready() -> void:
-	yield(get_parent(), "ready")
+	yield(owner, "ready")
 	get_parent().add_profile(name, {
 		color = color,
 		character_name = character_name,
