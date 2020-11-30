@@ -1,14 +1,17 @@
 extends Node2D
 
+signal completed()
+
 export var wave : PackedScene
 export var chaser : PackedScene
-export var speed := 32.0
+export var speed := 31.0
 export var min_chasers := 3
-export var max_chasers := 5
+export var max_chasers := 6
 export var waves := 16
 export var elapsed := 4.0
 
 var pending := 0
+var running := 0
 
 onready var timer := Timer.new()
 
@@ -24,6 +27,9 @@ func _ready() -> void:
 
 
 func create() -> void:
+	if Game.is_paused():
+		yield(Game, "unpaused")
+
 	pending += waves
 	set_process(true)
 
@@ -42,7 +48,7 @@ func _process(_delta: float) -> void:
 
 func _start_timer() -> void:
 	timer.start(
-		randf() - 0.5 + elapsed / waves
+		elapsed / waves
 	)
 
 
@@ -53,13 +59,14 @@ func _on_timeout() -> void:
 func _create_wave(_chasers: int) -> void:
 	var _wave := wave.instance() as Wave
 	_wave.speed = speed
-	_wave.use_hitbox = true
+	running += 1
+	_wave.connect("tree_exited", self, "_on_wave_completed")
 	add_child(_wave)
 
 	for _index in range(0, _chasers):
 		var _chaser := chaser.instance()
 		_wave.add_chaser(_chaser)
-		_chaser.speed = speed
+		_chaser.speed = speed + 1
 
 
 func save() -> Dictionary:
@@ -81,3 +88,15 @@ func _on_paused() -> void:
 func _on_unpaused() -> void:
 	timer.paused = false
 
+
+func _on_wave_completed() -> void:
+	running -= 1
+	if running == 0:
+		emit_signal("completed")
+
+
+func unpause() -> void:
+	for child in get_children():
+		if child.has_method("unpause"):
+			child.unpause()
+	_on_unpaused()

@@ -39,7 +39,11 @@ func save() -> void:
 
 func restore() -> void:
 	for instance_id in _saved_game.keys():
-		instance_from_id(instance_id).restore(_saved_game[instance_id])
+		var instance := instance_from_id(instance_id)
+		if instance:
+			instance.restore(_saved_game[instance_id])
+		else:
+			_saved_game.erase(instance_id)
 	emit_signal("restored")
 
 

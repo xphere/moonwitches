@@ -2,7 +2,6 @@ extends PathFollow2D
 class_name Wave
 
 export var speed := 32.0
-export var use_hitbox := false
 
 onready var chasers := $Chasers as Node
 
@@ -16,10 +15,6 @@ func _ready() -> void:
 	Game.connect("paused", self, "_on_paused")
 	Game.connect("unpaused", self, "_on_unpaused")
 	Game.connect("restored", self, "_on_restored")
-	if use_hitbox:
-		$Hitbox.connect("body_entered", self, "_on_Hitbox_body_entered")
-	else:
-		call_deferred("remove_child", $Hitbox)
 
 
 func _on_Hitbox_body_entered(body: KinematicBody2D) -> void:
@@ -88,3 +83,8 @@ func _on_restored() -> void:
 		queue_free()
 	_was_restored = false
 
+
+func unpause() -> void:
+	for chaser in chasers.get_children():
+		chaser.unpause()
+	_on_unpaused()

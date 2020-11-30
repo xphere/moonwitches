@@ -31,13 +31,8 @@ func _physics_process(_delta: float) -> void:
 		var center : Vector2 = 0.5 * (chase.bottom + chase.top)
 		direction += (center - global_position).normalized()
 
-	body.move_and_slide(direction * speed)
+	body.move_and_slide(direction.normalized() * speed)
 
-	if not is_on_wall() and not ghost:
-		$Timer.stop()
-
-	elif $Timer.is_stopped():
-		$Timer.start()
 
 
 func _on_Timer_timeout() -> void:
@@ -71,3 +66,7 @@ func restore(data: Dictionary) -> void:
 	ghost = false
 	$Timer.stop()
 	$Collision.set_deferred("disabled", false)
+
+
+func unpause() -> void:
+	_on_unpaused()

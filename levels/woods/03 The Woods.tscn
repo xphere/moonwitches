@@ -469,9 +469,13 @@ shape = SubResource( 4 )
 [node name="action" type="Node" parent="on leaving woods"]
 script = ExtResource( 6 )
 
+[node name="walk" type="Node2D" parent="on leaving woods/action"]
+position = Vector2( 480, 4 )
+script = ExtResource( 18 )
+
 [node name="change scene" type="Node" parent="on leaving woods/action"]
 script = ExtResource( 7 )
-next_scene = "res://levels/test/Select.tscn"
+next_scene = "res://levels/woods/04 The Chase.tscn"
 
 [node name="left limit" type="StaticBody2D" parent="."]
 position = Vector2( -120, 12 )
