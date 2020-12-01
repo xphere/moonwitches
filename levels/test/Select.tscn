@@ -1,12 +1,14 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://levels/tileset.tres" type="TileSet" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/trigger/Ready.gd" type="Script" id=3]
 [ext_resource path="res://characters/group/Group.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://scripts/action/Transition.gd" type="Script" id=6]
 [ext_resource path="res://scripts/action/ChangeScene.gd" type="Script" id=7]
 [ext_resource path="res://scripts/action/Reaction.gd" type="Script" id=8]
+[ext_resource path="res://scripts/action/Sequence.gd" type="Script" id=9]
 [ext_resource path="res://assets/graphics/prototype.png" type="Texture" id=10]
 [ext_resource path="res://scripts/action/CameraLimit.gd" type="Script" id=13]
 
@@ -50,12 +52,20 @@ script = ExtResource( 8 )
 script = ExtResource( 3 )
 
 [node name="action" type="Node" parent="on load"]
+script = ExtResource( 9 )
+
+[node name="camera limit" type="Node" parent="on load/action"]
 script = ExtResource( 13 )
+duration = 0.0
 
-[node name="top left" type="Position2D" parent="on load/action"]
+[node name="top left" type="Position2D" parent="on load/action/camera limit"]
 
-[node name="bottom right" type="Position2D" parent="on load/action"]
+[node name="bottom right" type="Position2D" parent="on load/action/camera limit"]
 position = Vector2( 320, 184 )
+
+[node name="fade out" type="Node" parent="on load/action"]
+script = ExtResource( 6 )
+transition = 1
 
 [node name="current" type="Node" parent="."]
 script = ExtResource( 8 )
@@ -78,7 +88,7 @@ margin_left = -20.0
 margin_right = 20.0
 margin_bottom = 7.0
 custom_fonts/font = SubResource( 3 )
-text = "fade"
+text = "labyrinth"
 align = 1
 valign = 2
 __meta__ = {
@@ -87,7 +97,39 @@ __meta__ = {
 
 [node name="action" type="Node" parent="current"]
 script = ExtResource( 7 )
-next_scene = "res://levels/test/Fade.tscn"
+next_scene = "res://levels/ruins/06 The Labyrinth.tscn"
+
+[node name="on enter ruins" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="trigger" parent="on enter ruins" instance=ExtResource( 2 )]
+position = Vector2( 219, 41 )
+
+[node name="Collision" type="CollisionShape2D" parent="on enter ruins/trigger"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="on enter ruins/trigger"]
+texture = SubResource( 2 )
+
+[node name="Label" type="Label" parent="on enter ruins/trigger"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_right = 20.0
+margin_bottom = 7.0
+custom_fonts/font = SubResource( 3 )
+text = "ruins"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="action" type="Node" parent="on enter ruins"]
+script = ExtResource( 7 )
+next_scene = "res://levels/ruins/05 The Entrance.tscn"
 
 [node name="on enter test" type="Node" parent="."]
 script = ExtResource( 8 )
