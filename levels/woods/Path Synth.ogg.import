@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Path Synth.ogg-5080f982b61e61128360c22309e519b8.oggstr"
+
+[deps]
+
+source_file="res://levels/woods/Path Synth.ogg"
+dest_files=[ "res://.import/Path Synth.ogg-5080f982b61e61128360c22309e519b8.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

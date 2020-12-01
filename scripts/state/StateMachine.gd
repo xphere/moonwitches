@@ -49,11 +49,11 @@ func _leave_state() -> void:
 
 func save() -> Dictionary:
 	return {
-		name = _state.name,
+		state = _state.name,
 		data = _state.save(),
 		board = _board,
 	}
 
 
 func restore(data: Dictionary) -> void:
-	get_node(data["name"]).restore(data["data"])
+	get_node(data["state"]).restore(data["data"])

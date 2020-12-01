@@ -6,7 +6,7 @@ enum State { Show, Hide }
 
 export(State) var transition := State.Show
 export var overlay : NodePath = "Overlay"
-export var clear_overlay := true
+export var keep_overlay := false
 export var duration := 1.0
 export var color := Color.black
 
@@ -22,13 +22,13 @@ func execute() -> void:
 
 
 func _on_transition_completed() -> void:
-	if transition == State.Hide and clear_overlay:
+	if transition == State.Hide and not keep_overlay:
 		Game.transition.clear_overlay()
 	emit_signal("completed")
 
 
 func _add_overlay() -> void:
-	if clear_overlay:
+	if not keep_overlay:
 		Game.transition.clear_overlay()
 
 	if not overlay or not has_node(overlay):

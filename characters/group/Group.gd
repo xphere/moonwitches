@@ -13,6 +13,8 @@ export var is_ability_available := true
 export var together := true
 export(int, LAYERS_2D_PHYSICS) var wall_mask
 
+onready var death_sound := $"Death Sound" as AudioStreamPlayer
+
 
 func _ready() -> void:
 	set_together(together)
@@ -73,15 +75,25 @@ func _can_change_group() -> bool:
 
 
 func _on_paused() -> void:
+	set_process_input(false)
 	_as_cinematic(together)
 
 
 func _on_unpaused() -> void:
+	set_process_input(true)
 	_set_together(together)
 
 
 func _on_player_hit() -> void:
+	death_sound.play()
+	Game.pause()
+	Game.transition.color = Color("f3a9a4")
+	Game.transition.fade_in(0.1)
+	yield(Game.transition, "completed")
 	Game.restore()
+	Game.transition.fade_out(1.0)
+	yield(Game.transition, "completed")
+	Game.unpause()
 
 
 func _as_cinematic(value: bool) -> void:

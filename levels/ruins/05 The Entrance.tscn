@@ -1,0 +1,509 @@
+[gd_scene load_steps=36 format=2]
+
+[ext_resource path="res://mechanics/scepter/Scepter.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
+[ext_resource path="res://characters/group/Group.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/trigger/Any.gd" type="Script" id=4]
+[ext_resource path="res://scripts/action/Reaction.gd" type="Script" id=5]
+[ext_resource path="res://scripts/trigger/Ready.gd" type="Script" id=6]
+[ext_resource path="res://scripts/action/Sequence.gd" type="Script" id=7]
+[ext_resource path="res://assets/graphics/prototype.png" type="Texture" id=8]
+[ext_resource path="res://scripts/action/ChangeScene.gd" type="Script" id=9]
+[ext_resource path="res://scripts/action/CameraLimit.gd" type="Script" id=10]
+[ext_resource path="res://levels/tileset.tres" type="TileSet" id=11]
+[ext_resource path="res://mechanics/door/Door.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scripts/action/Walk.gd" type="Script" id=13]
+[ext_resource path="res://scripts/action/Transition.gd" type="Script" id=14]
+[ext_resource path="res://scripts/action/Dialogue.gd" type="Script" id=15]
+[ext_resource path="res://mechanics/button/Button.tscn" type="PackedScene" id=16]
+[ext_resource path="res://mechanics/device/All.gd" type="Script" id=17]
+[ext_resource path="res://characters/player/Light.tscn" type="PackedScene" id=18]
+[ext_resource path="res://scripts/action/RoundRobin.gd" type="Script" id=19]
+[ext_resource path="res://scripts/action/BoolProperty.gd" type="Script" id=20]
+[ext_resource path="res://scripts/trigger/Trigger.gd" type="Script" id=21]
+[ext_resource path="res://scripts/trigger/All.gd" type="Script" id=22]
+[ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=23]
+[ext_resource path="res://scripts/action/WaitKey.gd" type="Script" id=24]
+[ext_resource path="res://assets/graphics/bindings/keyboard.png" type="Texture" id=25]
+[ext_resource path="res://assets/graphics/bindings/group.png" type="Texture" id=26]
+[ext_resource path="res://scripts/trigger/Filter.gd" type="Script" id=27]
+[ext_resource path="res://scripts/action/Completed.gd" type="Script" id=28]
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 8 )
+region = Rect2( 36, 18, 18, 8 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 28, 8 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 12, 12 )
+
+[sub_resource type="CircleShape2D" id=4]
+
+[sub_resource type="DynamicFont" id=5]
+outline_size = 1
+outline_color = Color( 0.133333, 0.137255, 0.137255, 1 )
+font_data = ExtResource( 23 )
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Node
+
+export var node : NodePath
+export var property_name : String
+export var expected : bool
+
+
+func filter() -> bool:
+	return get_node(node).get(property_name) == expected
+"
+
+[sub_resource type="Animation" id=7]
+resource_name = "Atmosphere"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="Ruins" type="Node2D"]
+
+[node name="Level" type="TileMap" parent="." groups=[
+"level",
+]]
+tile_set = ExtResource( 11 )
+cell_size = Vector2( 8, 8 )
+collision_mask = 14
+format = 1
+tile_data = PoolIntArray( 393216, 0, 65537, 393217, 0, 262144, 393218, 0, 1, 393219, 0, 458752, 393220, 0, 262146, 393221, 0, 1, 393222, 0, 262147, 393223, 0, 1, 393224, 0, 1, 393225, 0, 1, 393226, 0, 262145, 393227, 0, 1, 393228, 0, 1, 393229, 0, 1, 393230, 0, 262147, 393231, 0, 1, 393232, 0, 262147, 393233, 0, 1, 393234, 0, 1, 393235, 0, 262146, 393236, 0, 262145, 393237, 0, 1, 393238, 0, 1, 393239, 0, 1, 393240, 0, 1, 393241, 0, 262147, 393242, 536870912, 458752, 393243, 0, 1, 393244, 0, 1, 393245, 0, 262146, 393246, 0, 262145, 458752, 0, 65537, 458753, 0, 65536, 458754, 0, 65537, 458755, 0, 524290, 458756, 0, 65537, 458757, 0, 65537, 458758, 0, 65537, 458759, 0, 65537, 458760, 0, 65537, 458761, 0, 65537, 458762, 0, 65539, 458763, 0, 65537, 458764, 0, 65537, 458765, 0, 65537, 458766, 0, 65537, 458767, 0, 65537, 458768, 0, 65537, 458769, 0, 65537, 458770, 0, 65537, 458771, 0, 65537, 458772, 0, 65539, 458773, 0, 65537, 458774, 0, 65537, 458775, 0, 65537, 458776, 0, 65537, 458777, 0, 65537, 458778, -1610612736, 524290, 458779, 0, 65537, 458780, 0, 65537, 458781, 0, 65537, 458782, 0, 65539, 524288, 0, 65537, 524289, 0, 65536, 524290, 0, 65537, 524291, 0, 65537, 524292, 0, 65537, 524293, 0, 65537, 524294, 0, 65537, 524295, 0, 65537, 524296, 0, 65537, 524297, 0, 65537, 524298, 0, 65539, 524299, 0, 65537, 524300, 0, 65537, 524301, 0, 65537, 524302, 0, 65537, 524303, 0, 65537, 524304, 0, 65537, 524305, 0, 65537, 524306, 0, 65537, 524307, 0, 65537, 524308, 0, 65539, 524309, 0, 65537, 524310, 0, 65537, 524311, 0, 65537, 524312, 0, 65537, 524313, 0, 65537, 524314, -1610612736, 524290, 524315, 0, 65537, 524316, 0, 65537, 524317, 0, 65537, 524318, 0, 65539, 589824, 0, 1, 589825, 0, 65536, 589826, 536870912, 65549, 589827, 0, 65537, 589828, 536870912, 65549, 589829, 0, 65537, 589830, 536870912, 65549, 589831, 0, 65537, 589832, 0, 13, 589833, -1610612736, 524290, 589834, 0, 65539, 589835, 0, 65537, 589836, 536870912, 65549, 589837, 0, 65537, 589838, 536870912, 65549, 589839, 0, 65537, 589840, 0, 65537, 589841, 0, 65537, 589842, 536870912, 65549, 589843, 0, 65537, 589844, 0, 65539, 589845, 0, 65537, 589846, 0, 65537, 589847, 0, 65537, 589848, 536870912, 65549, 589849, 0, 65537, 589850, 0, 13, 589851, 0, 65537, 589852, 536870912, 65549, 589853, 0, 65537, 589854, 0, 65539, 589855, 0, 1, 589856, 0, 1, 589857, 536870912, 458752, 589858, 0, 1, 589859, 0, 1, 589860, 0, 1, 589861, 0, 1, 589862, 0, 1, 589863, 0, 1, 655360, 0, 65537, 655361, 0, 65536, 655362, 0, 458753, 655363, 0, 458754, 655364, 0, 458754, 655365, 0, 458754, 655366, 0, 458754, 655367, 0, 458754, 655368, 0, 458754, 655369, 536870912, 458753, 655370, 0, 65539, 655371, 0, 65537, 655372, 0, 65537, 655373, 0, 458753, 655374, 0, 458754, 655375, 0, 458754, 655376, 0, 458754, 655377, 536870912, 458753, 655378, 0, 65537, 655379, 0, 65537, 655380, 0, 65539, 655381, 0, 65537, 655382, 0, 458753, 655383, 0, 458754, 655384, 0, 458754, 655385, 0, 458754, 655386, 0, 458754, 655387, 0, 458754, 655388, 0, 458754, 655389, 536870912, 458753, 655390, 0, 65539, 655391, 0, 65537, 655392, 0, 65537, 655393, -1610612736, 524290, 655394, 0, 524290, 655395, 0, 65537, 655396, 0, 65537, 655397, 0, 65537, 655398, 0, 458753, 655399, 0, 458754, 720896, 0, 65537, 720897, 536870912, 262148, 720898, -1073741824, 458754, 720899, 0, 458755, 720900, 0, 458755, 720901, 0, 458755, 720902, 0, 458755, 720903, 0, 458755, 720904, 0, 458755, 720905, -1610612736, 458754, 720906, 536870912, 262148, 720907, 536870912, 262148, 720908, 536870912, 262148, 720909, -1073741824, 458754, 720910, 0, 458755, 720911, 0, 458755, 720912, 0, 458755, 720913, -1610612736, 458754, 720914, 536870912, 262148, 720915, 536870912, 262148, 720916, 536870912, 262148, 720917, 536870912, 262148, 720918, -1073741824, 458754, 720919, 0, 458755, 720920, 0, 458755, 720921, 0, 458755, 720922, 0, 458755, 720923, 0, 458755, 720924, 0, 458755, 720925, -1610612736, 458754, 720926, 536870912, 262148, 720927, 536870912, 262148, 720928, 536870912, 262148, 720929, 536870912, 262148, 720930, 536870912, 262148, 720931, 536870912, 262148, 720932, 536870912, 262148, 720933, 536870912, 262148, 720934, -1073741824, 458754, 720935, 0, 458755, 786432, 0, 65537, 786433, 0, 65536, 786434, 1073741824, 458753, 786435, 1073741824, 458754, 786436, 1073741824, 458754, 786437, 1073741824, 458754, 786438, 1073741824, 458754, 786439, 1073741824, 458754, 786440, 1073741824, 458754, 786441, 1610612736, 458753, 786442, 0, 65539, 786443, 0, 65537, 786444, 0, 65537, 786445, 1073741824, 458753, 786446, 1073741824, 458754, 786447, 1073741824, 458754, 786448, 1073741824, 458754, 786449, 1610612736, 458753, 786450, 0, 65537, 786451, 0, 65537, 786452, 0, 65539, 786453, 0, 65537, 786454, 1073741824, 458753, 786455, 1073741824, 458754, 786456, 1073741824, 458754, 786457, 1073741824, 458754, 786458, 1073741824, 458754, 786459, 1073741824, 458754, 786460, 1073741824, 458754, 786461, 1610612736, 458753, 786462, 0, 65539, 786463, 0, 65537, 786464, 0, 65537, 786465, 0, 65537, 786466, 0, 65537, 786467, 0, 65537, 786468, 0, 65537, 786469, 0, 524290, 786470, 1073741824, 458753, 786471, 1073741824, 458754, 851968, 0, 1, 851969, 0, 65536, 851970, 536870912, 65549, 851971, 0, 65537, 851972, 0, 13, 851973, 0, 65537, 851974, 536870912, 65549, 851975, 0, 65537, 851976, 536870912, 65549, 851977, 0, 65537, 851978, 0, 65539, 851979, 0, 65537, 851980, 536870912, 65549, 851981, 0, 65537, 851982, 0, 13, 851983, 0, 65537, 851984, 536870912, 65549, 851985, 0, 65537, 851986, 536870912, 65549, 851987, 0, 65537, 851988, 0, 65539, 851989, 0, 65537, 851990, 536870912, 65549, 851991, 0, 65537, 851992, 536870912, 65549, 851993, 0, 65537, 851994, 0, 65537, 851995, 0, 65537, 851996, 536870912, 65549, 851997, 0, 65537, 851998, 0, 65539, 851999, 0, 1, 852000, 0, 1, 852001, 0, 1, 852002, 0, 1, 852003, 0, 1, 852004, 0, 1, 852005, 0, 1, 852006, 0, 1, 852007, 0, 1, 917504, 0, 65537, 917505, 0, 65536, 917506, 0, 65537, 917507, 0, 65537, 917508, 0, 65537, 917509, 0, 65537, 917510, 0, 65537, 917511, 0, 65537, 917512, 0, 65537, 917513, 0, 65537, 917514, 0, 65539, 917515, 0, 65537, 917516, 0, 65537, 917517, 0, 65537, 917518, -1610612736, 524290, 917519, 0, 65537, 917520, 0, 65537, 917521, 0, 65537, 917522, 0, 65537, 917523, 0, 65537, 917524, 0, 65539, 917525, 0, 65537, 917526, 0, 65537, 917527, 0, 65537, 917528, 0, 65537, 917529, 0, 65537, 917530, 0, 65537, 917531, 0, 65537, 917532, 0, 65537, 917533, 0, 65537, 917534, 0, 65539, 983040, 0, 65537, 983041, 0, 65536, 983042, 0, 65537, 983043, 0, 524290, 983044, 0, 524290, 983045, 0, 65537, 983046, 0, 65537, 983047, 0, 65537, 983048, 0, 65537, 983049, 0, 65537, 983050, 0, 65539, 983051, 0, 65537, 983052, 0, 65537, 983053, 0, 65537, 983054, 0, 65537, 983055, 0, 65537, 983056, 0, 65537, 983057, 0, 65537, 983058, 0, 65537, 983059, 0, 65537, 983060, 0, 65539, 983061, 0, 65537, 983062, 0, 65537, 983063, 0, 65537, 983064, 0, 65537, 983065, 0, 65537, 983066, 0, 65537, 983067, 0, 65537, 983068, 0, 65537, 983069, 0, 65537, 983070, 0, 65539, 1048576, 0, 65537, 1048577, 0, 1, 1048578, 0, 262146, 1048579, 0, 1, 1048580, 536870912, 458752, 1048581, 0, 262147, 1048582, 0, 1, 1048583, 0, 1, 1048584, 0, 262146, 1048585, 0, 1, 1048586, 0, 1, 1048587, 0, 1, 1048588, 0, 1, 1048589, 0, 262146, 1048590, 0, 1, 1048591, 0, 1, 1048592, 0, 1, 1048593, 0, 1, 1048594, 0, 262147, 1048595, 0, 1, 1048596, 0, 1, 1048597, 0, 1, 1048598, 0, 1, 1048599, 0, 262147, 1048600, 0, 262146, 1048601, 0, 1, 1048602, 0, 1, 1048603, 0, 1, 1048604, 0, 262147, 1048605, 0, 1, 1048606, 0, 1 )
+
+[node name="Door#1" type="Sprite" parent="Level"]
+position = Vector2( 12, 93 )
+rotation = 1.5708
+texture = SubResource( 2 )
+hframes = 2
+frame = 1
+
+[node name="Door#2" parent="Level" instance=ExtResource( 12 )]
+position = Vector2( 90, 92 )
+rotation = 1.5708
+keep_open = false
+
+[node name="Button#3" parent="Level" instance=ExtResource( 16 )]
+position = Vector2( 132, 77 )
+
+[node name="Door#3" parent="Level" instance=ExtResource( 12 )]
+position = Vector2( 170, 92 )
+rotation = 1.5708
+_device = NodePath("../Button#3")
+
+[node name="Door#4" parent="Level" instance=ExtResource( 12 )]
+position = Vector2( 250, 92 )
+rotation = 1.5708
+_device = NodePath("All")
+
+[node name="All" type="Node" parent="Level/Door#4"]
+script = ExtResource( 17 )
+
+[node name="Button#4A" parent="Level/Door#4/All" instance=ExtResource( 16 )]
+position = Vector2( 181, 77 )
+
+[node name="Button#4B" parent="Level/Door#4/All" instance=ExtResource( 16 )]
+position = Vector2( 212, 109 )
+
+[node name="left limit" type="StaticBody2D" parent="Level"]
+position = Vector2( 8, 92 )
+
+[node name="Collision" type="CollisionShape2D" parent="Level/left limit"]
+rotation = 1.5708
+shape = SubResource( 3 )
+one_way_collision = true
+
+[node name="Group" parent="." instance=ExtResource( 3 )]
+is_ability_available = false
+
+[node name="Mentor" parent="Group" index="0"]
+position = Vector2( -20, 93 )
+controller = NodePath("../../../Ruins/Group/Mentor/Input")
+
+[node name="Scepter" parent="Group/Mentor" index="0" instance=ExtResource( 1 )]
+can_be_passed = false
+can_be_activated = false
+
+[node name="Light" parent="Group/Mentor" index="6" instance=ExtResource( 18 )]
+energy = 0.75
+
+[node name="Pupil" parent="Group" index="1"]
+position = Vector2( -27, 93 )
+controller = NodePath("../../../Ruins/Group/Pupil/Follow")
+
+[node name="Follow" parent="Group/Pupil" index="3"]
+following = NodePath("../../../../Ruins/Group/Mentor/Follower")
+
+[node name="Light" parent="Group/Pupil" index="5" instance=ExtResource( 18 )]
+position = Vector2( 7, 0 )
+energy = 0.75
+
+[node name="Together" parent="Group" index="2"]
+position = Vector2( -20, 93 )
+
+[node name="on load" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="trigger" type="Node" parent="on load"]
+script = ExtResource( 6 )
+
+[node name="action" type="Node" parent="on load"]
+script = ExtResource( 7 )
+
+[node name="limit camera" type="Node" parent="on load/action"]
+script = ExtResource( 10 )
+duration = 0.0
+
+[node name="top left" type="Position2D" parent="on load/action/limit camera"]
+
+[node name="bottom right" type="Position2D" parent="on load/action/limit camera"]
+position = Vector2( 320, 180 )
+
+[node name="fade in" type="Node" parent="on load/action"]
+script = ExtResource( 14 )
+transition = 1
+
+[node name="walk" type="Node2D" parent="on load/action"]
+position = Vector2( 22, 93 )
+script = ExtResource( 13 )
+
+[node name="dialog #1" type="Node" parent="on load/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "Are we safe here?"
+
+[node name="dialog #2" type="Node" parent="on load/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Don't know, looks like the demons stopped at the door..."
+
+[node name="dialog #3" type="Node" parent="on load/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "No wonder.
+This place smells like a dumpster."
+
+[node name="dialog #4" type="Node" parent="on load/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "No, it's because this is a sacred place."
+
+[node name="dialog #5" type="Node" parent="on load/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "A very moldy sacred place."
+
+[node name="dialog #6" type="Node" parent="on load/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Ugh... Let's cross this ruins and reach the moon shrine."
+
+[node name="on leaving" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="trigger" type="Node" parent="on leaving"]
+script = ExtResource( 4 )
+
+[node name="exit" parent="on leaving/trigger" instance=ExtResource( 2 )]
+position = Vector2( 260, 92 )
+expected = 2
+
+[node name="Collision" type="CollisionShape2D" parent="on leaving/trigger/exit"]
+shape = SubResource( 1 )
+
+[node name="action" type="Node" parent="on leaving"]
+script = ExtResource( 7 )
+
+[node name="walk" type="Node2D" parent="on leaving/action"]
+position = Vector2( 336, 92 )
+script = ExtResource( 13 )
+
+[node name="fade out" type="Node" parent="on leaving/action"]
+script = ExtResource( 14 )
+overlay = NodePath("")
+
+[node name="change scene" type="Node" parent="on leaving/action"]
+script = ExtResource( 9 )
+next_scene = "res://levels/test/Select.tscn"
+
+[node name="on closed door#3" type="Node" parent="."]
+script = ExtResource( 5 )
+once = false
+
+[node name="trigger" type="Node" parent="on closed door#3"]
+script = ExtResource( 4 )
+
+[node name="door" parent="on closed door#3/trigger" instance=ExtResource( 2 )]
+position = Vector2( 166, 92 )
+expected = 2
+
+[node name="Collision" type="CollisionShape2D" parent="on closed door#3/trigger/door"]
+shape = SubResource( 4 )
+
+[node name="action" type="Node" parent="on closed door#3"]
+script = ExtResource( 19 )
+
+[node name="dialog #1" type="Node" parent="on closed door#3/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "This door is closed, but it has no lock.
+Maybe there's some mechanism nearby..."
+
+[node name="dialog #2" type="Node" parent="on closed door#3/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Tell me if you see a lever or something like that."
+
+[node name="on opened door#3" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="trigger" type="Node" parent="on opened door#3"]
+script = ExtResource( 21 )
+
+[node name="action" type="Node" parent="on opened door#3"]
+script = ExtResource( 7 )
+
+[node name="dialog #1" type="Node" parent="on opened door#3/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "That button opened the door!"
+
+[node name="close previous" type="Node" parent="on opened door#3/action"]
+script = ExtResource( 28 )
+
+[node name="dialog #2" type="Node" parent="on opened door#3/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "It also closed the other one..."
+
+[node name="disable" type="Node" parent="on opened door#3/action"]
+script = ExtResource( 20 )
+node = NodePath("../../../on closed door#3")
+property_name = "disabled"
+value = true
+
+[node name="on closed door#4" type="Node" parent="."]
+script = ExtResource( 5 )
+once = false
+
+[node name="trigger" type="Node" parent="on closed door#4"]
+script = ExtResource( 4 )
+
+[node name="door" parent="on closed door#4/trigger" instance=ExtResource( 2 )]
+position = Vector2( 246, 92 )
+expected = 2
+
+[node name="Collision" type="CollisionShape2D" parent="on closed door#4/trigger/door"]
+shape = SubResource( 4 )
+
+[node name="action" type="Node" parent="on closed door#4"]
+script = ExtResource( 19 )
+
+[node name="dialog #1" type="Node" parent="on closed door#4/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Locked...
+The ancients sure were crazy about security."
+
+[node name="dialog #2" type="Node" parent="on closed door#4/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Another closed door."
+
+[node name="on single button door#4" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="trigger" type="Node" parent="on single button door#4"]
+script = ExtResource( 4 )
+
+[node name="button#1" type="Node" parent="on single button door#4/trigger"]
+script = ExtResource( 21 )
+
+[node name="button#2" type="Node" parent="on single button door#4/trigger"]
+script = ExtResource( 21 )
+
+[node name="action" type="Node" parent="on single button door#4"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "That did nothing..."
+
+[node name="on pushed buttons door#4" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="trigger" type="Node" parent="on pushed buttons door#4"]
+script = ExtResource( 22 )
+
+[node name="button#1" type="Node" parent="on pushed buttons door#4/trigger"]
+script = ExtResource( 21 )
+
+[node name="button#2" type="Node" parent="on pushed buttons door#4/trigger"]
+script = ExtResource( 21 )
+
+[node name="action" type="Node" parent="on pushed buttons door#4"]
+script = ExtResource( 7 )
+
+[node name="dialog #1" type="Node" parent="on pushed buttons door#4/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "That didn't work either."
+
+[node name="dialog #2" type="Node" parent="on pushed buttons door#4/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Why don't you stay here while I go to press the other button?"
+
+[node name="in" type="Node" parent="on pushed buttons door#4/action"]
+script = ExtResource( 14 )
+__meta__ = {
+"_editor_description_": ""
+}
+overlay = NodePath("../in/Overlay")
+color = Color( 0, 0, 0, 0.501961 )
+
+[node name="Overlay" type="Control" parent="on pushed buttons door#4/action/in"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Keyboard" type="TextureRect" parent="on pushed buttons door#4/action/in/Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 25 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Group" type="TextureRect" parent="on pushed buttons door#4/action/in/Overlay"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 26 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text" type="Label" parent="on pushed buttons door#4/action/in/Overlay"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -14.0
+custom_fonts/font = SubResource( 5 )
+text = "Use this keys to group/ungroup"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wait key" type="Node" parent="on pushed buttons door#4/action"]
+script = ExtResource( 24 )
+
+[node name="out" type="Node" parent="on pushed buttons door#4/action"]
+script = ExtResource( 14 )
+transition = 1
+clear_overlay = false
+
+[node name="activate ungrouping" type="Node" parent="on pushed buttons door#4/action"]
+script = ExtResource( 20 )
+node = NodePath("../../../Group")
+property_name = "is_ability_available"
+value = true
+
+[node name="on opened door#4" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="trigger" type="Node" parent="on opened door#4"]
+script = ExtResource( 21 )
+
+[node name="action" type="Node" parent="on opened door#4"]
+script = ExtResource( 7 )
+
+[node name="dialog #1" type="Node" parent="on opened door#4/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "Wow! Teamplay!!"
+
+[node name="close previous" type="Node" parent="on opened door#4/action"]
+script = ExtResource( 28 )
+
+[node name="dialog #2" type="Node" parent="on opened door#4/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "And we can't go back...
+This is becoming a new tradition."
+
+[node name="disable" type="Node" parent="on opened door#4/action"]
+script = ExtResource( 20 )
+node = NodePath("../../../on closed door#4")
+property_name = "disabled"
+value = true
+
+[node name="enable force together" type="Node" parent="on opened door#4/action"]
+script = ExtResource( 20 )
+node = NodePath("../../../on cross door#4 ungrouped")
+property_name = "disabled"
+
+[node name="on cross door#4 ungrouped" type="Node" parent="."]
+script = ExtResource( 5 )
+disabled = true
+once = false
+
+[node name="trigger" type="Node" parent="on cross door#4 ungrouped"]
+script = ExtResource( 27 )
+
+[node name="trigger" parent="on cross door#4 ungrouped/trigger" instance=ExtResource( 2 )]
+position = Vector2( 246, 92 )
+
+[node name="Collision" type="CollisionShape2D" parent="on cross door#4 ungrouped/trigger/trigger"]
+shape = SubResource( 4 )
+
+[node name="filter" type="Node" parent="on cross door#4 ungrouped/trigger"]
+script = SubResource( 6 )
+node = NodePath("../../../Group")
+property_name = "together"
+
+[node name="action" type="Node" parent="on cross door#4 ungrouped"]
+script = ExtResource( 7 )
+
+[node name="walk" type="Node2D" parent="on cross door#4 ungrouped/action"]
+position = Vector2( 205, 92 )
+script = ExtResource( 13 )
+
+[node name="dialog #1" type="Node" parent="on cross door#4 ungrouped/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Better if we cross this door together."
+
+[node name="Atmosphere" type="CanvasModulate" parent="."]
+visible = false
+color = Color( 0.105882, 0, 0.207843, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Atmosphere"]
+autoplay = "Atmosphere"
+anims/Atmosphere = SubResource( 7 )
+[connection signal="activate" from="Level/Door#3" to="on opened door#3/trigger" method="trigger"]
+[connection signal="activate" from="Level/Door#4" to="on opened door#4/trigger" method="trigger"]
+[connection signal="activate" from="Level/Door#4/All/Button#4A" to="on pushed buttons door#4/trigger/button#1" method="trigger"]
+[connection signal="activate" from="Level/Door#4/All/Button#4A" to="on single button door#4/trigger/button#1" method="trigger"]
+[connection signal="activate" from="Level/Door#4/All/Button#4B" to="on pushed buttons door#4/trigger/button#2" method="trigger"]
+[connection signal="activate" from="Level/Door#4/All/Button#4B" to="on single button door#4/trigger/button#2" method="trigger"]
+[connection signal="completed" from="on opened door#3/action/close previous" to="Level/Door#2" method="_on_deactivate"]
+[connection signal="completed" from="on opened door#4/action/close previous" to="Level/Door#3" method="_on_deactivate"]
+
+[editable path="Group"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=56 format=2]
 
 [ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/trigger/Area.tscn" type="PackedScene" id=2]
@@ -40,10 +40,11 @@
 [ext_resource path="res://scripts/action/WaitKey.gd" type="Script" id=38]
 [ext_resource path="res://assets/graphics/title.png" type="Texture" id=39]
 [ext_resource path="res://assets/graphics/game-off-2020.png" type="Texture" id=40]
+[ext_resource path="res://scripts/action/WaitAnimationFinish.gd" type="Script" id=41]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Conclusion"
-length = 60.0
+length = 52.0
 tracks/0/type = "audio"
 tracks/0/path = NodePath("Music/Audio Track")
 tracks/0/interp = 1
@@ -448,7 +449,6 @@ script = ExtResource( 7 )
 [node name="out" type="Node" parent="on load/action/scene/transition #1"]
 script = ExtResource( 9 )
 transition = 1
-clear_overlay = false
 
 [node name="dialogue #2" type="Node" parent="on load/action/scene"]
 script = ExtResource( 16 )
@@ -537,7 +537,6 @@ script = ExtResource( 38 )
 [node name="out" type="Node" parent="on load/action/scene/transition #2"]
 script = ExtResource( 9 )
 transition = 1
-clear_overlay = false
 
 [node name="on exit home" type="Node" parent="."]
 script = ExtResource( 17 )
@@ -653,12 +652,11 @@ texture = ExtResource( 39 )
 
 [node name="wait" type="Node" parent="on leaving village/action/title"]
 script = ExtResource( 7 )
-duration = 2.0
+duration = 8.0
 
 [node name="out" type="Node" parent="on leaving village/action/title"]
 script = ExtResource( 9 )
 transition = 1
-clear_overlay = false
 
 [node name="game-off" type="Node" parent="on leaving village/action"]
 script = ExtResource( 16 )
@@ -698,10 +696,13 @@ __meta__ = {
 [node name="wait" type="Node" parent="on leaving village/action/game-off"]
 script = ExtResource( 7 )
 
+[node name="wait for music ending" type="Node" parent="on leaving village/action/game-off"]
+script = ExtResource( 41 )
+animation_path = NodePath("../../../../Music")
+
 [node name="out" type="Node" parent="on leaving village/action/game-off"]
 script = ExtResource( 9 )
 transition = 1
-clear_overlay = false
 
 [node name="fade out" type="Node" parent="on leaving village/action"]
 script = ExtResource( 9 )

@@ -30,6 +30,7 @@ func _process(delta: float) -> void:
 
 
 func _on_pause() -> void:
+	set_process_input(false)
 	if not $Duration.is_stopped():
 		$Duration.paused = true
 	if not $Cooldown.is_stopped():
@@ -37,6 +38,7 @@ func _on_pause() -> void:
 
 
 func _on_unpause() -> void:
+	set_process_input(true)
 	if $Duration.is_paused():
 		$Duration.paused = false
 	if $Cooldown.is_paused():

@@ -21,11 +21,13 @@ func overlay(node: Node) -> void:
 
 func fade_in(duration: float) -> void:
 	_set_duration(duration)
+	animation.stop()
 	animation.play("show")
 
 
 func fade_out(duration: float) -> void:
 	_set_duration(duration)
+	animation.stop()
 	animation.play("hide")
 
 
