@@ -351,7 +351,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -14.0
 custom_fonts/font = SubResource( 3 )
-text = "Use this keys to activate the scepter"
+text = "Use these keys to activate the scepter"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
