@@ -209,7 +209,7 @@ dialogue = "A very moldy sacred place."
 [node name="dialog #6" type="Node" parent="on load/action"]
 script = ExtResource( 15 )
 character = "Gyna"
-dialogue = "Ugh... Let's cross this ruins and reach the moon shrine."
+dialogue = "Ugh... Let's cross these ruins and reach the Moon Shrine."
 
 [node name="on leaving" type="Node" parent="."]
 script = ExtResource( 5 )
@@ -363,7 +363,7 @@ dialogue = "That didn't work either."
 [node name="dialog #2" type="Node" parent="on pushed buttons door#4/action"]
 script = ExtResource( 15 )
 character = "Gyna"
-dialogue = "Why don't you stay here while I go to press the other button?"
+dialogue = "Why don't you stay here while I go press the other button?"
 
 [node name="in" type="Node" parent="on pushed buttons door#4/action"]
 script = ExtResource( 14 )

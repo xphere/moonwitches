@@ -187,7 +187,7 @@ script = ExtResource( 13 )
 [node name="dialog #1" type="Node" parent="on load/action"]
 script = ExtResource( 15 )
 character = "Gyna"
-dialogue = "Oh, thanks to the bright light of the full moon we can travel safe this path!"
+dialogue = "Oh, thanks to the bright light of the full moon we can travel this path safely!"
 
 [node name="dialog #2" type="Node" parent="on load/action"]
 script = ExtResource( 15 )
@@ -198,7 +198,7 @@ I don't remember you teaching me this."
 [node name="dialog #3" type="Node" parent="on load/action"]
 script = ExtResource( 15 )
 character = "Gyna"
-dialogue = "Uh? No! We're still far from the moon shrine.
+dialogue = "Uh? No! We're still far from the Moon Shrine.
 This is The Road."
 
 [node name="dialog #4" type="Node" parent="on load/action"]
@@ -281,7 +281,7 @@ The demons are back!"
 script = ExtResource( 15 )
 character = "Ann"
 dialogue = "Can we take him home?
-Looks fluffy."
+He looks fluffy."
 
 [node name="dialog #4" type="Node" parent="near first enemy/action"]
 script = ExtResource( 15 )

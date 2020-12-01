@@ -336,7 +336,7 @@ dialogue = "Wow! Is the road blocked?"
 [node name="dialog #2" type="Node" parent="on reaching road block/action"]
 script = ExtResource( 5 )
 character = "Gyna"
-dialogue = "I can jump through the gap.
+dialogue = "I can jump across the gap.
 How about you?"
 
 [node name="dialog #3" type="Node" parent="on reaching road block/action"]
@@ -347,7 +347,7 @@ dialogue = "No way, it's too wide."
 [node name="dialog #4" type="Node" parent="on reaching road block/action"]
 script = ExtResource( 5 )
 character = "Gyna"
-dialogue = "I think I saw a path through the forest near the graveyard, let's see."
+dialogue = "I think I saw a path through the forest near the graveyard. Let's take a look."
 
 [node name="activate near graveyard" type="Node" parent="on reaching road block/action"]
 script = ExtResource( 14 )
@@ -408,7 +408,7 @@ Fine... You go first..."
 script = ExtResource( 5 )
 character = "Gyna"
 dialogue = "I can't crawl through it, but should be easy for you.
-We'll met on the other side of the roadblock."
+We'll meet on the other side of the roadblock."
 
 [node name="dialog #5" type="Node" parent="near graveyard/action"]
 script = ExtResource( 5 )
@@ -419,7 +419,7 @@ Can I take the scepter at least?"
 [node name="dialog #6" type="Node" parent="near graveyard/action"]
 script = ExtResource( 5 )
 character = "Gyna"
-dialogue = "Sure, take care."
+dialogue = "Sure thing. Be careful."
 
 [node name="group split" type="Node" parent="near graveyard/action"]
 script = ExtResource( 14 )
@@ -516,7 +516,7 @@ dialogue = "I better wait Ann here..."
 script = ExtResource( 5 )
 character = "Gyna"
 dialogue = "That demon is too close...
-They might see me."
+He might see me."
 
 [node name="dialog #3" type="Node" parent="wait for Ann/action/dialogs"]
 script = ExtResource( 5 )
@@ -556,7 +556,7 @@ script = ExtResource( 18 )
 [node name="dialog #1" type="Node" parent="ann returns/action"]
 script = ExtResource( 5 )
 character = "Gyna"
-dialogue = "Oh, thank the Gods you've returned safe and sound."
+dialogue = "Oh, thank the gods you've returned safe and sound."
 
 [node name="dialog #2" type="Node" parent="ann returns/action"]
 script = ExtResource( 5 )
