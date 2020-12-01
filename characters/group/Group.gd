@@ -47,7 +47,7 @@ func _set_together(value: bool) -> void:
 
 
 func _input(event) -> void:
-	if event.is_action_pressed("change_group") and not Game.is_paused() and _can_change_group():
+	if event.is_action_pressed("change_group") and _can_change_group():
 		_set_together(not together)
 
 

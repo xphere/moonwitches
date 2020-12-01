@@ -20,4 +20,5 @@ region_rect = Rect2( 72, 0, 8, 8 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 light_mask = 0
+position = Vector2( 0, 3 )
 shape = SubResource( 1 )

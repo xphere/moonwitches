@@ -27,11 +27,10 @@ func _ready() -> void:
 
 
 func create() -> void:
+	pending += waves
 	if Game.is_paused():
 		yield(Game, "unpaused")
-
-	pending += waves
-	set_process(true)
+	call_deferred("set_process", true)
 
 
 func _process(_delta: float) -> void:
@@ -78,7 +77,8 @@ func save() -> Dictionary:
 func restore(data: Dictionary) -> void:
 	timer.stop()
 	pending = data["pending"]
-	set_process(true)
+	set_process(false)
+	call_deferred("set_process", true)
 
 
 func _on_paused() -> void:
@@ -100,3 +100,10 @@ func unpause() -> void:
 		if child.has_method("unpause"):
 			child.unpause()
 	_on_unpaused()
+
+
+func pause() -> void:
+	for child in get_children():
+		if child.has_method("pause"):
+			child.pause()
+	_on_paused()

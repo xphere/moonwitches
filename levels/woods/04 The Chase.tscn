@@ -37,18 +37,18 @@ _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 22, -1, -26.5, -1, 26.5, 1, 261, 0, 0, -16.5, 0, 16.5, 294, 31, -0.374577, -27.3441, 0.374577, 27.3441, 294, 101, 31.0899, -12.361, -31.0899, 12.361, 250, 166, 0, 0, 0, 0, 174, 185, 0, 0, 0, 0, 105, 197, 0, 0, 0, 0, 85, 197 )
 }
 
-[sub_resource type="Curve2D" id=7]
+[sub_resource type="Curve2D" id=4]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 110, 268, -30.3065, 0, 30.3065, 0, 418, 268, -12.9083, 24.1329, 12.9083, -24.1329, 470, 165, -23.5717, 11.7859, 23.5717, -11.7859, 550, 90, 0, 0, 0, 0, 632, 80 )
 }
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 24, 10 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 10, 40 )
 
-[sub_resource type="RectangleShape2D" id=6]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 12, 36 )
 
 [sub_resource type="GDScript" id=8]
@@ -133,7 +133,7 @@ chaser = ExtResource( 5 )
 
 [node name="Down Route" type="Path2D" parent="."]
 position = Vector2( -120, 16 )
-curve = SubResource( 7 )
+curve = SubResource( 4 )
 script = ExtResource( 7 )
 __meta__ = {
 "_editor_description_": ""
@@ -216,7 +216,7 @@ position = Vector2( 168, 66 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="path to the ruines/trigger"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="action" type="Node" parent="path to the ruines"]
 script = ExtResource( 6 )
@@ -257,7 +257,7 @@ script = ExtResource( 8 )
 position = Vector2( 436, 0 )
 
 [node name="Collision" type="CollisionShape2D" parent="checkpoint before chase/trigger"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="action" type="Node" parent="checkpoint before chase"]
 script = ExtResource( 6 )
@@ -275,7 +275,7 @@ position = Vector2( 456, 0 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="to the moon shrine/trigger"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="action" type="Node" parent="to the moon shrine"]
 script = ExtResource( 6 )
@@ -320,7 +320,7 @@ position = Vector2( 267, 12 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="detour to ruins/trigger"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="action" type="Node" parent="detour to ruins"]
 script = ExtResource( 6 )
@@ -400,7 +400,7 @@ position = Vector2( 0, 205 )
 
 [node name="Collision" type="CollisionShape2D" parent="end of the left road/trigger"]
 position = Vector2( -12, 0 )
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="action" type="Node" parent="end of the left road"]
 script = ExtResource( 6 )
@@ -487,7 +487,7 @@ script = ExtResource( 8 )
 position = Vector2( 54, 284 )
 
 [node name="Collision" type="CollisionShape2D" parent="bottom chase/trigger"]
-shape = SubResource( 6 )
+shape = SubResource( 7 )
 
 [node name="action" type="Node" parent="bottom chase"]
 script = ExtResource( 6 )
@@ -509,7 +509,7 @@ position = Vector2( 460, 104 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="to the ruins/trigger"]
-shape = SubResource( 5 )
+shape = SubResource( 6 )
 
 [node name="action" type="Node" parent="to the ruins"]
 script = ExtResource( 6 )

@@ -112,6 +112,7 @@ tracks/3/keys = {
 
 [node name="Enemy" type="KinematicBody2D"]
 collision_layer = 0
+collision_mask = 33
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -143,7 +144,7 @@ shape = SubResource( 4 )
 
 [node name="Ray" type="RayCast2D" parent="Vision"]
 cast_to = Vector2( 32, 0 )
-collision_mask = 17
+collision_mask = 49
 collide_with_areas = true
 
 [node name="States" type="Node" parent="." groups=[

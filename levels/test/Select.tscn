@@ -20,6 +20,8 @@ atlas = ExtResource( 10 )
 region = Rect2( 99, 54, 8, 8 )
 
 [sub_resource type="DynamicFont" id=3]
+extra_spacing_bottom = -8
+extra_spacing_char = -1
 font_data = ExtResource( 5 )
 
 [node name="Level Selection" type="Node2D"]
@@ -56,7 +58,6 @@ script = ExtResource( 9 )
 
 [node name="camera limit" type="Node" parent="on load/action"]
 script = ExtResource( 13 )
-duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/camera limit"]
 
@@ -81,14 +82,12 @@ texture = SubResource( 2 )
 
 [node name="Label" type="Label" parent="current/trigger"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
 margin_left = -20.0
 margin_right = 20.0
-margin_bottom = 7.0
+margin_bottom = 6.0
 custom_fonts/font = SubResource( 3 )
-text = "labyrinth"
+text = "ending"
 align = 1
 valign = 2
 __meta__ = {
@@ -97,39 +96,7 @@ __meta__ = {
 
 [node name="action" type="Node" parent="current"]
 script = ExtResource( 7 )
-next_scene = "res://levels/ruins/06 The Labyrinth.tscn"
-
-[node name="on enter ruins" type="Node" parent="."]
-script = ExtResource( 8 )
-
-[node name="trigger" parent="on enter ruins" instance=ExtResource( 2 )]
-position = Vector2( 219, 41 )
-
-[node name="Collision" type="CollisionShape2D" parent="on enter ruins/trigger"]
-shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="on enter ruins/trigger"]
-texture = SubResource( 2 )
-
-[node name="Label" type="Label" parent="on enter ruins/trigger"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_right = 20.0
-margin_bottom = 7.0
-custom_fonts/font = SubResource( 3 )
-text = "ruins"
-align = 1
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="action" type="Node" parent="on enter ruins"]
-script = ExtResource( 7 )
-next_scene = "res://levels/ruins/05 The Entrance.tscn"
+next_scene = "res://levels/Ending.tscn"
 
 [node name="on enter test" type="Node" parent="."]
 script = ExtResource( 8 )
@@ -145,12 +112,10 @@ texture = SubResource( 2 )
 
 [node name="Label" type="Label" parent="on enter test/trigger"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_right = 20.0
-margin_bottom = 7.0
+margin_left = -11.5
+margin_right = 11.5
+margin_bottom = 6.0
 custom_fonts/font = SubResource( 3 )
 text = "test"
 align = 1
@@ -177,12 +142,10 @@ texture = SubResource( 2 )
 
 [node name="Label" type="Label" parent="on enter village/trigger"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_right = 20.0
-margin_bottom = 7.0
+margin_left = -19.5
+margin_right = 19.5
+margin_bottom = 6.0
 custom_fonts/font = SubResource( 3 )
 text = "village"
 align = 1
@@ -209,12 +172,10 @@ texture = SubResource( 2 )
 
 [node name="Label" type="Label" parent="on enter road/trigger"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_right = 20.0
-margin_bottom = 7.0
+margin_left = -13.5
+margin_right = 13.5
+margin_bottom = 6.0
 custom_fonts/font = SubResource( 3 )
 text = "road"
 align = 1
@@ -241,12 +202,10 @@ texture = SubResource( 2 )
 
 [node name="Label" type="Label" parent="on enter woods/trigger"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_right = 20.0
-margin_bottom = 7.0
+margin_left = -19.0
+margin_right = 19.0
+margin_bottom = 6.0
 custom_fonts/font = SubResource( 3 )
 text = "woods"
 align = 1
@@ -273,12 +232,10 @@ texture = SubResource( 2 )
 
 [node name="Label" type="Label" parent="on enter chase/trigger"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_right = 20.0
-margin_bottom = 7.0
+margin_left = -16.5
+margin_right = 16.5
+margin_bottom = 6.0
 custom_fonts/font = SubResource( 3 )
 text = "chase"
 align = 1
@@ -290,5 +247,127 @@ __meta__ = {
 [node name="action" type="Node" parent="on enter chase"]
 script = ExtResource( 7 )
 next_scene = "res://levels/woods/04 The Chase.tscn"
+
+[node name="on enter ruins" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="trigger" parent="on enter ruins" instance=ExtResource( 2 )]
+position = Vector2( 219, 41 )
+
+[node name="Collision" type="CollisionShape2D" parent="on enter ruins/trigger"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="on enter ruins/trigger"]
+texture = SubResource( 2 )
+
+[node name="Label" type="Label" parent="on enter ruins/trigger"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -14.0
+margin_right = 14.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 3 )
+text = "ruins"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="action" type="Node" parent="on enter ruins"]
+script = ExtResource( 7 )
+next_scene = "res://levels/ruins/05 The Entrance.tscn"
+
+[node name="on enter labyrinth" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="trigger" parent="on enter labyrinth" instance=ExtResource( 2 )]
+position = Vector2( 219, 65 )
+
+[node name="Collision" type="CollisionShape2D" parent="on enter labyrinth/trigger"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="on enter labyrinth/trigger"]
+texture = SubResource( 2 )
+
+[node name="Label" type="Label" parent="on enter labyrinth/trigger"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -25.5
+margin_right = 25.5
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 3 )
+text = "labyrinth"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="action" type="Node" parent="on enter labyrinth"]
+script = ExtResource( 7 )
+next_scene = "res://levels/ruins/06 The Labyrinth.tscn"
+
+[node name="on enter moonpath" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="trigger" parent="on enter moonpath" instance=ExtResource( 2 )]
+position = Vector2( 283, 41 )
+
+[node name="Collision" type="CollisionShape2D" parent="on enter moonpath/trigger"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="on enter moonpath/trigger"]
+texture = SubResource( 2 )
+
+[node name="Label" type="Label" parent="on enter moonpath/trigger"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -17.5
+margin_right = 17.5
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 3 )
+text = "moon
+path"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="action" type="Node" parent="on enter moonpath"]
+script = ExtResource( 7 )
+next_scene = "res://levels/moonshrine/07 Moonpath.tscn"
+
+[node name="on enter moonshrine" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="trigger" parent="on enter moonshrine" instance=ExtResource( 2 )]
+position = Vector2( 283, 65 )
+
+[node name="Collision" type="CollisionShape2D" parent="on enter moonshrine/trigger"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="on enter moonshrine/trigger"]
+texture = SubResource( 2 )
+
+[node name="Label" type="Label" parent="on enter moonshrine/trigger"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -17.5
+margin_right = 17.5
+margin_bottom = 15.0
+custom_fonts/font = SubResource( 3 )
+text = "moon
+shrine"
+align = 1
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="action" type="Node" parent="on enter moonshrine"]
+script = ExtResource( 7 )
+next_scene = "res://levels/moonshrine/08 Moonshrine.tscn"
 
 [editable path="Group"]

@@ -18,7 +18,11 @@ func _ready() -> void:
 
 
 func _on_Hitbox_body_entered(body: KinematicBody2D) -> void:
-	body.hit()
+	var ray := $Hitbox/Ray as RayCast2D
+	ray.cast_to = to_local(body.global_position)
+	ray.force_raycast_update()
+	if not ray.is_colliding():
+		body.hit()
 
 
 func at_position(_position: float) -> Vector2:
@@ -88,3 +92,11 @@ func unpause() -> void:
 	for chaser in chasers.get_children():
 		chaser.unpause()
 	_on_unpaused()
+
+
+func pause() -> void:
+	for chaser in chasers.get_children():
+		if chaser.has_method("paused"):
+			chaser.paused()
+	_on_paused()
+

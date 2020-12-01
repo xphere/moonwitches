@@ -1,0 +1,166 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/graphics/ending.png" type="Texture" id=1]
+[ext_resource path="res://levels/village/Conclusion.ogg" type="AudioStream" id=3]
+[ext_resource path="res://assets/fonts/LoSumires-2X8l.ttf" type="DynamicFontData" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+
+func _ready() -> void:
+	for node in get_tree().get_nodes_in_group(\"camera\"):
+		var camera := node as Camera2D
+		camera.smoothing_enabled = false
+		camera.limit_left = 0
+		camera.limit_top = 0
+		camera.limit_right = 320
+		camera.limit_bottom = 180
+		camera.zoom = Vector2.ONE
+
+	Game.transition.clear_overlay()
+	Game.transition.color = Color.black
+	Game.transition.fade_out(5.0)
+
+	$AnimationPlayer.connect(\"animation_finished\", self, \"_on_animation_finished\")
+
+
+func fade_out(seconds: float) -> void:
+	Game.transition.fade_in(seconds)
+
+
+func _on_animation_finished(_name: String) -> void:
+	get_tree().quit()
+"
+
+[sub_resource type="Animation" id=2]
+length = 60.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Music:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -40.0, -10.0 ]
+}
+tracks/1/type = "audio"
+tracks/1/path = NodePath("Music")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 50 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 10.0 ],
+"method": "fade_out"
+} ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Label#2:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 44.7 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Label#1:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.1, 10.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="DynamicFont" id=3]
+outline_size = 1
+outline_color = Color( 0.133333, 0.137255, 0.137255, 1 )
+font_data = ExtResource( 4 )
+
+[node name="Ending" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Ending" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -40.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Ending"
+anims/Ending = SubResource( 2 )
+
+[node name="Label#1" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -105.0
+margin_top = -7.0
+margin_right = 105.0
+margin_bottom = 7.0
+custom_fonts/font = SubResource( 3 )
+text = "Thanks for playing MoonWitches!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label#2" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -108.0
+margin_top = -14.0
+margin_right = 108.0
+custom_fonts/font = SubResource( 3 )
+text = "Of course, Ann saved the world..."
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mentor" type="Node2D" parent="."]
+position = Vector2( 160, 80 )
+
+[node name="Pupil" type="Node2D" parent="Mentor"]

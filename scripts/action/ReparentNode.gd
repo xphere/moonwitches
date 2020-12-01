@@ -9,6 +9,8 @@ onready var _parent := get_node(parent)
 
 
 func execute() -> void:
-	_node.get_parent().remove_child(_node)
-	_parent.add_child(_node)
+	var current_parent := _node.get_parent()
+	if current_parent != _parent:
+		current_parent.remove_child(_node)
+		_parent.add_child(_node)
 	emit_signal("completed")
