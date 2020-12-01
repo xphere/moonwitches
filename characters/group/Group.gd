@@ -37,7 +37,7 @@ func _set_together(value: bool) -> void:
 
 	$Mentor.set_controller($Mentor.get_path_to($Mentor/Input))
 	$Mentor.collision_mask = ($Mentor.collision_mask | wall_mask) if together \
-						else ($Mentor.collision_mask ^ wall_mask)
+						else ($Mentor.collision_mask & ~wall_mask)
 
 	var mentor_max_speed : float = $Pupil.max_speed if together else $Mentor.max_speed
 	$Mentor.set_speed(mentor_max_speed)
@@ -103,11 +103,11 @@ func _as_cinematic(value: bool) -> void:
 
 func walk_to(position: Vector2, who) -> void:
 	var walk_together : bool = who == Who.Both
-	if together != walk_together:
-		_as_cinematic(walk_together)
+	_as_cinematic(walk_together)
 	var cinematic := $Pupil/Cinematic if who == Who.Pupil else $Mentor/Cinematic
 	cinematic.call_deferred("walk_to", position)
 	yield(cinematic, "completed")
+	_as_cinematic(together)
 
 
 func save() -> Dictionary:

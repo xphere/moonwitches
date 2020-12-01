@@ -14,6 +14,7 @@ func execute() -> void:
 	tween = Tween.new()
 	owner.add_child(tween)
 
+	_set_volume(from)
 	tween.interpolate_method(
 		self, "_set_volume",
 		from, to,

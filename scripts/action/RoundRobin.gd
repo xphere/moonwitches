@@ -27,3 +27,15 @@ func execute() -> void:
 
 func _on_completed_action() -> void:
 	emit_signal("completed")
+
+
+func save() -> Dictionary:
+	return {
+		loop = loop,
+		current = _current,
+	}
+
+
+func restore(data: Dictionary) -> void:
+	loop = data["loop"]
+	_current = data["current"]

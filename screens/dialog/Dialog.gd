@@ -95,9 +95,10 @@ func _input(event: InputEvent) -> void:
 		_animation.seek(1.0, true)
 		writing = false
 
-	else:
+	elif should_be_visible > 0:
 		emit_signal("completed")
-		_bubble.get_parent().remove_child(_bubble)
+		if _bubble.is_inside_tree():
+			_bubble.get_parent().remove_child(_bubble)
 		should_be_visible -= 1
 		if should_be_visible <= 0:
 			visible = false
