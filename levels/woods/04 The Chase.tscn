@@ -228,7 +228,7 @@ loop = false
 [node name="not leaving" type="Node" parent="path to the ruines/action/dialogue"]
 script = ExtResource( 11 )
 character = "Gyna"
-dialogue = "We must not leave the road if we want to get to the moon shrine on time."
+dialogue = "We must not leave the road if we want to get to the Moon Shrine on time."
 position = 10
 
 [node name="we\'re late" type="Node" parent="path to the ruines/action/dialogue"]
@@ -472,7 +472,7 @@ who = 2
 [node name="dialogue#3" type="Node" parent="end of the left road/action"]
 script = ExtResource( 11 )
 character = "Ann"
-dialogue = "It will be fun, they assured
+dialogue = "It will be fun, they said
 ..."
 position = 10
 
@@ -498,7 +498,7 @@ script = ExtResource( 15 )
 [node name="dialogue#4" type="Node" parent="bottom chase/action"]
 script = ExtResource( 11 )
 character = "Gyna"
-dialogue = "They're catching up with us, run!"
+dialogue = "They're catching up on us, run!"
 position = 10
 
 [node name="to the ruins" type="Node" parent="."]

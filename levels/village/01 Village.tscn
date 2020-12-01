@@ -461,7 +461,7 @@ track_name = "Meanwhile"
 [node name="dialogue #1" type="Node" parent="on load/action/scene/dialogue #2"]
 script = ExtResource( 15 )
 character = "Ann"
-dialogue = "Boring... waiting for too long!
+dialogue = "Boring... We've been waiting for too long!
 I thought the elders were punctual."
 
 [node name="dialogue #2" type="Node" parent="on load/action/scene/dialogue #2"]
@@ -1075,7 +1075,7 @@ dialogue = "Who knows... What now?"
 [node name="dialogue #5" type="Node" parent="on entering church/action"]
 script = ExtResource( 15 )
 character = "Gyna"
-dialogue = "This year I was chosen to carry the scepter into the moon shrine."
+dialogue = "This year I was chosen to carry the scepter into the Moon Shrine."
 
 [node name="dialogue #6" type="Node" parent="on entering church/action"]
 script = ExtResource( 15 )
