@@ -525,7 +525,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -14.0
 custom_fonts/font = SubResource( 9 )
-text = "Use this keys to move Gyna"
+text = "Use these keys to move Gyna"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
