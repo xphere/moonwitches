@@ -28,8 +28,10 @@ func _on_load_started() -> void:
 	mentor = null
 	pupil = null
 	Game.clear()
-	if current_scene:
+	if current_scene and current_scene.is_inside_tree():
+		current_scene.get_parent().remove_child(current_scene)
 		current_scene.queue_free()
+		current_scene = null
 
 
 func _on_scene_created(scene: Node) -> void:
