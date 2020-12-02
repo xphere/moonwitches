@@ -520,7 +520,7 @@ dialogue = "I better wait Ann here..."
 script = ExtResource( 5 )
 character = "Gyna"
 dialogue = "That demon is too close...
-He might see me."
+They might see me."
 
 [node name="dialog #3" type="Node" parent="wait for Ann/action/dialogs"]
 script = ExtResource( 5 )

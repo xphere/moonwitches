@@ -280,8 +280,8 @@ The demons are back!"
 [node name="dialog #3" type="Node" parent="near first enemy/action"]
 script = ExtResource( 15 )
 character = "Ann"
-dialogue = "Can we take him home?
-He looks fluffy."
+dialogue = "Can we take them home?
+They look fluffy."
 
 [node name="dialog #4" type="Node" parent="near first enemy/action"]
 script = ExtResource( 15 )
