@@ -1058,7 +1058,7 @@ character = "Ann"
 dialogue = "Yeah, except no one's here."
 
 [node name="walk circle" type="Node2D" parent="on entering church/action"]
-position = Vector2( 44, -114 )
+position = Vector2( 44, -117 )
 script = ExtResource( 32 )
 who = 1
 
