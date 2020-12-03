@@ -176,7 +176,6 @@ script = ExtResource( 7 )
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 10 )
-duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/limit camera"]
 

@@ -97,6 +97,7 @@ func _animate_limits(limits: Rect2) -> void:
 func _set_camera_limits(camera: Camera2D, limits: Rect2) -> void:
 	var smoothing := camera.smoothing_enabled
 	camera.smoothing_enabled = false
+	yield(get_tree(), "idle_frame")
 	camera.limit_left = int(limits.position.x)
 	camera.limit_top = int(limits.position.y)
 	camera.limit_right = int(limits.end.x)

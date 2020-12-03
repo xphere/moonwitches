@@ -167,7 +167,6 @@ script = ExtResource( 6 )
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 13 )
-duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/limit camera"]
 position = Vector2( -120, -48 )
@@ -358,7 +357,6 @@ position = 10
 
 [node name="limit camera" type="Node" parent="detour to ruins/action"]
 script = ExtResource( 13 )
-duration = 0.0
 
 [node name="top left" type="Position2D" parent="detour to ruins/action/limit camera"]
 position = Vector2( 0, -48 )

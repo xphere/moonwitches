@@ -342,7 +342,6 @@ script = ExtResource( 7 )
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 10 )
-duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/limit camera"]
 
@@ -465,7 +464,7 @@ script = ExtResource( 7 )
 
 [node name="limit camera" type="Node" parent="on both arrive #1/action"]
 script = ExtResource( 10 )
-duration = 0.0
+duration = 1.0
 
 [node name="top left" type="Position2D" parent="on both arrive #1/action/limit camera"]
 position = Vector2( 0, 88 )
@@ -577,7 +576,7 @@ script = ExtResource( 7 )
 
 [node name="limit camera" type="Node" parent="on both arrive #2/action"]
 script = ExtResource( 10 )
-duration = 0.0
+duration = 1.0
 
 [node name="top left" type="Position2D" parent="on both arrive #2/action/limit camera"]
 position = Vector2( 0, 217 )
