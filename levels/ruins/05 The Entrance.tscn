@@ -29,7 +29,7 @@
 [ext_resource path="res://scripts/trigger/Filter.gd" type="Script" id=27]
 [ext_resource path="res://scripts/action/Completed.gd" type="Script" id=28]
 
-[sub_resource type="CircleShape2D" id=4]
+[sub_resource type="CircleShape2D" id=1]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 28, 8 )
@@ -37,12 +37,12 @@ extents = Vector2( 28, 8 )
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 12, 12 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 outline_size = 1
 outline_color = Color( 0.133333, 0.137255, 0.137255, 1 )
 font_data = ExtResource( 23 )
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=5]
 script/source = "extends Node
 
 export var node : NodePath
@@ -54,7 +54,7 @@ func filter() -> bool:
 	return get_node(node).get(property_name) == expected
 "
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
@@ -89,7 +89,7 @@ keep_open = false
 position = Vector2( 4.57764e-05, 11 )
 
 [node name="Collision" type="CollisionShape2D" parent="Level/Door#1/Proximity"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="Door#2" parent="Level" instance=ExtResource( 12 )]
 position = Vector2( 90, 92 )
@@ -246,7 +246,7 @@ position = Vector2( 166, 92 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on closed door#3/trigger/door"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="action" type="Node" parent="on closed door#3"]
 script = ExtResource( 19 )
@@ -302,7 +302,7 @@ position = Vector2( 246, 92 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on closed door#4/trigger/door"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="action" type="Node" parent="on closed door#4"]
 script = ExtResource( 19 )
@@ -399,7 +399,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -14.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "Use these keys to group/ungroup"
 align = 1
 __meta__ = {
@@ -465,10 +465,10 @@ script = ExtResource( 27 )
 position = Vector2( 246, 92 )
 
 [node name="Collision" type="CollisionShape2D" parent="on cross door#4 ungrouped/trigger/trigger"]
-shape = SubResource( 4 )
+shape = SubResource( 1 )
 
 [node name="filter" type="Node" parent="on cross door#4 ungrouped/trigger"]
-script = SubResource( 6 )
+script = SubResource( 5 )
 node = NodePath("../../../Group")
 property_name = "together"
 
@@ -490,13 +490,13 @@ color = Color( 0.105882, 0, 0.207843, 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Atmosphere"]
 autoplay = "Atmosphere"
-anims/Atmosphere = SubResource( 7 )
+anims/Atmosphere = SubResource( 6 )
 [connection signal="activate" from="Level/Door#3" to="on opened door#3/trigger" method="trigger"]
 [connection signal="activate" from="Level/Door#4" to="on opened door#4/trigger" method="trigger"]
-[connection signal="activate" from="Level/Door#4/All/Button#4A" to="on pushed buttons door#4/trigger/button#1" method="trigger"]
 [connection signal="activate" from="Level/Door#4/All/Button#4A" to="on single button door#4/trigger/button#1" method="trigger"]
-[connection signal="activate" from="Level/Door#4/All/Button#4B" to="on pushed buttons door#4/trigger/button#2" method="trigger"]
+[connection signal="activate" from="Level/Door#4/All/Button#4A" to="on pushed buttons door#4/trigger/button#1" method="trigger"]
 [connection signal="activate" from="Level/Door#4/All/Button#4B" to="on single button door#4/trigger/button#2" method="trigger"]
+[connection signal="activate" from="Level/Door#4/All/Button#4B" to="on pushed buttons door#4/trigger/button#2" method="trigger"]
 [connection signal="completed" from="on opened door#3/action/close previous" to="Level/Door#2" method="_on_deactivate"]
 [connection signal="completed" from="on opened door#4/action/close previous" to="Level/Door#3" method="_on_deactivate"]
 

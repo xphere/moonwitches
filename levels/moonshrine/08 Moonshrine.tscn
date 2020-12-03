@@ -36,13 +36,13 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 8 )
 
-[sub_resource type="RectangleShape2D" id=14]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 48, 8 )
 
-[sub_resource type="RectangleShape2D" id=23]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 20, 8 )
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Area2D
 
 var obstacles := []
@@ -66,35 +66,35 @@ func _on_body_exited(body: KinematicBody2D) -> void:
 		body.remove_collision_exception_with(obstacle)
 "
 
-[sub_resource type="CircleShape2D" id=6]
+[sub_resource type="CircleShape2D" id=5]
 radius = 32.0
 
-[sub_resource type="AtlasTexture" id=8]
+[sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 21 )
 region = Rect2( 54, 45, 8, 8 )
 
-[sub_resource type="RectangleShape2D" id=9]
+[sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 4, 4 )
 
-[sub_resource type="CircleShape2D" id=15]
+[sub_resource type="CircleShape2D" id=8]
 
-[sub_resource type="AtlasTexture" id=20]
+[sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 21 )
 region = Rect2( 9, 0, 8, 8 )
 
-[sub_resource type="RectangleShape2D" id=11]
+[sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 24, 12 )
 
-[sub_resource type="RectangleShape2D" id=12]
+[sub_resource type="RectangleShape2D" id=11]
 extents = Vector2( 12, 24 )
 
-[sub_resource type="RectangleShape2D" id=19]
+[sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 12, 20 )
 
-[sub_resource type="RectangleShape2D" id=16]
+[sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 12, 48 )
 
-[sub_resource type="GDScript" id=21]
+[sub_resource type="GDScript" id=14]
 script/source = "extends Node
 
 signal completed()
@@ -121,7 +121,7 @@ func _on_action_completed() -> void:
 	emit_signal(\"completed\")
 "
 
-[sub_resource type="GDScript" id=22]
+[sub_resource type="GDScript" id=15]
 script/source = "extends Node
 
 export var node_path : NodePath
@@ -140,27 +140,27 @@ func filter() -> bool:
 	return _node.get_parent() != _parent
 "
 
-[sub_resource type="Curve2D" id=5]
+[sub_resource type="Curve2D" id=16]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -16, 134, 0, 0, 0, 0, 48, 158, 0, 0, 0, 0, 121, 155, 0, 0, 0, 0, 138, 124, 0, 0, 0, 0, 97, 72, 0, 0, 0, 0, 82, 36, 0, 0, 0, 0, 115, 20, 0, 0, 0, 0, 190, 21, 0, 0, 0, 0, 245, 30, 0, 0, 0, 0, 269, 20, 0, 0, 0, 0, 296, 33, 0, 0, 0, 0, 295, 145, 0, 0, 0, 0, 326, 161, 0, 0, 0, 0, 354, 161 )
 }
 
-[sub_resource type="Curve2D" id=10]
+[sub_resource type="Curve2D" id=17]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -16, 134, 0, 0, 0, 0, 48, 158, 0, 0, 0, 0, 121, 155, 0, 0, 0, 0, 138, 124, 0, 0, 0, 0, 97, 72, 0, 0, 0, 0, 82, 36, 0, 0, 0, 0, 115, 20, 0, 0, 0, 0, 164, 75, 0, 0, 0, 0, 246, 78, 0, 0, 0, 0, 295, 145, 0, 0, 0, 0, 326, 161, 0, 0, 0, 0, 354, 161 )
 }
 
-[sub_resource type="Curve2D" id=13]
+[sub_resource type="Curve2D" id=18]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, 353, 217, 0, 0, 0, 0, 283, 213, 0, 0, 0, 0, 249, 179, 0, 0, 0, 0, 222, 130, 0, 0, 0, 0, 196, 148, 0, 0, 0, 0, 188, 190, 0, 0, 0, 0, 151, 213, 0, 0, 0, 0, 110, 220, 0, 0, 0, 0, -24, 218 )
 }
 
-[sub_resource type="Curve2D" id=17]
+[sub_resource type="Curve2D" id=19]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -32, 278, 0, 0, 0, 0, 236, 277 )
 }
 
-[sub_resource type="Curve2D" id=18]
+[sub_resource type="Curve2D" id=20]
 _data = {
 "points": PoolVector2Array( 0, 0, 0, 0, -39, 316, 0, 0, 0, 0, 130, 323, 0, 0, 0, 0, 273, 323, 0, 0, 0, 0, 353, 317 )
 }
@@ -198,7 +198,7 @@ rotation = 1.5708
 
 [node name="Collision" type="CollisionShape2D" parent="Level/down limit"]
 position = Vector2( 4, -1.57356e-05 )
-shape = SubResource( 14 )
+shape = SubResource( 2 )
 one_way_collision = true
 
 [node name="house limit" type="StaticBody2D" parent="Level"]
@@ -207,7 +207,7 @@ rotation = 1.5708
 
 [node name="Collision" type="CollisionShape2D" parent="Level/house limit"]
 position = Vector2( -20.0009, -240 )
-shape = SubResource( 23 )
+shape = SubResource( 3 )
 one_way_collision = true
 
 [node name="Gap" type="Node2D" parent="Level"]
@@ -230,10 +230,10 @@ rotation = 1.5708
 position = Vector2( -2, -1 )
 collision_layer = 0
 collision_mask = 8
-script = SubResource( 7 )
+script = SubResource( 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="Level/Gap/Exclude from Enemies"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="Crawl" type="Node2D" parent="Level"]
 position = Vector2( 200, 64 )
@@ -244,10 +244,10 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="Sprite" type="Sprite" parent="Level/Crawl/Forest#1"]
-texture = SubResource( 8 )
+texture = SubResource( 6 )
 
 [node name="Collision" type="CollisionShape2D" parent="Level/Crawl/Forest#1"]
-shape = SubResource( 9 )
+shape = SubResource( 7 )
 
 [node name="CrawlSpace" parent="Level/Crawl" instance=ExtResource( 22 )]
 position = Vector2( 8, 0 )
@@ -259,10 +259,10 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="Sprite" type="Sprite" parent="Level/Crawl/Forest#2"]
-texture = SubResource( 8 )
+texture = SubResource( 6 )
 
 [node name="Collision" type="CollisionShape2D" parent="Level/Crawl/Forest#2"]
-shape = SubResource( 9 )
+shape = SubResource( 7 )
 
 [node name="Forest#3" type="StaticBody2D" parent="Level/Crawl"]
 position = Vector2( 4, 20 )
@@ -270,19 +270,19 @@ collision_layer = 0
 collision_mask = 6
 
 [node name="Sprite" type="Sprite" parent="Level/Crawl/Forest#3"]
-texture = SubResource( 8 )
+texture = SubResource( 6 )
 
 [node name="Collision" type="CollisionShape2D" parent="Level/Crawl/Forest#3"]
-shape = SubResource( 9 )
+shape = SubResource( 7 )
 
 [node name="Exclude from Enemies" type="Area2D" parent="Level/Crawl"]
 position = Vector2( -2, 4 )
 collision_layer = 0
 collision_mask = 8
-script = SubResource( 7 )
+script = SubResource( 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="Level/Crawl/Exclude from Enemies"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="Enemy #1" parent="Level" instance=ExtResource( 25 )]
 position = Vector2( 223, 132 )
@@ -302,7 +302,7 @@ collision_mask = 2
 
 [node name="Collision" type="CollisionShape2D" parent="Level/Door #1/Proximity"]
 position = Vector2( 0, 6 )
-shape = SubResource( 15 )
+shape = SubResource( 8 )
 
 [node name="Passing #1" parent="Level" instance=ExtResource( 30 )]
 position = Vector2( 256, 288 )
@@ -311,7 +311,7 @@ position = Vector2( 256, 288 )
 position = Vector2( 248, 288 )
 
 [node name="Sprite" parent="Level/Passing #2" index="0"]
-texture = SubResource( 20 )
+texture = SubResource( 9 )
 
 [node name="Group" parent="." instance=ExtResource( 3 )]
 is_ability_available = false
@@ -342,6 +342,7 @@ script = ExtResource( 7 )
 
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 10 )
+duration = 0.0
 
 [node name="top left" type="Position2D" parent="on load/action/limit camera"]
 
@@ -367,7 +368,7 @@ position = Vector2( 68, 148 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on start chase/trigger/area"]
-shape = SubResource( 11 )
+shape = SubResource( 10 )
 
 [node name="action" type="Node" parent="on start chase"]
 script = ExtResource( 7 )
@@ -409,7 +410,7 @@ position = Vector2( 332, 156 )
 collision_mask = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on gyna arrives #1/trigger/area"]
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="action" type="Node" parent="on gyna arrives #1"]
 script = ExtResource( 7 )
@@ -430,7 +431,7 @@ position = Vector2( 332, 156 )
 collision_mask = 4
 
 [node name="Collision" type="CollisionShape2D" parent="on ann arrives #1/trigger/area"]
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="action" type="Node" parent="on ann arrives #1"]
 script = ExtResource( 7 )
@@ -451,7 +452,7 @@ position = Vector2( 384, 208 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on both arrive #1/trigger/area"]
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="gyna chase finished" type="Node" parent="on both arrive #1/trigger"]
 script = ExtResource( 26 )
@@ -471,16 +472,6 @@ position = Vector2( 0, 88 )
 
 [node name="bottom right" type="Position2D" parent="on both arrive #1/action/limit camera"]
 position = Vector2( 320, 256 )
-
-[node name="dialogue #1" type="Node" parent="on both arrive #1/action"]
-script = ExtResource( 15 )
-character = "Ann"
-dialogue = "Is this the right path?"
-
-[node name="dialogue #2" type="Node" parent="on both arrive #1/action"]
-script = ExtResource( 15 )
-character = "Gyna"
-dialogue = "Don't know! It looked easier last year without all the demons!"
 
 [node name="group" type="Node" parent="on both arrive #1/action"]
 script = ExtResource( 29 )
@@ -502,9 +493,19 @@ node = NodePath("../../../Group/Pupil")
 position = Vector2( 294, 217 )
 script = ExtResource( 13 )
 
+[node name="dialogue #1" type="Node" parent="on both arrive #1/action"]
+script = ExtResource( 15 )
+character = "Ann"
+dialogue = "Is this the right path?"
+
 [node name="walk #2" type="Node2D" parent="on both arrive #1/action"]
 position = Vector2( 277, 208 )
 script = ExtResource( 13 )
+
+[node name="dialogue #2" type="Node" parent="on both arrive #1/action"]
+script = ExtResource( 15 )
+character = "Gyna"
+dialogue = "Don't know! It looked easier last year without all the demons!"
 
 [node name="chase both" type="Node" parent="on both arrive #1/action"]
 script = ExtResource( 20 )
@@ -524,7 +525,7 @@ position = Vector2( -12, 217 )
 collision_mask = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on gyna arrives #2/trigger/area"]
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="action" type="Node" parent="on gyna arrives #2"]
 script = ExtResource( 7 )
@@ -545,7 +546,7 @@ position = Vector2( -12, 217 )
 collision_mask = 4
 
 [node name="Collision" type="CollisionShape2D" parent="on ann arrives #2/trigger/area"]
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="action" type="Node" parent="on ann arrives #2"]
 script = ExtResource( 7 )
@@ -566,7 +567,7 @@ position = Vector2( -57, 208 )
 expected = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on both arrive #2/trigger/area"]
-shape = SubResource( 12 )
+shape = SubResource( 11 )
 
 [node name="chase finished" type="Node" parent="on both arrive #2/trigger"]
 script = ExtResource( 26 )
@@ -659,7 +660,7 @@ position = Vector2( 260, 276 )
 collision_mask = 2
 
 [node name="Collision" type="CollisionShape2D" parent="on gyna shelters/trigger/area"]
-shape = SubResource( 19 )
+shape = SubResource( 12 )
 
 [node name="action" type="Node" parent="on gyna shelters"]
 script = ExtResource( 7 )
@@ -691,13 +692,13 @@ script = ExtResource( 4 )
 position = Vector2( 320, 292 )
 
 [node name="Collision" type="CollisionShape2D" parent="on leaving without scepter/trigger/exit"]
-shape = SubResource( 16 )
+shape = SubResource( 13 )
 
 [node name="action" type="Node" parent="on leaving without scepter"]
-script = SubResource( 21 )
+script = SubResource( 14 )
 
 [node name="condition" type="Node" parent="on leaving without scepter/action"]
-script = SubResource( 22 )
+script = SubResource( 15 )
 node_path = NodePath("../../../Group/Mentor/Scepter")
 parent_path = NodePath("../../../Group/Pupil")
 
@@ -724,7 +725,7 @@ script = ExtResource( 4 )
 position = Vector2( 332, 292 )
 
 [node name="Collision" type="CollisionShape2D" parent="on leaving/trigger/exit"]
-shape = SubResource( 16 )
+shape = SubResource( 13 )
 
 [node name="action" type="Node" parent="on leaving"]
 script = ExtResource( 7 )
@@ -747,35 +748,35 @@ script = ExtResource( 9 )
 next_scene = "res://levels/Ending.tscn"
 
 [node name="Follow Gyna" type="Path2D" parent="."]
-curve = SubResource( 5 )
+curve = SubResource( 16 )
 script = ExtResource( 19 )
 wave = ExtResource( 17 )
 chaser = ExtResource( 18 )
 waves = 8
 
 [node name="Follow Ann" type="Path2D" parent="."]
-curve = SubResource( 10 )
-script = ExtResource( 19 )
-wave = ExtResource( 17 )
-chaser = ExtResource( 18 )
-waves = 8
-
-[node name="Follow Both" type="Path2D" parent="."]
-curve = SubResource( 13 )
-script = ExtResource( 19 )
-wave = ExtResource( 17 )
-chaser = ExtResource( 18 )
-waves = 8
-
-[node name="Follow Gyna #2" type="Path2D" parent="."]
 curve = SubResource( 17 )
 script = ExtResource( 19 )
 wave = ExtResource( 17 )
 chaser = ExtResource( 18 )
 waves = 8
 
-[node name="Follow Ann #2" type="Path2D" parent="."]
+[node name="Follow Both" type="Path2D" parent="."]
 curve = SubResource( 18 )
+script = ExtResource( 19 )
+wave = ExtResource( 17 )
+chaser = ExtResource( 18 )
+waves = 8
+
+[node name="Follow Gyna #2" type="Path2D" parent="."]
+curve = SubResource( 19 )
+script = ExtResource( 19 )
+wave = ExtResource( 17 )
+chaser = ExtResource( 18 )
+waves = 8
+
+[node name="Follow Ann #2" type="Path2D" parent="."]
+curve = SubResource( 20 )
 script = ExtResource( 19 )
 wave = ExtResource( 17 )
 chaser = ExtResource( 18 )

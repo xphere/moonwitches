@@ -161,11 +161,6 @@ script = ExtResource( 6 )
 [node name="action" type="Node" parent="on load"]
 script = ExtResource( 7 )
 
-[node name="play song" type="Node" parent="on load/action"]
-script = ExtResource( 28 )
-animation_path = NodePath("../../../Music")
-track_name = "Road"
-
 [node name="limit camera" type="Node" parent="on load/action"]
 script = ExtResource( 10 )
 
@@ -174,6 +169,15 @@ position = Vector2( -120, -48 )
 
 [node name="bottom right" type="Position2D" parent="on load/action/limit camera"]
 position = Vector2( 456, 64 )
+
+[node name="fade music" type="Node" parent="on load/action"]
+script = ExtResource( 27 )
+audio = NodePath("../../../Music/Audio Track")
+
+[node name="music" type="Node" parent="on load/action"]
+script = ExtResource( 28 )
+animation_path = NodePath("../../../Music")
+track_name = "Road"
 
 [node name="fade in" type="Node" parent="on load/action"]
 script = ExtResource( 14 )
@@ -456,6 +460,5 @@ playback_process_mode = 0
 anims/Road = SubResource( 5 )
 
 [node name="Audio Track" type="AudioStreamPlayer" parent="Music"]
-stream = ExtResource( 26 )
 
 [editable path="Group"]
