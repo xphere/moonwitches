@@ -20,18 +20,19 @@ func overlay(node: Node) -> void:
 
 
 func fade_in(duration: float) -> void:
-	_set_duration(duration)
 	animation.stop()
-	animation.play("show")
+	_set_duration(duration)
+	animation.call_deferred("play", "show")
 
 
 func fade_out(duration: float) -> void:
-	_set_duration(duration)
 	animation.stop()
-	animation.play("hide")
+	_set_duration(duration)
+	animation.call_deferred("play", "hide")
 
 
 func _on_animation_finished(_name: String) -> void:
+	visible = _name == "show"
 	emit_signal("completed")
 
 
