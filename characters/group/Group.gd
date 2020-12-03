@@ -39,7 +39,7 @@ func _set_together(value: bool) -> void:
 	$Mentor.collision_mask = ($Mentor.collision_mask | wall_mask) if together \
 						else ($Mentor.collision_mask & ~wall_mask)
 
-	var mentor_max_speed : float = $Pupil.max_speed if together else $Mentor.max_speed
+	var mentor_max_speed : float = $Pupil.max_speed - 1 if together else $Mentor.max_speed
 	$Mentor.set_speed(mentor_max_speed)
 
 	var pupil_controller := $Pupil/Follow if together else $Pupil/Input
