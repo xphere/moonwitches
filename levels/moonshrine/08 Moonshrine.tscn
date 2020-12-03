@@ -744,7 +744,7 @@ overlay = NodePath("")
 
 [node name="change scene" type="Node" parent="on leaving/action"]
 script = ExtResource( 9 )
-next_scene = "res://levels/test/Select.tscn"
+next_scene = "res://levels/Ending.tscn"
 
 [node name="Follow Gyna" type="Path2D" parent="."]
 curve = SubResource( 5 )

@@ -244,6 +244,6 @@ overlay = NodePath("")
 
 [node name="change scene" type="Node" parent="on leaving/action"]
 script = ExtResource( 9 )
-next_scene = "res://levels/test/Select.tscn"
+next_scene = "res://levels/moonshrine/08 Moonshrine.tscn"
 
 [editable path="Group"]
